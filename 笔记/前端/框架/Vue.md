@@ -298,7 +298,7 @@ var vue = new Vue({
 
 ##### 全局组件
 
-> Vue.**==component== ( '==组件名==' ,  {  //自定义组件  })**
+> Vue.**component ( '组件名' ,  {  //自定义组件  })**
 
 ```html
 <div id="app">
