@@ -47,12 +47,12 @@ graph TD;
 >
 > > 区块引用 2
 > > `代码` 函数
-> >
-> > ```javascript
-> > $(document).ready(function () {
-> >   	alert("RUNOOB");
-> > });
-> > ```
+
+ ```javascript
+ $(document).ready(function () {
+   	alert("RUNOOB");
+ });
+ ```
 
 `带行号代码` 函数
 
@@ -76,7 +76,7 @@ $(document).ready(function () {
 这个链接用 [^1] 作为网址变量 [RUNOOB][1].
 然后在文档的结尾为变量赋值
 
-[1]: http://static.runoob.com/images/runoob-logo.png
+[^1]: http://static.runoob.com/images/runoob-logo.png
 
 ---
 
@@ -88,5 +88,4 @@ $(document).ready(function () {
 ---
 
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd>重启电脑
-
 
