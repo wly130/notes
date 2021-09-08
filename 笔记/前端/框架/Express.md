@@ -8,7 +8,7 @@
 
 	```shell
 	npm install -g express  //全局安装
-	npm install  --save express
+	npm install --save express
 	```
 
 - **创建项目**
@@ -39,7 +39,7 @@
 
 	**默认访问地址为`http://localhost:3000/`**
 
-### GET 和 POST请求
+### 网络请求
 
 #### GET请求
 

@@ -1,7 +1,9 @@
 ## jQuery
 
+**官网：<https://jquery.com/>**
+
 ```html
-<script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 ```
 
 ### jQuery 选择器
@@ -16,7 +18,7 @@
 | \$("ul li:first-child")   | 选取**每个 ul**元素的**第一个 li**元素            |
 | \$("[href]")              | 选取**带有 href 属性**的元素                      |
 | \$("a[target='_blank']")  | 选取**所有 target 属性值**等于'\_blank'的 a 元素  |
-| \$("a[target!='_blank']") | 选取所有 target 属性值不等于"\_blank"的>元素      |
+| \$("a[target!='_blank']") | 选取所有 target 属性值不等于"\_blank"的 a 元素    |
 | \$(":button")             | 选取所有 type="button"的 input 元素和 button 元素 |
 | \$("tr:even")             | 选取偶数位置的 tr 元素                            |
 | \$("tr:odd")              | 选取奇数位置的 tr 元素                            |
@@ -25,28 +27,28 @@
 
 | 鼠标事件       | 作用                                    |
 | -------------- | --------------------------------------- |
-| **click**      | 点击事件                                |
-| **dblclick**   | 双击事件                                |
-| **mouseenter** | 鼠标指针穿过元素时                      |
-| **mouseleave** | 鼠标指针移动到元素上方,并按下鼠标按键时 |
-| **mouseup**    | 在元素上松开鼠标按钮时                  |
-| **mouseout**   | 鼠标指针离开被选元素时                  |
-| **mousemove**  | 鼠标指针在指定的元素中移动时            |
-| **mouseover**  | 鼠标指针位于元素上方时                  |
-| **hover**      | 光标悬停事件                            |
+| **onclick**      | 点击事件                                |
+| **ondblclick**   | 双击事件                                |
+| **onmouseenter** | 鼠标指针穿过元素时                      |
+| **onmouseleave** | 鼠标指针移动到元素上方,并按下鼠标按键时 |
+| **onmouseup**    | 在元素上松开鼠标按钮时                  |
+| **onmouseout**   | 鼠标指针离开被选元素时                  |
+| **onmousemove**  | 鼠标指针在指定的元素中移动时            |
+| **onmouseover**  | 鼠标指针位于元素上方时                  |
+| **onhover**      | 光标悬停事件                            |
 
 | 键盘事件     | 作用           |
 | ------------ | -------------- |
-| **keydown**  | 键被按下的过程 |
-| **keypress** | 键被按下       |
-| **keyup**    | 键被松开       |
+| **onkeydown**  | 键被按下的过程 |
+| **onkeypress** | 键被按下       |
+| **onkeyup**    | 键被松开       |
 
 | 表单事     | 作用           |
 | ---------- | -------------- |
-| **submit** | 提交表单时     |
-| **change** | 元素的值改变时 |
-| **focus**  | 元素获得焦点时 |
-| **blur**   | 元素失去焦点时 |
+| **onsubmit** | 提交表单时     |
+| **onchange** | 元素的值改变时 |
+| **onfocus**  | 元素获得焦点时 |
+| **onblur**   | 元素失去焦点时 |
 
 | 文档/窗口事件 | 作用                 |
 | ------------- | -------------------- |
@@ -93,3 +95,52 @@
 | **.ajaxStop()**     | 所有的 AJAX 请求完成时运行的函数                   |
 | **.ajaxSuccess()**  | AJAX 请求成功完成时运行的函数                      |
 | **.load()**         | 从服务器加载数据，并把返回的数据放置到指定的元素中 |
+
+- **Ajax 方法封装**
+
+```js
+/**
+   * type 		请求类型 post/get
+   * url 		请求地址
+   * data		请求数据
+   * dataType	请求数据类型 json/jsonp
+   * async		是否异步请求
+   * timeout	请求时间 (ms)
+   * success 	请求成功回调函数
+   * error 		请求失败回调函数
+   * complete	请求完成回调函数 (成功和失败都执行)
+   */
+function api(type, data, url) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+			type: type,
+			data: data,
+			url: url,
+			dataType: "json",
+   			async: false,
+   			timeout: 5000,
+			success: (res) => {
+				resolve(res); 	//返回接口数据
+			},
+			error: (error) => {
+				reject(error);  //返回错误信息
+			},
+        	complete: () => {}
+		});
+    });
+};
+
+//api接口封装
+function 函数名(params){
+	return api('get', params, '请求地址');
+}
+function 函数名(params){
+	return api('post', params, '请求地址');
+}
+
+//调用api接口
+函数名(params)
+.then(res => {}) //请求成功
+.catch(result => {}) //请求s
+```
+

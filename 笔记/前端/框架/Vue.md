@@ -1,6 +1,4 @@
-### Vue 框架
-
-### 目录
+#### 目录
 
 [TOC]
 
@@ -41,12 +39,6 @@ graph TD;
     组件销毁前-->
     销毁完成后;
 ```
-
-- **`created()` 和 `activated()`的区别**
-
-  > **`created()`** **第一次加载时只触发一次**
-  >
-  > **`activated()` 每次进入页面都触发**
 
 #### Vue 项目目录结构
 
@@ -119,7 +111,7 @@ var vue = new Vue({
 </script>
 ```
 
-##### **v-bind**
+##### v-bind
 
 > **属性绑定**
 
@@ -201,9 +193,8 @@ var vue = new Vue({
 
 ##### **v-if 和 v-show 的区别**
 
-> **v-if = "false" 从页面中移除该元素**
->
-> **v-show = "false" 隐藏该元素(不移除)**
+- **v-if = "false" 从页面中移除该元素**
+- **v-show = "false" 隐藏该元素(不移除)**
 
 ##### **v-on**
 
@@ -265,40 +256,38 @@ var vue = new Vue({
 
 - **侦听器 `watch`**
 
-  ```html
-  <div id="app">
-  	千米 :<input type="text" v-model="km">
-  	米 :<input type="text" v-model="m">
-  </div>
-  <script type="text/javascript">
-  	var vm = new Vue({
-  		el: '#app',
-  		data: {
-  			km: 0,
-  			m: 0
-  		},
-  		//侦听器
-  		watch: {
-  			km: function(val) {
-  				this.km = val;
-  				this.m = this.km * 1000
-  			},
-  			m: function(val) {
-  				this.km = val / 1000;
-  				this.m = val;
-  			}
-  		}
-  	});
-  </script>
-  ```
+```html
+<div id="app">
+	千米 :<input type="text" v-model="km">
+	米 :<input type="text" v-model="m">
+</div>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			km: 0,
+			m: 0
+		},
+		//侦听器
+		watch: {
+			km: function(val) {
+				this.km = val;
+				this.m = this.km * 1000
+			},
+			m: function(val) {
+				this.km = val / 1000;
+				this.m = val;
+			}
+		}
+	});
+</script>
+```
 
 [返回顶部](#目录)
 
 #### 组件
 
 ##### 全局组件
-
-> Vue.**component ( '组件名' ,  {  //自定义组件  })**
 
 ```html
 <div id="app">
@@ -307,7 +296,7 @@ var vue = new Vue({
 <script>
 	// 注册全局组件
 	Vue.component('runoob', {
-		template: '<h1>自定义组件!</h1>'
+		template: '<h1>自定义组件</h1>'
 	})
 	// 创建根实例
 	new Vue({
@@ -341,6 +330,12 @@ var vue = new Vue({
 [返回顶部](#目录)
 
 #### 组件之间传值
+
+##### 子组件 调用 父组件的方法
+
+```js
+this.$parent.方法名();
+```
 
 ##### 子传父
 
@@ -398,6 +393,14 @@ var vue = new Vue({
   	}
   </script>
   ```
+
+##### 父组件 调用 子组件的方法
+
+```js
+this.$refs.ref属性名.方法名();
+```
+
+[返回顶部](#目录)
 
 ##### 父传子
 
@@ -483,7 +486,7 @@ var vue = new Vue({
   		methods: {
   			aValue() {
   				//$emit 方法会触发一个事件
-  				t.$emit("myFun", this.msgA);
+  				this.$emit("myFun", this.msgA);
   			}
   		}
   	}
@@ -512,7 +515,7 @@ var vue = new Vue({
   		methods: {
   			bValue() {
   				//$on 接收A组件传的值
-  				eventVue.$on("myFun", (msg) => {
+  				this.$on("myFun", (msg) => {
   					this.msgB = msg
   				})
   			}
@@ -521,13 +524,15 @@ var vue = new Vue({
   </script>
   ```
 
-- ** `event.js`**
+- **`event.js`**
 
   ```js
   import Vue from 'vue'
   
   export default new Vue
   ```
+
+[返回顶部](#目录)
 
 #### v-for 动态绑定 input 输入值
 
@@ -562,9 +567,9 @@ var vue = new Vue({
 
 #### 数据缓存
 
-** `sessionStorage` : 浏览器关闭时自动删除**
+**`sessionStorage` : 浏览器关闭时自动删除**
 
-** `localStorage`: 永久保存,手动删除**
+**`localStorage`: 永久保存,手动删除**
 
 - **写入缓存**
 
@@ -588,28 +593,6 @@ var vue = new Vue({
   sessionStorage.removeItem('key值');
   sessionStorage.clear(); //清空所有缓存
   ```
-
-#### 网络请求
-
-- **axios 引用**
-
-  ```html
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  ```
-
-> **请求方法**
-
-```javascript
-axios({
-  	method: '请求方式',
-  	url: '请求地址',
-    headers: {},//请求头
-  	data: {
-  	  	key: value,  //请求参数
-  	}
-}).then(function (res) {}) //请求成功
-.catch(function (error) {}); //请求失败
-```
 
 #### js-cookie
 
@@ -635,6 +618,8 @@ axios({
   ```js
   this.$cookie.remove('key');
   ```
+
+[返回顶部](#目录)
 
 #### Vuex 状态管理工具
 
@@ -723,9 +708,57 @@ export default {
 
 > **mapState**
 
-#### 封装网络请求API
+#### 网络请求
 
-**request.js**
+##### 配置跨域请求
+
+- **vue.config.js**
+
+```js
+module.exports = {
+	publicPath: './',
+	devServer: {
+		host: 'localhost', //本地IP
+		port: 8080, //端口号
+		https: true, //是否启用 https
+		hotOnly: false,
+		proxy: { //配置跨域
+			'/api': {
+				target: "http://xxx.xxx.xxx.xxx", //接口地址
+				changeOrigin: true, //是否跨域
+				secure: false,
+				pathRewrite: { //重写路径
+					"^/api": ""
+				}
+			}
+		}
+	}
+}
+```
+
+- **axios 引用**
+
+  ```html
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  ```
+
+> **请求方法**
+
+```javascript
+axios({
+  	method: '请求方式',
+  	url: '请求地址',
+    headers: {},//请求头
+  	data: {
+  	  	key: value,  //请求参数
+  	}
+}).then(function (res) {}) //请求成功
+.catch(function (error) {}); //请求失败
+```
+
+##### 封装网络请求API
+
+- **request.js**
 
 ```javascript
 import axios from 'axios'
@@ -790,7 +823,7 @@ export function post(url, params) {
 export default axios
 ```
 
-**api.js**
+- **api.js**
 
 ```javascript
 import {get, post} from './request.js'
@@ -807,14 +840,14 @@ const api = {
 export default api
 ```
 
-**nain.js**
+- **nain.js**
 
 ```javascript
 import api from 'api.js'
 Vue.prototype.$api = api;
 ```
 
-**调用API**
+- **调用API**
 
 ```javascript
 const params = {	//参数对象
@@ -822,4 +855,6 @@ const params = {	//参数对象
 };
 this.$api.函数名(params).then(res => {});
 ```
+
+[返回顶部](#目录)
 

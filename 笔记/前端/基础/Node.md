@@ -66,8 +66,8 @@ fs.readFile("文件名", function (err, data) {
 	if (err) {
 		console.log(err);
 	} else {
-	//打印读取内容
-    console.log(data.toString());
+		//打印读取内容
+    	console.log(data.toString());
 	}
 });
 ```
