@@ -3,13 +3,8 @@
 ### Bootstrap4 引用
 
 ```html
-<link
-  rel="stylesheet"
-  href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
-/>
-<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 ```
 
 ### Bootstrap4 字体图标
@@ -28,4 +23,5 @@
 | secondary | 灰色   | **#6c757d** |
 | light     | 浅灰色 | **#f8f9fa** |
 | dark      | 深灰色 | **#343a40** |
-| white     | 白色   | **#fff**    |
+| white     | 白色   | **#ffffff** |
+

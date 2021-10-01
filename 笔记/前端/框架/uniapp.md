@@ -21,7 +21,7 @@
  - **Vue.prototype	添加==全局变量==**
 
    ```javascript
-   Vue.prototype.$value = "value"
+   Vue.prototype.$value = "value";
    ```
 
  - **Vue.config.productionTip    是否显示生产消息**
@@ -40,7 +40,7 @@
 
  ```javascript
  var globalData = getApp().globalData.value;
- getApp().globalData.value = 'value2'
+ getApp().globalData.value = 'value2';
  ```
 
  - **在 `App.vue` 中获取 `globalData`** 
@@ -113,17 +113,17 @@ onUnload() { //页面卸载
 <!-- #endif H5 -->
 ```
 
-|      值       | 平台                                                   |
-| :-----------: | ------------------------------------------------------ |
-|   APP-PLUS    | App                                                    |
+| 值            | 平台                                                   |
+| :------------ | ------------------------------------------------------ |
+| APP-PLUS      | App                                                    |
 | APP-PLUS-NVUE | App nvue                                               |
-|      H5       | H5                                                     |
-|   MP-WEIXIN   | 微信小程序                                             |
-|   MP-ALIPAY   | 支付宝小程序                                           |
-|   MP-BAIDU    | 百度小程序                                             |
-|  MP-TOUTIAO   | 头条小程序                                             |
-|     MP-QQ     | QQ小程序                                               |
-|      MP       | 微信小程序/支付宝小程序/百度小程序/头条小程序/QQ小程序 |
+| H5            | H5                                                     |
+| MP-WEIXIN     | 微信小程序                                             |
+| MP-ALIPAY     | 支付宝小程序                                           |
+| MP-BAIDU      | 百度小程序                                             |
+| MP-TOUTIAO    | 头条小程序                                             |
+| MP-QQ         | QQ小程序                                               |
+| MP            | 微信小程序/支付宝小程序/百度小程序/头条小程序/QQ小程序 |
 
 #### 页面跳转
 
@@ -160,7 +160,7 @@ onUnload() { //页面卸载
 - **`navigateTo` 和 `redirectTo`** 只能打开**非 tabBar** 页面。
 - **`switchTab`** 只能打开 **tabBar** 页面。
 - **`reLaunch`** 可以打开**任意页面**。
-- 页面底部的 **tabBar** 由页面决定，即只要是定义为 `tabBar` 的页面，底部都有 `tabBar`
+- 页面底部的 **tabBar** 由页面决定，即只要是定义为 **`tabBar`** 的页面，底部都有 **`tabBar`**
 - 不能在 **`App.vue`** 里面进行页面跳转。
 
 #### 数据缓存

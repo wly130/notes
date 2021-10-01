@@ -858,3 +858,150 @@ this.$api.函数名(params).then(res => {});
 
 [返回顶部](#目录)
 
+#### Websocket 封装
+
+- **websocket.js**
+
+```js
+let websock = null;
+let messageCallback = null;
+let errorCallback = null;
+let wsUrl = '';
+let tryTime = 0;
+
+// 接收ws后端返回的数据
+function websocketonmessage(e) {
+	messageCallback(JSON.parse(e.data));
+}
+
+/**
+ * 发起websocket连接
+ * @param {Object} agentData 需要向后台传递的参数数据
+ */
+function websocketSend(agentData) {
+	setTimeout(() => {
+		if (websock.readyState === websock.OPEN) {
+			websock.send(JSON.stringify(agentData))
+		}
+		if (websock.readyState === websock.CLOSED) {
+			Message.error('ws连接异常');
+			errorCallback();
+		}
+	}, 500);
+}
+
+// 关闭ws连接
+function websocketclose(e) {
+	if (e && e.code !== 1000) {
+		Message.error('ws连接异常');
+		errorCallback();
+		if (tryTime < 10) {
+			setTimeout(() => {
+				websock = null;
+				tryTime++;
+				initWebSocket();
+				console.log(`第${tryTime}次重连`);
+			}, 3000);
+		} else {
+			Message.error('重连失败');
+		}
+	}
+}
+// 建立ws连接
+function websocketOpen(e) {
+	console.log('ws连接成功');
+}
+
+// 初始化weosocket
+function initWebSocket() {
+	if (typeof(WebSocket) === 'undefined') {
+		Message.error('您的浏览器不支持WebSocket');
+		return false;
+	}
+	//ws请求完整地址
+	const requstWsUrl = wsUrl;
+	websock = new WebSocket(requstWsUrl);
+
+	websock.onmessage = (e) => {
+		websocketonmessage(e);
+	}
+	websock.onopen = () => {
+		websocketOpen();
+	}
+	websock.onerror = () => {
+		Message.error('ws连接异常');
+		errorCallback();
+	}
+	websock.onclose = (e) => {
+		websocketclose(e);
+	}
+}
+
+/**
+ * 发起websocket请求函数
+ * @param {string} url ws连接地址
+ * @param {Object} agentData 传给后台的参数
+ * @param {function} successCallback 接收到ws数据，对数据进行处理的回调函数
+ * @param {function} errCallback ws连接错误的回调函数
+ */
+export function sendWebsocket(url, agentData, successCallback, errCallback) {
+	wsUrl = url;
+	initWebSocket();
+	messageCallback = successCallback;
+	errorCallback = errCallback;
+	websocketSend(agentData);
+}
+
+/**
+ * 关闭websocket函数
+ */
+export function closeWebsocket() {
+	if (websock) {
+		websock.close(); //关闭websocket
+		websock.onclose(); //关闭websocket
+	}
+}
+```
+
+- **页面引用**
+
+```js
+import {
+	sendWebsocket,
+	closeWebsocket
+} from '@/websocket.js'
+
+export default {
+	data() {
+		return {
+            
+		}
+	},
+	mounted() {
+		this.getInfo();
+	},
+	methods: {
+		//获取返回数据
+		wsMessage(data) {
+			console.log(data);
+		},
+		//连接失败回调
+		wsError() {
+			console.log('连接失败');
+		},
+		requstWs() {
+			//关闭之前ws连接
+			closeWebsocket();
+			const data = {};
+			const url = '';
+			//发起ws请求
+			sendWebsocket(url, data, this.wsMessage, this.wsError);
+		}
+	},
+    beforeDestroy() {
+		//页面销毁时关闭ws
+		closeWebsocket();
+	}
+}
+```
+

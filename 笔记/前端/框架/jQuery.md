@@ -124,8 +124,7 @@ function api(type, data, url) {
 			},
 			error: (error) => {
 				reject(error);  //返回错误信息
-			},
-        	complete: () => {}
+			}
 		});
     });
 };
@@ -141,6 +140,6 @@ function 函数名(params){
 //调用api接口
 函数名(params)
 .then(res => {}) //请求成功
-.catch(result => {}) //请求s
+.catch(err => {}) //请求失败
 ```
 

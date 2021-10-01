@@ -2,9 +2,9 @@
 
 [TOC]
 
-- **可以减少 CSS 重复代码的编写**
+### 可以减少 CSS 重复代码的编写
 
-#### Sass 变量
+### Sass 变量
 
 - **Sass** 使用 **$** 符号来标识变量
 
@@ -18,7 +18,7 @@ div {
 }
 ```
 
-#### Sass 作用域
+### Sass 作用域
 
 - **默认作用域为==局部==，只能在当前的层级上有效果**
 
@@ -32,7 +32,7 @@ div {
   }
   ```
 
-#### Sass 嵌套
+### Sass 嵌套
 
 > **选择器嵌套**
 
@@ -62,7 +62,7 @@ font-size: 18px;
 font-weight: bold;
 ```
 
-#### Sass 导入文件
+### Sass 导入文件
 
 ```scss
 @import FileName;
@@ -74,7 +74,7 @@ font-weight: bold;
 >
 > **在导入语句中不需要添加下划线**
 
-#### @mixin 混入
+### @mixin 混入
 
 - **`@mixin` 指令允许我们定义一个可以在整个样式表中==重复使用==的样式**
 
@@ -105,7 +105,7 @@ font-weight: bold;
   }
   ```
 
-#### @include 引入混入
+### @include 引入混入
 
 - **`@include`  指令可以将 `mixin` 引入到文档中**
 
@@ -120,7 +120,7 @@ font-weight: bold;
   }
   ```
 
-#### @extend 继承
+### @extend 继承
 
 - **Sass 一个选择器的样式从另一选择器继承**
 
