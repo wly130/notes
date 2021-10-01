@@ -222,18 +222,18 @@ var vue = new Vue({
 
 - **鼠标事件**
 
-  | 事件名          | 作用         |
-  | --------------- | ------------ |
-  | **@click**      | **单击**     |
-  | **@mousedown**  | **按下**     |
-  | **@mouseup**    | **抬起**     |
-  | **@dblclick**   | **双击**     |
-  | **@mousemove**  | **移动**     |
-  | **@mouseleave** | **离开**     |
-  | **@mouseout**   | **移出**     |
-  | **@mouseenter** | **进入**     |
-  | **@blur**       | **失去焦点** |
-  | **@focus**      | **获取焦点** |
+| 事件名          | 作用         |
+| --------------- | ------------ |
+| **@click**      | **单击**     |
+| **@mousedown**  | **按下**     |
+| **@mouseup**    | **抬起**     |
+| **@dblclick**   | **双击**     |
+| **@mousemove**  | **移动**     |
+| **@mouseleave** | **离开**     |
+| **@mouseout**   | **移出**     |
+| **@mouseenter** | **进入**     |
+| **@blur**       | **失去焦点** |
+| **@focus**      | **获取焦点** |
 
 #### `transition` 过渡
 
@@ -596,6 +596,19 @@ this.$refs.ref属性名.方法名();
 
 #### js-cookie
 
+- **安装依赖包**
+
+  ```shell
+  npm install js-cookie --save
+  ```
+
+- **main.js**
+
+  ```js
+  import Cookies from 'js-cookie'
+  Vue.prototype.$cookie = Cookies;
+  ```
+  
 - **写入`cookie`**
 
   ```js
@@ -714,7 +727,7 @@ export default {
 
 - **vue.config.js**
 
-```js
+```json
 module.exports = {
 	publicPath: './',
 	devServer: {
@@ -738,9 +751,9 @@ module.exports = {
 
 - **axios 引用**
 
-  ```html
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  ```
+```html
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+```
 
 > **请求方法**
 
@@ -757,6 +770,12 @@ axios({
 ```
 
 ##### 封装网络请求API
+
+- **安装依赖包**
+
+```shell
+npm install axios --save
+```
 
 - **request.js**
 
@@ -820,7 +839,7 @@ export function post(url, params) {
 			})
 	});
 }
-export default axios
+export default axios;
 ```
 
 - **api.js**
@@ -837,7 +856,8 @@ const api = {
 		return post('请求地址', params);
 	}
 }
-export default api
+
+export default api;
 ```
 
 - **nain.js**
