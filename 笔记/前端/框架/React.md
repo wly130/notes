@@ -112,6 +112,7 @@ import imgUrl from '../assets/photo.png';
 ```react
 import React from 'react';
 import './css'; //外部引入CSS
+
 class App extends React.Component {
     render() {
         let styles = { //CSS对象
@@ -798,17 +799,13 @@ npm install react-router-dom
 - **路由表**
 
 ```react
-//引入自定义组件
-import Test from "../components/test";
-import Test2 from "../components/test2";
-
 const routes = [{
     path: '/',
-    component: Test,
+    component: require("../components/test"),
     exact: true
 }, {
     path: '/Test2',
-    component: Test2,
+    component: require("../components/test2"),
     exact: true
 }];
 

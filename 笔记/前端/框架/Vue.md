@@ -721,6 +721,113 @@ export default {
 
 > **mapState**
 
+#### vue-router
+
+- **安装依赖包**
+
+```shell
+npm install vue-router -S
+```
+
+- **routes/index.js**
+
+```js
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router);
+//页面路径
+const routes = [{
+	path: '/', //首页
+	name: 'index',
+	component: require("../components/index.vue")
+}]
+
+const router = new Router({
+	mode: 'hash', //默认hash模式,hash模式有#;history模式，没有#符号;
+	routes: routes
+});
+
+//路由守卫
+router.beforeEach((to, from, next) => {
+	// to	  下一页面
+	// from	  当前页面
+	next();
+})
+
+export default router;
+```
+
+- **main.js**
+
+```js
+import routes from './routes/index.js' //路由
+
+new Vue({
+    routes,
+    render: h => h(App),
+}).$mount('#app')
+```
+
+- **App.vue**
+
+```vue
+<template>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "app",
+    };
+</script>
+```
+
+#### 路由跳转传值
+
+- **声明式导航**
+
+```vue
+<router-link :to="{name:'home'}">
+<router-link :to="{path:'/home'}">
+```
+
+- **`query`传参(参数显示在url上)**
+```js
+this.$router.push({
+	name: 'home',
+	query: {
+        val: 1
+    }
+})
+this.$router.push({
+	path: '/home',
+	query: {
+        val: 1
+    }
+})
+
+//获取参数
+this.$route.query.val;
+```
+
+- **`params`传参(参数不显示在url上)**
+```js
+this.$router.push({
+	name: 'home',
+	params: {
+		id: 1
+	}
+})
+
+//获取参数
+this.$route.params.id;
+```
+
+- **this.$router.replace()  关闭当前页面跳转**
+
 #### 网络请求
 
 ##### 配置跨域请求
@@ -1024,4 +1131,6 @@ export default {
 	}
 }
 ```
+
+[返回顶部](#目录)
 
