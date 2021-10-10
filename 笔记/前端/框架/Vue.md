@@ -993,12 +993,12 @@ this.$api.函数名(params).then(res => {});
 let websock = null;
 let messageCallback = null;
 let errorCallback = null;
-let wsUrl = '';
 let tryTime = 0;
 
 // 接收ws后端返回的数据
 function websocketonmessage(e) {
-	messageCallback(JSON.parse(e.data));
+    let data = eval('(' + e.data + ')');
+	messageCallback(data);
 }
 
 /**
@@ -1011,7 +1011,7 @@ function websocketSend(agentData) {
 			websock.send(JSON.stringify(agentData))
 		}
 		if (websock.readyState === websock.CLOSED) {
-			Message.error('ws连接异常');
+			console.error('ws连接异常');
 			errorCallback();
 		}
 	}, 500);
@@ -1020,7 +1020,7 @@ function websocketSend(agentData) {
 // 关闭ws连接
 function websocketclose(e) {
 	if (e && e.code !== 1000) {
-		Message.error('ws连接异常');
+		console.error('ws连接异常');
 		errorCallback();
 		if (tryTime < 10) {
 			setTimeout(() => {
@@ -1030,7 +1030,7 @@ function websocketclose(e) {
 				console.log(`第${tryTime}次重连`);
 			}, 3000);
 		} else {
-			Message.error('重连失败');
+			console.error('重连失败');
 		}
 	}
 }
@@ -1042,12 +1042,12 @@ function websocketOpen(e) {
 // 初始化weosocket
 function initWebSocket() {
 	if (typeof(WebSocket) === 'undefined') {
-		Message.error('您的浏览器不支持WebSocket');
+		console.error('您的浏览器不支持WebSocket');
 		return false;
 	}
-	//ws请求完整地址
-	const requstWsUrl = wsUrl;
-	websock = new WebSocket(requstWsUrl);
+	//ws请求地址
+	const baseUrl = 'url';
+	websock = new WebSocket(baseUrl);
 
 	websock.onmessage = (e) => {
 		websocketonmessage(e);
@@ -1056,7 +1056,7 @@ function initWebSocket() {
 		websocketOpen();
 	}
 	websock.onerror = () => {
-		Message.error('ws连接异常');
+		console.error('ws连接异常');
 		errorCallback();
 	}
 	websock.onclose = (e) => {
@@ -1066,13 +1066,11 @@ function initWebSocket() {
 
 /**
  * 发起websocket请求函数
- * @param {string} url ws连接地址
  * @param {Object} agentData 传给后台的参数
  * @param {function} successCallback 接收到ws数据，对数据进行处理的回调函数
  * @param {function} errCallback ws连接错误的回调函数
  */
-export function sendWebsocket(url, agentData, successCallback, errCallback) {
-	wsUrl = url;
+export function sendWebsocket(agentData, successCallback, errCallback) {
 	initWebSocket();
 	messageCallback = successCallback;
 	errorCallback = errCallback;
@@ -1105,11 +1103,11 @@ export default {
 		}
 	},
 	mounted() {
-		this.getInfo();
+		this.requstWs();
 	},
 	methods: {
 		//获取返回数据
-		wsMessage(data) {
+		getInfo(data) {
 			console.log(data);
 		},
 		//连接失败回调
@@ -1119,10 +1117,8 @@ export default {
 		requstWs() {
 			//关闭之前ws连接
 			closeWebsocket();
-			const data = {};
-			const url = '';
 			//发起ws请求
-			sendWebsocket(url, data, this.wsMessage, this.wsError);
+			sendWebsocket({}, this.getInfo, this.wsError);
 		}
 	},
     beforeDestroy() {
