@@ -222,18 +222,18 @@ var vue = new Vue({
 
 - **鼠标事件**
 
-| 事件名          | 作用         |
-| --------------- | ------------ |
-| **@click**      | **单击**     |
-| **@mousedown**  | **按下**     |
-| **@mouseup**    | **抬起**     |
-| **@dblclick**   | **双击**     |
-| **@mousemove**  | **移动**     |
-| **@mouseleave** | **离开**     |
-| **@mouseout**   | **移出**     |
-| **@mouseenter** | **进入**     |
-| **@blur**       | **失去焦点** |
-| **@focus**      | **获取焦点** |
+  | 事件名          | 作用         |
+  | --------------- | ------------ |
+  | **@click**      | **单击**     |
+  | **@mousedown**  | **按下**     |
+  | **@mouseup**    | **抬起**     |
+  | **@dblclick**   | **双击**     |
+  | **@mousemove**  | **移动**     |
+  | **@mouseleave** | **离开**     |
+  | **@mouseout**   | **移出**     |
+  | **@mouseenter** | **进入**     |
+  | **@blur**       | **失去焦点** |
+  | **@focus**      | **获取焦点** |
 
 #### `transition` 过渡
 
@@ -596,19 +596,6 @@ this.$refs.ref属性名.方法名();
 
 #### js-cookie
 
-- **安装依赖包**
-
-  ```shell
-  npm install js-cookie --save
-  ```
-
-- **main.js**
-
-  ```js
-  import Cookies from 'js-cookie'
-  Vue.prototype.$cookie = Cookies;
-  ```
-  
 - **写入`cookie`**
 
   ```js
@@ -721,120 +708,13 @@ export default {
 
 > **mapState**
 
-#### vue-router
-
-- **安装依赖包**
-
-```shell
-npm install vue-router -S
-```
-
-- **routes/index.js**
-
-```js
-import Vue from 'vue'
-import Router from 'vue-router'
-
-Vue.use(Router);
-//页面路径
-const routes = [{
-	path: '/', //首页
-	name: 'index',
-	component: require("../components/index.vue")
-}]
-
-const router = new Router({
-	mode: 'hash', //默认hash模式,hash模式有#;history模式，没有#符号;
-	routes: routes
-});
-
-//路由守卫
-router.beforeEach((to, from, next) => {
-	// to	  下一页面
-	// from	  当前页面
-	next();
-})
-
-export default router;
-```
-
-- **main.js**
-
-```js
-import routes from './routes/index.js' //路由
-
-new Vue({
-    routes,
-    render: h => h(App),
-}).$mount('#app')
-```
-
-- **App.vue**
-
-```vue
-<template>
-    <div id="app">
-        <router-view></router-view>
-    </div>
-</template>
-
-<script>
-    export default {
-        name: "app",
-    };
-</script>
-```
-
-#### 路由跳转传值
-
-- **声明式导航**
-
-```vue
-<router-link :to="{name:'home'}">
-<router-link :to="{path:'/home'}">
-```
-
-- **`query`传参(参数显示在url上)**
-```js
-this.$router.push({
-	name: 'home',
-	query: {
-        val: 1
-    }
-})
-this.$router.push({
-	path: '/home',
-	query: {
-        val: 1
-    }
-})
-
-//获取参数
-this.$route.query.val;
-```
-
-- **`params`传参(参数不显示在url上)**
-```js
-this.$router.push({
-	name: 'home',
-	params: {
-		id: 1
-	}
-})
-
-//获取参数
-this.$route.params.id;
-```
-
-- **this.$router.replace()  关闭当前页面跳转**
-
 #### 网络请求
 
 ##### 配置跨域请求
 
 - **vue.config.js**
 
-```json
+```js
 module.exports = {
 	publicPath: './',
 	devServer: {
@@ -858,9 +738,9 @@ module.exports = {
 
 - **axios 引用**
 
-```html
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-```
+  ```html
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  ```
 
 > **请求方法**
 
@@ -877,12 +757,6 @@ axios({
 ```
 
 ##### 封装网络请求API
-
-- **安装依赖包**
-
-```shell
-npm install axios --save
-```
 
 - **request.js**
 
@@ -946,7 +820,7 @@ export function post(url, params) {
 			})
 	});
 }
-export default axios;
+export default axios
 ```
 
 - **api.js**
@@ -963,8 +837,7 @@ const api = {
 		return post('请求地址', params);
 	}
 }
-
-export default api;
+export default api
 ```
 
 - **nain.js**
@@ -981,151 +854,6 @@ const params = {	//参数对象
     key: 'value'
 };
 this.$api.函数名(params).then(res => {});
-```
-
-[返回顶部](#目录)
-
-#### Websocket 封装
-
-- **websocket.js**
-
-```js
-let websock = null;
-let messageCallback = null;
-let errorCallback = null;
-let tryTime = 0;
-
-// 接收ws后端返回的数据
-function websocketonmessage(e) {
-    let data = eval('(' + e.data + ')');
-	messageCallback(data);
-}
-
-/**
- * 发起websocket连接
- * @param {Object} agentData 需要向后台传递的参数数据
- */
-function websocketSend(agentData) {
-	setTimeout(() => {
-		if (websock.readyState === websock.OPEN) {
-			websock.send(JSON.stringify(agentData))
-		}
-		if (websock.readyState === websock.CLOSED) {
-			console.error('ws连接异常');
-			errorCallback();
-		}
-	}, 500);
-}
-
-// 关闭ws连接
-function websocketclose(e) {
-	if (e && e.code !== 1000) {
-		console.error('ws连接异常');
-		errorCallback();
-		if (tryTime < 10) {
-			setTimeout(() => {
-				websock = null;
-				tryTime++;
-				initWebSocket();
-				console.log(`第${tryTime}次重连`);
-			}, 3000);
-		} else {
-			console.error('重连失败');
-		}
-	}
-}
-// 建立ws连接
-function websocketOpen(e) {
-	console.log('ws连接成功');
-}
-
-// 初始化weosocket
-function initWebSocket() {
-	if (typeof(WebSocket) === 'undefined') {
-		console.error('您的浏览器不支持WebSocket');
-		return false;
-	}
-	//ws请求地址
-	const baseUrl = 'url';
-	websock = new WebSocket(baseUrl);
-
-	websock.onmessage = (e) => {
-		websocketonmessage(e);
-	}
-	websock.onopen = () => {
-		websocketOpen();
-	}
-	websock.onerror = () => {
-		console.error('ws连接异常');
-		errorCallback();
-	}
-	websock.onclose = (e) => {
-		websocketclose(e);
-	}
-}
-
-/**
- * 发起websocket请求函数
- * @param {Object} agentData 传给后台的参数
- * @param {function} successCallback 接收到ws数据，对数据进行处理的回调函数
- * @param {function} errCallback ws连接错误的回调函数
- */
-export function sendWebsocket(agentData, successCallback, errCallback) {
-	initWebSocket();
-	messageCallback = successCallback;
-	errorCallback = errCallback;
-	websocketSend(agentData);
-}
-
-/**
- * 关闭websocket函数
- */
-export function closeWebsocket() {
-	if (websock) {
-		websock.close(); //关闭websocket
-		websock.onclose(); //关闭websocket
-	}
-}
-```
-
-- **页面引用**
-
-```js
-import {
-	sendWebsocket,
-	closeWebsocket
-} from '@/websocket.js'
-
-export default {
-	data() {
-		return {
-            
-		}
-	},
-	mounted() {
-		this.requstWs();
-	},
-	methods: {
-		//获取返回数据
-		getInfo(data) {
-			console.log(data);
-		},
-		//连接失败回调
-		wsError() {
-			console.log('连接失败');
-		},
-		requstWs() {
-			//关闭之前ws连接
-			closeWebsocket();
-			//发起ws请求
-			sendWebsocket({}, this.getInfo, this.wsError);
-		}
-	},
-    beforeDestroy() {
-		//页面销毁时关闭ws
-		closeWebsocket();
-	}
-}
 ```
 
 [返回顶部](#目录)

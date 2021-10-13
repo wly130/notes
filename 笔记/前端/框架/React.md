@@ -112,7 +112,6 @@ import imgUrl from '../assets/photo.png';
 ```react
 import React from 'react';
 import './css'; //外部引入CSS
-
 class App extends React.Component {
     render() {
         let styles = { //CSS对象
@@ -140,7 +139,7 @@ export default App;
 ```react
 constructor(props) {
 	super(props);
-	this.state = {}
+	this.state={}
 }
 //或
 state = {}
@@ -158,20 +157,20 @@ this.setState({});
 
 | 事件名      | 作用                             |
 | ----------- | -------------------------------- |
-| **onClick** | **鼠标点击事件**                 |
-| **onDblClick** | **鼠标双击事件**                 |
-| **onMouseDown** | **鼠标上的按钮被按下了**         |
-| **onMouseUp** | **鼠标按下后，松开时**           |
-| **onMouseOver** | **当鼠标移动到某对象范围的上方时** |
-| **onMouseMove** | **鼠标移动时**                   |
-| **onMouseOut** | **当鼠标离开某对象范围时**       |
-| **onKeyPress** | **当键盘上的某个键被按下并且释放时** |
-| **onKeyDown** | **当键盘上某个按键被按下时**     |
-|**onBlur**			| **当前元素失去焦点时** |
-|**onChange**		|**当前元素失去焦点并且元素的内容发生改变**|
-|**onFocus**		|**当某个元素获得焦点时**|
-|**onReset**		| **重置表单时**                         |
-|**onSubmit**		|**提交表单时**|
+| onClick     | 鼠标点击事件                     |
+| onDblClick  | 鼠标双击事件                     |
+| onMouseDown | 鼠标上的按钮被按下了             |
+| onMouseUp   | 鼠标按下后，松开时               |
+| onMouseOver | 当鼠标移动到某对象范围的上方时   |
+| onMouseMove | 鼠标移动时                       |
+| onMouseOut  | 当鼠标离开某对象范围时           |
+| onKeyPress  | 当键盘上的某个键被按下并且释放时 |
+| onKeyDown   | 当键盘上某个按键被按下时         |
+|onBlur			| 当前元素失去焦点时 |
+|onChange		|当前元素失去焦点并且元素的内容发生改变|
+|onFocus		|当某个元素获得焦点时|
+|onReset		| 重置表单时                             |
+|onSubmit		|提交表单时|
 
 ### 函数传参
 
@@ -636,7 +635,7 @@ export default App;
 ```react
 //父组件
 fun() {
-	console.log('父组件方法');
+	console.log('父组件方法')；
 }
 <子组件 fun={this.fun} />
 
@@ -799,13 +798,17 @@ npm install react-router-dom
 - **路由表**
 
 ```react
+//引入自定义组件
+import Test from "../components/test";
+import Test2 from "../components/test2";
+
 const routes = [{
     path: '/',
-    component: require("../components/test"),
+    component: Test,
     exact: true
 }, {
     path: '/Test2',
-    component: require("../components/test2"),
+    component: Test2,
     exact: true
 }];
 
@@ -888,6 +891,8 @@ this.props.history.push({
 ```
 
 [返回顶部](#目录)
+
+### React-redux
 
 
 

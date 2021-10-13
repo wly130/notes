@@ -268,15 +268,15 @@ final class 类名 {  // 声明类
 ## 封装
 
 ```java
-    private String name;
-    // 读取
-    public String getName(){
-        return name;
-    }
-    // 写入
-    public void setName(String name){
-        this.name = name;
-    }
+private String name;
+// 读取
+public String getName(){
+    return name;
+}
+// 写入
+public void setName(String name){
+    this.name = name;
+}
 ```
 
 [返回顶部](#目录)
@@ -332,10 +332,10 @@ final class 类名 {  // 声明类
 - **迭代器**
 
 ```java
-    Iterator<?> it = ArryList.iterator();// 获取
-    it.hasNext();   // 判断是否为空
-    it.next();      // 输出集合元素
-    it.remove();    // 删除集合元素
+Iterator<?> it = ArryList.iterator();// 获取
+it.hasNext();   // 判断是否为空
+it.next();      // 输出集合元素
+it.remove();    // 删除集合元素
 ```
 
 [返回顶部](#目录)
@@ -348,37 +348,36 @@ final class 类名 {  // 声明类
   > **泛型类**
 
 ```java
-    public class Show<T>{
-        private T key;
-        public Show(T key) {
-            this.key = key;
-        }
-        public T getKey(){
-            return key;
-        }
+public class Show<T>{
+    private T key;
+    public Show(T key) {
+        this.key = key;
     }
+    public T getKey(){
+        return key;
+    }
+}
 ```
 
 > **泛型接口**
 
 ```java
-    public interface Impl<T> {
-        public T next();
+public interface Impl<T> {
+    public T next();
+}
+public class NewShow<T> implements Show<T>{
+    @Override
+    public T next() {
+        return null;
     }
-    public class NewShow<T> implements Show<T>{
-        @Override
-        public T next() {
-            return null;
-        }
-    }
+}
 ```
 
 > **泛型方法**
 
 ```java
-    public static <T> void Show(T t){
-
-    }
+public static <T> void Show(T t){
+}
 ```
 
 [返回顶部](#目录)
@@ -409,41 +408,41 @@ final class 类名 {  // 声明类
 > **实现 Runnable 接口**
 
 ```java
-    public class Show implements Runnable{
-        public void run(){}     // 重写执行方法
-        public static void main(String args[]){
-            Show R = new Show();//新建对象
-            R.start();// 启动线程
-        }
+public class Show implements Runnable{
+    public void run(){}     // 重写执行方法
+    public static void main(String args[]){
+        Show R = new Show();//新建对象
+        R.start();// 启动线程
     }
+}
 ```
 
 > **继承 Thread 类**
 
 ```java
-    public class Show extends Thread{
-        public void run(){}     // 重写执行方法
-        public static void main(String args[]){
-            Show T = new Show();//新建对象
-            T.start();// 启动线程
-        }
+public class Show extends Thread{
+    public void run(){}     // 重写执行方法
+    public static void main(String args[]){
+        Show T = new Show();//新建对象
+        T.start();// 启动线程
     }
+}
 ```
 
 > **Callable 和 Future 创建线程**
 
 ```java
-    public class Show implements Callable<Integer>{
-        public static void main(String[] args){
-            Show C = new Show();
-            FutureTask<Integer> F = new FutureTask<>(C);
-            new Thread(F, "").start();// 启动线程
-        }
-        @Override
-        public Integer call() {     //重写call()方法
-            return 0;
-        }
+public class Show implements Callable<Integer>{
+    public static void main(String[] args){
+        Show C = new Show();
+        FutureTask<Integer> F = new FutureTask<>(C);
+        new Thread(F, "").start();// 启动线程
     }
+    @Override
+    public Integer call() {     //重写call()方法
+        return 0;
+    }
+}
 ```
 
 [返回顶部](#目录)
@@ -455,28 +454,28 @@ final class 类名 {  // 声明类
 > **连接数据库**
 
 ```java
-    Class.forName("com.mysql.jdbc.cj.Driver");
-    Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/wly?useUnicode=true&
-                    characterEncoding=utf8serverTimezone=UTC&
-                    useSSL=false","root","000000");
+Class.forName("com.mysql.jdbc.cj.Driver");
+Connection conn = DriverManager.getConnection(
+     "jdbc:mysql://localhost:3306/wly?useUnicode=true&
+     characterEncoding=utf8serverTimezone=UTC&
+     useSSL=false","root","000000");
 ```
 
 > **Statement 接口**
 
 ```java
-    Statement s = conn.createStatement();
-    String sql = "sql语句";
-    s.execute(sql);    //执行sql语句
+Statement s = conn.createStatement();
+String sql = "sql语句";
+s.execute(sql);    //执行sql语句
 ```
 
 > **PreparedStatement 接口**
 
 ```java
-    PreparedStatement pstmt = conn.prepareStatement(sql);
-    String sql = "sql语句";
-    pstmt.setString(1, Name);  //给占位符赋值
-    pstmt.executeUpdate();     //执行sql语句
+PreparedStatement pstmt = conn.prepareStatement(sql);
+String sql = "sql语句";
+pstmt.setString(1, Name);  //给占位符赋值
+pstmt.executeUpdate();     //执行sql语句
 ```
 
 ### 第二种方法
@@ -484,10 +483,10 @@ final class 类名 {  // 声明类
 > **mysql.properties 文件**
 
 ```java
-    driver=com.mysql.cj.jdbc.Driver
-    url=jdbc:mysql://localhost:3306/wly?useUnicode=true& characterEncoding=utf8&serverTimezone=UTC&useSSL=false
-    user=root
-    password=000000
+driver=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://localhost:3306/wly?useUnicode=true& characterEncoding=utf8&serverTimezone=UTC&useSSL=false
+user=root
+password=000000
 ```
 
 > **JDBCUtils 类**
@@ -587,31 +586,31 @@ public class JDBCUtils {
 > **添加/删除/修改数据**
 
 ```java
-    Statement st = null;
-    String sql1 = "insert into 表名 (Name,Sex,Age) values(?,?,?)";//添加
-    String sql2 = "update 表名 set Age=? where Name=?";//修改
-    String sql3 = "delete from 表名 where Name=?";//删除
-    try{
-        st = conn.createStatement();
-        st.execute(sql1);
-        st.execute(sql2);
-        st.execute(sql3);
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
+Statement st = null;
+String sql1 = "insert into 表名 (Name,Sex,Age) values(?,?,?)";//添加
+String sql2 = "update 表名 set Age=? where Name=?";//修改
+String sql3 = "delete from 表名 where Name=?";//删除
+try{
+    st = conn.createStatement();
+    st.execute(sql1);
+    st.execute(sql2);
+    st.execute(sql3);
+} catch (SQLException e) {
+    e.printStackTrace();
+}
 ```
 
 > **查询数据**
 
 ```java
-    String sql = "select * from 表名";
-    PreparedStatement pstmt = conn.prepareStatement(sql);
-    ResultSet rs = pstmt.executeQuery();
-    while(rs.next()){
-       String name = rs.getString(1);
-       int id = rs.getInt(2);
-       int age = rs.getInt(3);
-    }
+String sql = "select * from 表名";
+PreparedStatement pstmt = conn.prepareStatement(sql);
+ResultSet rs = pstmt.executeQuery();
+while(rs.next()){
+   String name = rs.getString(1);
+   int id = rs.getInt(2);
+   int age = rs.getInt(3);
+}
 ```
 
 > **批处理操作**
@@ -619,59 +618,59 @@ public class JDBCUtils {
 > > 使用**Statement**完成批处理
 
 ```java
-    Connection conn = null;
-    Statement st = null;
-    ResultSet rs = null;
-    try{
-        conn = JdbcUtils.getConnection();
-        String sql1 = "insert into testbatch(id,name) values(1,'aaa')";
-        String sql2 = "insert into testbatch(id,name) values(2,'bbb')";
-        String sql3 = "update testbatch set name='gacl' where id=1";
-        String sql4 = "insert into testbatch(id,name) values(5,'FFF')";
-        String sql5 = "delete from testbatch where id=2";
-        st = conn.createStatement();
-        //添加要批量执行的SQL
-        st.addBatch(sql1);
-        st.addBatch(sql2);
-        st.addBatch(sql3);
-        st.addBatch(sql4);
-        st.addBatch(sql5);
-        //执行批处理SQL语句
-        st.executeBatch();
-        //清除批处理命令
-        st.clearBatch();
-    }catch (Exception e) {
-        e.printStackTrace();
-    }finally{
-        JdbcUtils.release(conn, st, rs);
-    }
+Connection conn = null;
+Statement st = null;
+ResultSet rs = null;
+try{
+    conn = JdbcUtils.getConnection();
+    String sql1 = "insert into testbatch(id,name) values(1,'aaa')";
+    String sql2 = "insert into testbatch(id,name) values(2,'bbb')";
+    String sql3 = "update testbatch set name='gacl' where id=1";
+    String sql4 = "insert into testbatch(id,name) values(5,'FFF')";
+    String sql5 = "delete from testbatch where id=2";
+    st = conn.createStatement();
+    //添加要批量执行的SQL
+    st.addBatch(sql1);
+    st.addBatch(sql2);
+    st.addBatch(sql3);
+    st.addBatch(sql4);
+    st.addBatch(sql5);
+    //执行批处理SQL语句
+    st.executeBatch();
+    //清除批处理命令
+    st.clearBatch();
+}catch (Exception e) {
+    e.printStackTrace();
+}finally{
+    JdbcUtils.release(conn, st, rs);
+}
 ```
 
 > 使用**PreparedStatement**完成批处理
 
 ```java
-    Connection conn = null;
-    PreparedStatement st = null;
-    ResultSet rs = null;
-    try{
-        conn = JdbcUtils.getConnection();
-        String sql = "insert into 表名(id,name)values(?,?)";
-        st = conn.prepareStatement(sql);
-        for(int i=1; i<1000; i++){
-            st.setInt(1, i);
-            st.setString(2, "n" + i);
-            st.addBatch();
-            if(i%100==0){
-                st.executeBatch();//执行批处理SQL语句
-                st.clearBatch();//清除批处理命令
-            }
+Connection conn = null;
+PreparedStatement st = null;
+ResultSet rs = null;
+try{
+    conn = JdbcUtils.getConnection();
+    String sql = "insert into 表名(id,name)values(?,?)";
+    st = conn.prepareStatement(sql);
+    for(int i=1; i<1000; i++){
+        st.setInt(1, i);
+        st.setString(2, "n" + i);
+        st.addBatch();
+        if(i%100==0){
+            st.executeBatch();//执行批处理SQL语句
+            st.clearBatch();//清除批处理命令
         }
-        st.executeBatch();
-    }catch (Exception e) {
-        e.printStackTrace();
-    }finally{
-        JdbcUtils.release(conn, st, rs);
     }
+    st.executeBatch();
+}catch (Exception e) {
+    e.printStackTrace();
+}finally{
+    JdbcUtils.release(conn, st, rs);
+}
 ```
 
 [返回顶部](#目录)
