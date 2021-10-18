@@ -892,7 +892,5 @@ this.props.history.push({
 
 [返回顶部](#目录)
 
-### React-redux
-
 
 
