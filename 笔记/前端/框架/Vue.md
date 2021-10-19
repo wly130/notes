@@ -222,18 +222,18 @@ var vue = new Vue({
 
 - **鼠标事件**
 
-  | 事件名          | 作用         |
-  | --------------- | ------------ |
-  | **@click**      | **单击**     |
-  | **@mousedown**  | **按下**     |
-  | **@mouseup**    | **抬起**     |
-  | **@dblclick**   | **双击**     |
-  | **@mousemove**  | **移动**     |
-  | **@mouseleave** | **离开**     |
-  | **@mouseout**   | **移出**     |
-  | **@mouseenter** | **进入**     |
-  | **@blur**       | **失去焦点** |
-  | **@focus**      | **获取焦点** |
+| 事件名          | 作用         |
+| --------------- | ------------ |
+| **@click**      | **单击**     |
+| **@mousedown**  | **按下**     |
+| **@mouseup**    | **抬起**     |
+| **@dblclick**   | **双击**     |
+| **@mousemove**  | **移动**     |
+| **@mouseleave** | **离开**     |
+| **@mouseout**   | **移出**     |
+| **@mouseenter** | **进入**     |
+| **@blur**       | **失去焦点** |
+| **@focus**      | **获取焦点** |
 
 #### `transition` 过渡
 
@@ -289,42 +289,20 @@ var vue = new Vue({
 
 ##### 全局组件
 
-```html
-<div id="app">
-	<runoob></runoob>
-</div>
-<script>
-	// 注册全局组件
-	Vue.component('runoob', {
-		template: '<h1>自定义组件</h1>'
-	})
-	// 创建根实例
-	new Vue({
-		el: '#app'
-	})
-</script>
+```js
+import index from './component/index.vue'
+Vue.component(index)；
 ```
 
 ##### 局部组件
 
-```html
-<div id="app">
-	<runoob></runoob>
-</div>
-<script>
-	var Child = {
-	  	template: '<h1>自定义组件!</h1>'
-	}
-	// 创建根实例
-	new Vue({
-	  	el: '#app',
-        // 注册局部组件
-	  	components: {
-	    	// 只在父模板可用
-	    	'runoob': Child
-	  	}
-	})
-</script>
+```js
+import index from './component/index.vue'
+export default {
+    components: {
+        index
+    }
+}
 ```
 
 [返回顶部](#目录)
@@ -621,6 +599,99 @@ this.$refs.ref属性名.方法名();
 
 [返回顶部](#目录)
 
+#### vue-router
+
+- **安装依赖包**
+
+```shell
+npm install vue-router -S
+```
+
+- **routes/index.js**
+
+```js
+import Vue from 'vue'
+import Router from 'vue-router'
+Vue.use(Router);
+//页面路径
+const routes = [{
+	path: '/', //首页
+	name: 'index',
+	component: require("../components/index.vue")
+}]
+const router = new Router({
+	mode: 'hash', //默认hash模式,hash模式有#;history模式，没有#符号;
+	routes: routes
+});
+//路由守卫
+router.beforeEach((to, from, next) => {
+	// to	  下一页面
+	// from	  当前页面
+	next();
+})
+export default router;
+```
+
+- **main.js**
+
+```js
+import routes from './routes/index.js' //路由
+new Vue({
+    routes,
+    render: h => h(App),
+}).$mount('#app')
+```
+
+- **App.vue**
+
+```vue
+<template>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+</template>
+<script>
+    export default {
+        name: "app",
+    };
+</script>
+```
+
+#### 路由跳转传值
+
+- **声明式导航**
+
+```vue
+<router-link :to="{name:'home'}">
+<router-link :to="{path:'/home'}">
+```
+
+- **`query`传参(参数显示在url上)**
+```js
+this.$router.push({
+	path: '/home',
+	query: {
+        val: 1
+    }
+})
+//获取参数
+this.$route.query.val;
+```
+
+- **`params`传参(参数不显示在url上)**
+```js
+this.$router.push({
+	name: 'home',
+	params: {
+		id: 1
+	}
+})
+//获取参数
+this.$route.params.id;
+```
+
+- **this.$router.replace()  关闭当前页面跳转**
+
 #### Vuex 状态管理工具
 
 1. **安装 vuex 依赖包**
@@ -738,9 +809,9 @@ module.exports = {
 
 - **axios 引用**
 
-  ```html
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  ```
+```html
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+```
 
 > **请求方法**
 
@@ -827,7 +898,6 @@ export default axios
 
 ```javascript
 import {get, post} from './request.js'
-import axios from 'axios'
 
 const api = {
 	函数名(params){
@@ -850,7 +920,7 @@ Vue.prototype.$api = api;
 - **调用API**
 
 ```javascript
-const params = {	//参数对象
+const params = { //参数对象
     key: 'value'
 };
 this.$api.函数名(params).then(res => {});
@@ -858,3 +928,32 @@ this.$api.函数名(params).then(res => {});
 
 [返回顶部](#目录)
 
+#### 移动端适配
+
+- **安装依赖包**
+
+```shell
+npm install lib-flexible -S
+npm install postcss-px2rem -S
+```
+
+- **配置`postcss-px2rem`**
+
+    **`vue.config.js`**
+
+```js
+module.exports = {
+	css: {
+		loaderOptions: {
+			css: {},
+			postcss: {
+				plugins: [
+					require('postcss-px2rem')({
+						remUnit: 37.5
+					})
+				]
+			}
+		}
+	}
+}
+```

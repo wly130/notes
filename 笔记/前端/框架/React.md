@@ -785,6 +785,31 @@ React.$api = api;  //全局引入
 React.$api.函数名(params).then(res => {});  //调用API
 ```
 
+### 跨域配置
+
+- **安装依赖包**
+
+```shell
+npm install http-proxy-middleware
+```
+
+- **src/setupProxy.js**
+
+```js
+const proxy = require('http-proxy-middleware');
+module.exports = (app) => {
+    app.use(
+        proxy('/api', {
+        	target: 'http://xxx.xxx.xxx.xxx', //接口地址
+            changeOrigin: true,
+            pathRewrite: { 
+                '^/api1': '' 
+            }
+        })
+    )
+}
+```
+
 ### React-router
 
 #### 安装依赖包
@@ -798,17 +823,13 @@ npm install react-router-dom
 - **路由表**
 
 ```react
-//引入自定义组件
-import Test from "../components/test";
-import Test2 from "../components/test2";
-
 const routes = [{
     path: '/',
-    component: Test,
+    component: require("../components/test"),
     exact: true
 }, {
     path: '/Test2',
-    component: Test2,
+    component: require("../components/test2"),
     exact: true
 }];
 
