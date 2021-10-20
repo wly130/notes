@@ -26,7 +26,7 @@
 
  - **Vue.config.productionTip    是否显示生产消息**
 
- #### globalData 全局变量
+#### globalData 全局变量
 
  ```javascript
  export default {

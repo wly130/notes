@@ -201,3 +201,5 @@ let obj2 = 函数名<number>(123);
 let obj3 = 函数名<boolean>(true);
 ```
 
+
+
