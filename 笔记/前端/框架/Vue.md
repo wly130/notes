@@ -81,7 +81,7 @@ var vue = new Vue({
 	},
 	methods: {
 		//定义函数
-		name: function() {
+		name: () {
 			return "Hello Vue";
 		},
 	},
@@ -149,7 +149,7 @@ var vue = new Vue({
 <div id="app">
 	<ul>
 		<li v-for="item in sites">
-		<li>{{ item.name }}</li>
+			<span>{{ item.name }}</span>
 		</li>
 	</ul>
 </div>
@@ -291,7 +291,7 @@ var vue = new Vue({
 
 ```js
 import index from './component/index.vue'
-Vue.component(index)；
+Vue.component(index);
 ```
 
 ##### 局部组件
@@ -374,8 +374,9 @@ this.$parent.方法名();
 
 ##### 父组件 调用 子组件的方法
 
-```js
-this.$refs.ref属性名.方法名();
+```html
+<子组件 ref="name" ></子组件>
+this.$refs.name.方法名();
 ```
 
 [返回顶部](#目录)
@@ -781,7 +782,7 @@ export default {
 
 #### 网络请求
 
-##### 配置跨域请求
+##### 配置跨域代理
 
 - **vue.config.js**
 
@@ -791,7 +792,7 @@ module.exports = {
 	devServer: {
 		host: 'localhost', //本地IP
 		port: 8080, //端口号
-		https: true, //是否启用 https
+		https: false, //是否启用 https
 		hotOnly: false,
 		proxy: { //配置跨域
 			'/api': {
@@ -901,10 +902,10 @@ import {get, post} from './request.js'
 
 const api = {
 	函数名(params){
-		return get('请求地址', params);
+		return get('/api/请求地址', params);
 	},
     函数名(params){
-		return post('请求地址', params);
+		return post('/api/请求地址', params);
 	}
 }
 export default api
@@ -920,7 +921,7 @@ Vue.prototype.$api = api;
 - **调用API**
 
 ```javascript
-const params = { //参数对象
+let params = { //参数对象
     key: 'value'
 };
 this.$api.函数名(params).then(res => {});
@@ -937,12 +938,19 @@ npm install lib-flexible -S
 npm install postcss-px2rem -S
 ```
 
+- **main.js**
+
+```js
+import 'lib-flexible'
+```
+
 - **配置`postcss-px2rem`**
 
     **`vue.config.js`**
 
 ```js
 module.exports = {
+    publicPath: './',
 	css: {
 		loaderOptions: {
 			css: {},

@@ -184,7 +184,7 @@ interface 接口名 {
 
 class 类名 implements 接口名 {
 	[变量名]:[类型] = value;
-} 
+}
 ```
 
 #### 泛型
