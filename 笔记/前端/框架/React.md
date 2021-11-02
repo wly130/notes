@@ -148,7 +148,26 @@ state = {}
 - **更新state**
 
 ```react
-this.setState({});
+this.setState({ name: 'value' }, () => {
+    //更新完成后执行的代码
+});
+```
+
+- **更新对象属性**
+
+```react
+constructor(props) {
+	super(props);
+	this.state = {
+        name: {
+            value: '123'
+        }
+    }
+}
+
+let name = this.state,name;
+name.value = '456';
+this.setState({ name });
 ```
 
 ### 事件处理
@@ -157,20 +176,20 @@ this.setState({});
 
 | 事件名      | 作用                             |
 | ----------- | -------------------------------- |
-| onClick     | 鼠标点击事件                     |
-| onDblClick  | 鼠标双击事件                     |
-| onMouseDown | 鼠标上的按钮被按下了             |
-| onMouseUp   | 鼠标按下后，松开时               |
-| onMouseOver | 当鼠标移动到某对象范围的上方时   |
-| onMouseMove | 鼠标移动时                       |
-| onMouseOut  | 当鼠标离开某对象范围时           |
-| onKeyPress  | 当键盘上的某个键被按下并且释放时 |
-| onKeyDown   | 当键盘上某个按键被按下时         |
-|onBlur			| 当前元素失去焦点时 |
-|onChange		|当前元素失去焦点并且元素的内容发生改变|
-|onFocus		|当某个元素获得焦点时|
-|onReset		| 重置表单时                             |
-|onSubmit		|提交表单时|
+| **onClick** | 鼠标点击事件                     |
+| **onDblClick** | 鼠标双击事件                     |
+| **onMouseDown** | 鼠标上的按钮被按下了             |
+| **onMouseUp** | 鼠标按下后，松开时               |
+| **onMouseOver** | 当鼠标移动到某对象范围的上方时   |
+| **onMouseMove** | 鼠标移动时                       |
+| **onMouseOut** | 当鼠标离开某对象范围时           |
+| **onKeyPress** | 当键盘上的某个键被按下并且释放时 |
+| **onKeyDown** | 当键盘上某个按键被按下时         |
+|**onBlur**			| 当前元素失去焦点时 |
+|**onChange**		|当前元素失去焦点并且元素的内容发生改变|
+|**onFocus**		|当某个元素获得焦点时|
+|**onReset**		| 重置表单时                             |
+|**onSubmit**		|提交表单时|
 
 ### 函数传参
 
@@ -282,20 +301,18 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <ul>
-                    {
-                        this.state.info.map((item, key) => {
-                            return (
-                                <li key={key}>
-                                    <p>{item.title}</p>
-                                    <p>{item.key}</p>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
+			<ul>
+			    {
+			        this.state.info.map((item, key) => {
+			            return (
+			                <li key={key}>
+			                    <p>{item.title}</p>
+			                    <p>{item.key}</p>
+			                </li>
+			            )
+			        })
+			    }
+			</ul>
         )
     }
 }
@@ -334,11 +351,9 @@ class App extends React.Component {
             )
         })
         return (
-            <div>
-                <ul>
-                    {ForList}
-                </ul>
-            </div>
+            <ul>
+            	{ForList}
+            </ul>
         )
     }
 }
@@ -378,9 +393,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <ul>{this.ForInfo(this.state.info)}</ul>
-            </div>
+            <ul>{this.ForInfo(this.state.info)}</ul>
         )
     }
 }
@@ -426,15 +439,13 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <ul>
-                    {
-                        this.state.info.map((item, index) => {
-                            return <ForList key={index} info={item} />
-                        })
-                    }
-                </ul>
-            </div>
+            <ul>
+            	{
+            	    this.state.info.map((item, index) => {
+            	        return <ForList key={index} info={item} />
+            	    })
+            	}
+            </ul>
         )
     }
 }
@@ -548,13 +559,13 @@ graph TD;
 	componentWillUnmount;
 	
 	设置默认的props-->
-	组件初始化-->
+	组件将要挂载-->
 	创建虚拟dom-->
-	组件渲染之后-->
+	组件挂载完成后-->
 	更新props时-->
 	更新props-->
 	对比前后两个props和state是否相同
-	组件渲染之后-->
+	组件挂载完成后-->
 	更新state-->
 	对比前后两个props和state是否相同-->
 	组件将要更新时-->
@@ -811,7 +822,7 @@ module.exports = (app) => {
         	target: 'http://xxx.xxx.xxx.xxx', //接口地址
             changeOrigin: true,
             pathRewrite: { 
-                '^/api1': '' 
+                '^/api': '' 
             }
         })
     )

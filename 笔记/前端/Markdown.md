@@ -210,3 +210,9 @@ $(document).ready(function () {
 ---
 
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd>重启电脑
+
+<audio controls>
+  <source src="http://www.chongfanmitu.com/chat/Sounds/test.mp3" >
+</audio>
+
+<video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="float:left;"></video>
