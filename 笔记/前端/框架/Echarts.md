@@ -4,6 +4,8 @@
 
 ### 使用
 
+- **官网: <https://echarts.apache.org/zh/index.html>**
+
 - **安装依赖包**
 
 ```shell
