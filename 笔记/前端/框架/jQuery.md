@@ -125,15 +125,9 @@
 
 ```js
 /**
- * type 	请求类型 post/get
- * url 		请求地址
- * data		请求数据
- * dataType	请求数据类型 json/jsonp
- * async	是否异步请求
- * timeout	请求时间 (ms)
- * success 	请求成功回调函数
- * error 	请求失败回调函数
- * complete	请求完成回调函数 (成功和失败都执行)
+ * @param {string} type 请求类型 post/get
+ * @param {string} url 请求地址
+ * @param {Object} data 请求数据
  */
 function api(type, data, url) {
     return new Promise((resolve, reject) => {
@@ -143,7 +137,7 @@ function api(type, data, url) {
 			url: url,
 			dataType: "json",
    			async: false,
-   			timeout: 5000,
+   			timeout: 300,
 			success: (res) => {
 				resolve(res); 	//返回接口数据
 			},

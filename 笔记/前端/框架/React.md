@@ -48,6 +48,12 @@ create-react-app 项目名
 npm start
 ```
 
+- **项目打包**
+
+```shell
+npm run b
+```
+
 ### 目录结构
 
 <img src="../../img/React%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" style="float:left;" />
@@ -253,8 +259,11 @@ export default App;
 ```react
 import React from 'react';
 class App extends React.Component {
-    state = {
-        flag: true
+	constructor(props) {
+        super(props);
+        this.state = {
+            flag: true
+        }
     }
 
     IFFlag = () => {
@@ -281,22 +290,25 @@ export default App;
 
 ### 列表渲染
 
-#### html渲染
+#### `html`渲染
 
 ```react
 import React from 'react';
 class App extends React.Component {
-    state = {
-        info: [{
-            title: '第一个标题',
-            key: '第一个key'
-        }, {
-            title: '第二个标题',
-            key: '第二个key'
-        }, {
-            title: '第三个标题',
-            key: '第三个key'
-        }]
+    constructor(props) {
+        super(props);
+        this.state = {
+            info: [{
+                title: '第一个标题',
+                key: '第一个key'
+            }, {
+                title: '第二个标题',
+                key: '第二个key'
+            }, {
+                title: '第三个标题',
+                key: '第三个key'
+            }]
+        }
     }
 
     render() {
@@ -366,17 +378,20 @@ export default App;
 ```react
 import React from 'react'
 class App extends React.Component {
-    state = {
-        info: [{
-            title: '第一个标题',
-            key: '第一个key'
-        }, {
-            title: '第二个标题',
-            key: '第二个key'
-        }, {
-            title: '第三个标题',
-            key: '第三个key'
-        }]
+    constructor(props) {
+        super(props);
+        this.state = {
+            info: [{
+                title: '第一个标题',
+                key: '第一个key'
+            }, {
+                title: '第二个标题',
+                key: '第二个key'
+            }, {
+                title: '第三个标题',
+                key: '第三个key'
+            }]
+        }
     }
 
     ForInfo(list) {
@@ -446,6 +461,33 @@ class App extends React.Component {
             	    })
             	}
             </ul>
+        )
+    }
+}
+
+export default App;
+```
+
+#### 以 `Array` 方式渲染
+
+```react
+import React from 'react';
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+    
+    render() {
+        return (
+			<ul>
+			    {
+                    //从 0 开始,循环 n 次
+			        [...Array(n)].map((item, key) => {
+			            return <li key={key}>{key}</li>
+			        })
+			    }
+			</ul>
         )
     }
 }
@@ -829,6 +871,8 @@ module.exports = (app) => {
 }
 ```
 
+[返回顶部](#目录)
+
 ### React-router
 
 #### 安装依赖包
@@ -932,5 +976,220 @@ this.props.history.push({
 
 [返回顶部](#目录)
 
+### React Hooks
 
+**在函数组件中可以使用 `生命周期函数` 和 `State状态`**
+
+#### `useState` 
+
+- **定义state状态**
+
+```react
+import React, { useState } from 'react'
+function Example() {
+    const [num, setNum] = useState(0);
+    const [str, setStr] = useState('String');
+    return (
+        <div>
+            <p>{num}</p>
+            <p>{str}</p>
+            {/* 修改变量值 */}
+            <button onClick={() => { setNum(num + 1) }}>{num}+1</button>
+            <button onClick={() => { setStr('str') }}>{str}</button>
+        </div>
+    );
+}
+```
+
+#### `useEffect` 
+
+- **类似于类组件的生命周期函数 (异步加载)**
+
+```react
+import React, { useState, useEffect } from 'react'
+function Example() {
+    const [num, setNum] = useState(0);
+	
+    useEffect(() => {
+        console.log('组件渲染完成');
+        return () => {
+            console.log('组件卸载完成');
+        }
+    /**
+     * 不传参数时，组件每次渲染时都执行
+     * 为 [] 时，只调用一次
+     * 有参数时，只在参数值变化时执行
+     */
+    }, [num]);
+
+    return (
+        <div>
+            <p>{num}</p>
+            <button onClick={() => { setNum(num + 1) }}>{num}+1</button>
+        </div>
+    );
+}		
+```
+
+#### `useContext()`
+
+- **共享状态**
+
+```react
+import React, { useContext } from 'react'
+function Example1() {
+    const AppContext = React.createContext({});
+    const Example2 = () => {
+        //获取参数
+        const { name } = useContext(AppContext);
+        return (
+            <div>
+                <p>Example2{name}</p>
+            </div>
+        );
+    }
+
+    const Example3 = () => {
+        const { name } = useContext(AppContext);
+        return (
+            <div>
+                <p>Example3{name}</p>
+            </div>
+        );
+    }
+
+    return (
+        //父组件传参
+        <AppContext.Provider value={{ name: 'value' }}>
+            <Example2 />
+            <Example3 />
+        </AppContext.Provider>
+    );
+}
+```
+
+#### `userReducer()`
+
+```react
+import React, { useReducer } from 'react'
+function Example() {
+    const [count, dispatch] = useReducer((state, action) => {
+        /**
+         * state 状态值
+         * action dispatch传的参数
+         */
+        switch (action) {
+            case '+':
+                return state + 1;
+            case '-':
+                return state - 1;
+        }
+    }, 0);
+
+    return (
+        <div>
+            <span>{count}</span>
+            <button onClick={() => { dispatch('+') }}>{count}+1</button>
+            <button onClick={() => { dispatch('-') }}>{count}-1</button>
+        </div>
+    )
+}
+```
+
+[返回顶部](#目录)
+
+### Redux
+
+- **安装依赖包**
+
+```shell
+npm install react-redux --save
+```
+
+- **index.js**
+
+```react
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+import store from "./redux/store"
+import './index.css';
+import App from './App';
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+```
+
+- **store.js**
+
+```react
+import { createStore } from "redux"
+
+const State = {
+    count: 0
+}
+
+const store = createStore((state = State, action) => {
+    if (action.type == '+') {
+        return {
+            count: state.count + 1
+        }
+    }
+});
+
+export default store;
+```
+
+- **页面**
+
+```react
+import React, { Component } from 'react'
+import { connect } from "react-redux"
+
+class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    add = () => {
+        this.props.add();
+    }
+
+    render() {
+        return (
+            <div>
+                <div>{this.props.count}</div>
+                <button onClick={this.add}>+</button>
+            </div>
+        );
+    }
+}
+
+//获取 state 状态
+function getState(state) {
+    return {
+        count: state.count
+    }
+}
+
+//获取 dispatch 的值
+function getDispatch(dispatch) {
+    return {
+        add() {
+            dispatch({
+                type: "+"
+            })
+        }
+    }
+}
+
+export default connect(getState, getDispatch)(Index);
+```
+
+[返回顶部](#目录)
 
