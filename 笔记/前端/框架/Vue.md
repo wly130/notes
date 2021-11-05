@@ -1,22 +1,22 @@
-#### 目录
+### 目录
 
 [TOC]
 
-#### Vue 的引用
+### Vue 的引用
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 ```
 
-#### 搭建 Vue 项目
+### 搭建 Vue 项目
 
 ```shell
 vue init webpack 项目名
 ```
 
-#### Vue 生命周期
+### Vue 生命周期
 
-##### 生命周期函数
+#### 生命周期函数
 
 ```mermaid
 graph TD;
@@ -54,7 +54,7 @@ graph TD;
 | **index.html**   | **项目的首页，入口页**         |
 | **package.json** | **定义项目的所有依赖**         |
 
-#### Vue 构造器
+### Vue 构造器
 
 ```html
 <div id="id">
@@ -90,9 +90,9 @@ var vue = new Vue({
 
 [返回顶部](#目录)
 
-#### Vue 指令
+### Vue 指令
 
-##### **v-text 和 v-html**
+#### **v-text 和 v-html**
 
 > **文本渲染**
 
@@ -111,7 +111,7 @@ var vue = new Vue({
 </script>
 ```
 
-##### v-bind
+#### v-bind
 
 > **属性绑定**
 
@@ -120,9 +120,9 @@ var vue = new Vue({
 <div :属性名=“” ></di>
 ```
 
-##### v-model
+#### v-model
 
-> **双向数据绑定**
+> #### **双向数据绑定**
 
 ```html
 <div id="app">
@@ -141,7 +141,7 @@ var vue = new Vue({
 
 [返回顶部](#目录)
 
-##### **v-for**
+#### **v-for**
 
 > **循环语句**
 
@@ -169,7 +169,7 @@ var vue = new Vue({
 </script>
 ```
 
-##### **v-if 和 v-else**
+#### **v-if 和 v-else**
 
 > **条件语句**
 
@@ -191,12 +191,12 @@ var vue = new Vue({
 </div>
 ```
 
-##### **v-if 和 v-show 的区别**
+#### **v-if 和 v-show 的区别**
 
 - **v-if = "false" 从页面中移除该元素**
 - **v-show = "false" 隐藏该元素(不移除)**
 
-##### **v-on**
+#### **v-on**
 
 > **事件绑定**
 
@@ -218,7 +218,7 @@ var vue = new Vue({
 
 [返回顶部](#目录)
 
-#### Vue事件
+### Vue事件
 
 - **鼠标事件**
 
@@ -235,7 +235,7 @@ var vue = new Vue({
 | **@blur**       | **失去焦点** |
 | **@focus**      | **获取焦点** |
 
-#### `transition` 过渡
+### `transition` 过渡
 
 ```vue
 <transition>
@@ -252,7 +252,7 @@ var vue = new Vue({
 | **v-active-leave** | **元素隐藏/移除的过渡时间和函数** |
 | **v-leave-to**     | **元素隐藏/移除后的效果**         |
 
-#### 监听属性
+### 监听属性
 
 - **侦听器 `watch`**
 
@@ -285,16 +285,16 @@ var vue = new Vue({
 
 [返回顶部](#目录)
 
-#### 组件
+### 组件
 
-##### 全局组件
+#### 全局组件
 
 ```js
 import index from './component/index.vue'
 Vue.component(index);
 ```
 
-##### 局部组件
+#### 局部组件
 
 ```js
 import index from './component/index.vue'
@@ -513,7 +513,7 @@ this.$refs.name.方法名();
 
 [返回顶部](#目录)
 
-#### v-for 动态绑定 input 输入值
+### v-for 动态绑定 input 输入值
 
 ```vue
 <template>
@@ -544,7 +544,7 @@ this.$refs.name.方法名();
 </script>
 ```
 
-#### 数据缓存
+### 数据缓存
 
 **`sessionStorage` : 浏览器关闭时自动删除**
 
@@ -600,7 +600,7 @@ this.$refs.name.方法名();
 
 [返回顶部](#目录)
 
-#### vue-router
+### vue-router
 
 - **安装依赖包**
 
@@ -658,7 +658,7 @@ new Vue({
 </script>
 ```
 
-#### 路由跳转传值
+### 路由跳转传值
 
 - **声明式导航**
 
@@ -693,7 +693,7 @@ this.$route.params.id;
 
 - **this.$router.replace()  关闭当前页面跳转**
 
-#### Vuex 状态管理工具
+### Vuex 状态管理工具
 
 1. **安装 vuex 依赖包**
 
@@ -714,23 +714,23 @@ this.$route.params.id;
    const store = new Vuex.Store({});
    ```
 
-##### State
+#### State
 
 - 定义了应用状态的数据结构，可以在这里设置默认的初始状态
 
-##### Getter
+#### Getter
 
 - 允许组件从 Store 中获取数据
 
-##### Mutation
+#### Mutation
 
 - 是唯一更改 store 中状态的方法，必须是同步函数。
 
-##### Action
+#### Action
 
 - 用于提交 mutation，不是直接变更状态，可以包含任意异步操作。
 
-##### Module
+#### Module
 
 - 可以将 store 分割成模块
 
@@ -780,9 +780,9 @@ export default {
 
 > **mapState**
 
-#### 网络请求
+### 网络请求
 
-##### 配置跨域代理
+#### 配置跨域代理
 
 - **vue.config.js**
 
@@ -828,7 +828,7 @@ axios({
 .catch(function (error) {}); //请求失败
 ```
 
-##### 封装网络请求API
+#### 封装网络请求API
 
 - **request.js**
 
@@ -929,7 +929,7 @@ this.$api.函数名(params).then(res => {});
 
 [返回顶部](#目录)
 
-#### 移动端适配
+### 移动端适配
 
 - **安装依赖包**
 

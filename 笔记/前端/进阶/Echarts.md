@@ -25,3 +25,4 @@ let chartDom = document.getElementById('id');
 let myChart = echarts.init(chartDom);
 myChart.setOption(option);
 ```
+

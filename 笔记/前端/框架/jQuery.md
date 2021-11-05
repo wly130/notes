@@ -1,9 +1,27 @@
+[TOC]
+
 ## jQuery
 
 **官网：<https://jquery.com/>**
 
 ```html
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+```
+
+### 初始化
+
+```js
+$(document).ready(() => {
+	console.log("方式一");
+});
+
+$(()=> {
+	console.log("方式二");
+});
+
+jQuery(($) => {
+	console.log("方式三");
+});
 ```
 
 ### 选择器
@@ -25,6 +43,8 @@
 
 ### 事件
 
+#### 鼠标事件
+
 | 鼠标事件       | 作用                                    |
 | -------------- | --------------------------------------- |
 | **onclick**      | 点击事件                                |
@@ -37,18 +57,24 @@
 | **onmouseover**  | 鼠标指针位于元素上方时                  |
 | **onhover**      | 光标悬停事件                            |
 
+#### 键盘事件
+
 | 键盘事件     | 作用           |
 | ------------ | -------------- |
 | **onkeydown**  | 键被按下的过程 |
 | **onkeypress** | 键被按下       |
 | **onkeyup**    | 键被松开       |
 
-| 表单事     | 作用           |
+#### 表单事件
+
+| 表单事件     | 作用           |
 | ---------- | -------------- |
 | **onsubmit** | 提交表单时     |
 | **onchange** | 元素的值改变时 |
 | **onfocus**  | 元素获得焦点时 |
 | **onblur**   | 元素失去焦点时 |
+
+#### 文档/窗口事件
 
 | 文档/窗口事件 | 作用                 |
 | ------------- | -------------------- |
@@ -104,6 +130,38 @@
 | **innerHeight()** | 返回元素的高度，包括内边距               |
 | **outerWidth()**  | 返回元素的宽度，包括内边距和边框         |
 | **outerHeight()** | 返回元素的高度，包括内边距和边框         |
+
+### 循环
+
+#### `html()` 渲染
+
+```js
+let div = '';
+for (let i = 0; i < 10; i++) {
+	div += '<div>' + i + '</div>';
+}
+$('.div').html(div);
+```
+
+#### `append()` 渲染
+
+```js
+let data = [{
+	name: "一",
+	value: 1
+}, {
+	name: "二",
+	value: 2
+}, {
+	name: "三",
+	value: 3
+}]
+for (let i = 0; i < data.length; i++) {
+	let str = "<li>" + data[i].name + "</li>";
+	str += "<li>" + data[i].value + "</li>";
+	$(".div").append(str);
+}
+```
 
 ### Ajax 方法
 

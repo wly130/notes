@@ -180,22 +180,22 @@ this.setState({ name });
 
 #### 常用事件
 
-| 事件名      | 作用                             |
-| ----------- | -------------------------------- |
-| **onClick** | 鼠标点击事件                     |
-| **onDblClick** | 鼠标双击事件                     |
-| **onMouseDown** | 鼠标上的按钮被按下了             |
-| **onMouseUp** | 鼠标按下后，松开时               |
-| **onMouseOver** | 当鼠标移动到某对象范围的上方时   |
-| **onMouseMove** | 鼠标移动时                       |
-| **onMouseOut** | 当鼠标离开某对象范围时           |
-| **onKeyPress** | 当键盘上的某个键被按下并且释放时 |
-| **onKeyDown** | 当键盘上某个按键被按下时         |
-|**onBlur**			| 当前元素失去焦点时 |
-|**onChange**		|当前元素失去焦点并且元素的内容发生改变|
-|**onFocus**		|当某个元素获得焦点时|
-|**onReset**		| 重置表单时                             |
-|**onSubmit**		|提交表单时|
+| 事件名          | 作用                                   |
+| --------------- | -------------------------------------- |
+| **onClick**     | 鼠标点击事件                           |
+| **onDblClick**  | 鼠标双击事件                           |
+| **onMouseDown** | 鼠标上的按钮被按下了                   |
+| **onMouseUp**   | 鼠标按下后，松开时                     |
+| **onMouseOver** | 当鼠标移动到某对象范围的上方时         |
+| **onMouseMove** | 鼠标移动时                             |
+| **onMouseOut**  | 当鼠标离开某对象范围时                 |
+| **onKeyPress**  | 当键盘上的某个键被按下并且释放时       |
+| **onKeyDown**   | 当键盘上某个按键被按下时               |
+| **onBlur**      | 当前元素失去焦点时                     |
+| **onChange**    | 当前元素失去焦点并且元素的内容发生改变 |
+| **onFocus**     | 当某个元素获得焦点时                   |
+| **onReset**     | 重置表单时                             |
+| **onSubmit**    | 提交表单时                             |
 
 ### 函数传参
 
@@ -1124,7 +1124,7 @@ ReactDOM.render(
 );
 ```
 
-- **store.js**
+- **redux/store.js**
 
 ```react
 import { createStore } from "redux"
