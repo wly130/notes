@@ -1073,11 +1073,11 @@ function Example1() {
 ```react
 import React, { useReducer } from 'react'
 function Example() {
+    /**
+     * state 状态值
+     * action dispatch传的参数
+     */
     const [count, dispatch] = useReducer((state, action) => {
-        /**
-         * state 状态值
-         * action dispatch传的参数
-         */
         switch (action) {
             case '+':
                 return state + 1;

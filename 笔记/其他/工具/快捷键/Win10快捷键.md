@@ -27,3 +27,4 @@
 | **<kbd>Alt　+　Shift</kbd>**      | 切换输入法                   |
 | **<kbd>Alt　+　Caps Lock</kbd>**  | 切换到片假名                 |
 | **<kbd>Ctrl　+　Caps Lock</kbd>** | 切换回平假名                 |
+
