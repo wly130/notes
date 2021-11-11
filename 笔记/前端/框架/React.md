@@ -51,7 +51,7 @@ npm start
 - **项目打包**
 
 ```shell
-npm run b
+npm run build
 ```
 
 ### 目录结构
@@ -68,7 +68,7 @@ npm run b
 
 - **注释**
 
-- 需要加**大括号**
+    需要加**大括号**
 
 ```react
 let name = <div>Text{/*注释*/}</div>;
@@ -76,7 +76,7 @@ let name = <div>Text{/*注释*/}</div>;
 
 - **多个标签**
 
-- 需要有一个**父元素**
+    需要有一个**父元素**
 
 ```react
 let num = (
@@ -118,6 +118,7 @@ import imgUrl from '../assets/photo.png';
 ```react
 import React from 'react';
 import './css'; //外部引入CSS
+
 class App extends React.Component {
     render() {
         let styles = { //CSS对象
@@ -256,6 +257,8 @@ export default App;
 
 ### 条件渲染
 
+#### `函数` 判断
+
 ```react
 import React from 'react';
 class App extends React.Component {
@@ -277,7 +280,123 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <span>{this.IFFlag()}</span>
+                {this.IFFlag()}
+            </div>
+        )
+    }
+}
+
+export default App;
+```
+
+#### `元素变量` 判断
+
+```react
+import React from 'react';
+class App extends React.Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            flag: true
+        }
+    }
+
+    render() {
+        let { flag } = this.state;
+        let IFFlag;
+        
+        if (flag) {
+            IFFlag = <div>True</div>
+        } else {
+            IFFlag = <div>False</div>
+        }
+        return (
+            <div>
+                {IFFlag }
+            </div>
+        )
+    }
+}
+
+export default App;
+```
+
+#### `三元运算符 `判断
+
+```react
+import React from 'react';
+class App extends React.Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            flag: true
+        }
+    }
+
+    render() {
+        let { flag } = this.state;
+        return (
+            <div>
+                { flag ? <div>True</div> : <div>False</div> }
+            </div>
+        )
+    }
+}
+
+export default App;
+```
+
+#### `逻辑运算符&&` 判断
+
+```react
+import React from 'react';
+class App extends React.Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            flag: true
+        }
+    }
+
+    render() {
+        let { flag } = this.state;
+        return (
+            <div>
+                { flag && <div>True</div> }
+                { !flag && <div>False</div> }
+            </div>
+        )
+    }
+}
+
+export default App;
+```
+
+#### `Switch` 判断
+
+```react
+import React from 'react';
+class App extends React.Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            flag: true
+        }
+    }
+
+    render() {
+        let { flag } = this.state;
+        switch (flag) {
+        	case true:
+      			return <div>True</div>;
+    		case false:
+      			return <div>False</div>;
+    		default:
+      			return null;
+  		}
+        return (
+            <div>
+                { flag }
             </div>
         )
     }
@@ -332,7 +451,7 @@ class App extends React.Component {
 export default App;
 ```
 
-#### 以`参数`方式渲染
+#### `参数`方式渲染
 
 ```react
 import React from 'react'
@@ -373,7 +492,7 @@ class App extends React.Component {
 export default App;
 ```
 
-#### 以`函数`方式渲染
+#### `函数`方式渲染
 
 ```react
 import React from 'react'
@@ -416,7 +535,7 @@ class App extends React.Component {
 export default App;
 ```
 
-#### 以`组件`方式渲染
+#### `组件`方式渲染
 
 ```react
 import React from 'react'
@@ -468,7 +587,7 @@ class App extends React.Component {
 export default App;
 ```
 
-#### 以 `Array` 方式渲染
+####  `Array` 方式渲染
 
 ```react
 import React from 'react';

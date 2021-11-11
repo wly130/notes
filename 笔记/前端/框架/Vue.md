@@ -552,51 +552,65 @@ this.$refs.name.方法名();
 
 - **写入缓存**
 
-  ```js
-  localStorage.setItem('key值', value);
-  sessionStorage.setItem('key值', value);
-  ```
-  
+```js
+localStorage.setItem('key值', value);
+sessionStorage.setItem('key值', value);
+```
+
 - **输出缓存**
 
-  ```js
-  localStorage.getItem('key值');
-  sessionStorage.getItem('key值');
-  ```
-  
+```js
+localStorage.getItem('key值');
+sessionStorage.getItem('key值');
+```
+
 - **删除缓存**
 
-  ```js
-  localStorage.removeItem('key值');
-  localStorage.clear(); //清空所有缓存
-  sessionStorage.removeItem('key值');
-  sessionStorage.clear(); //清空所有缓存
-  ```
+```js
+localStorage.removeItem('key值');
+localStorage.clear(); //清空所有缓存
+sessionStorage.removeItem('key值');
+sessionStorage.clear(); //清空所有缓存
+```
 
-#### js-cookie
+### js-cookie
+
+- **下载依赖包**
+
+ ```shell
+ npm install js-cookie --save
+ ```
+
+- **导入依赖包**
+
+```js
+import cookie from 'js-cookie'
+//定义全局方法
+Vue.prototype.$cookie = cookie;
+```
 
 - **写入`cookie`**
 
-  ```js
-  this.$cookie.set('key', value);
-  this.$cookie.set('key', value, {
-      expires: date,	//有效期,单位:天
-      path: '/src',	//路径
-      domain: '域名'   //指定域名
-  });
-  ```
+```js
+this.$cookie.set('key', value);
+this.$cookie.set('key', value, {
+    expires: date,	//有效期,单位:天
+    path: '/src',	//路径
+    domain: '域名'   //指定域名
+});
+```
 
 - **获取`cookie`**
 
-  ```js
-  this.$cookie.get('key');
-  ```
+```js
+this.$cookie.get('key');
+```
 
 - **删除`cookie`**
 
-  ```js
-  this.$cookie.remove('key');
-  ```
+```js
+this.$cookie.remove('key');
+```
 
 [返回顶部](#目录)
 
@@ -697,22 +711,22 @@ this.$route.params.id;
 
 1. **安装 vuex 依赖包**
 
-   ```shell
-   npm install vuex --save
-   ```
+```shell
+npm install vuex --save
+```
 
 2. **导入 vuex 包**
 
-   ```javascript
-   import Vuex from 'vuex'
-   Vue.use(Vuex);
-   ```
+```javascript
+import Vuex from 'vuex'
+Vue.use(Vuex);
+```
 
 3. **创建 store 对象**
 
-   ```javascript
-   const store = new Vuex.Store({});
-   ```
+```javascript
+const store = new Vuex.Store({});
+```
 
 #### State
 
