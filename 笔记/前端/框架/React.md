@@ -394,11 +394,6 @@ class App extends React.Component {
     		default:
       			return null;
   		}
-        return (
-            <div>
-                { flag }
-            </div>
-        )
     }
 }
 

@@ -257,29 +257,63 @@ var vue = new Vue({
 - **侦听器 `watch`**
 
 ```html
-<div id="app">
-	千米 :<input type="text" v-model="km">
-	米 :<input type="text" v-model="m">
-</div>
-<script type="text/javascript">
-	var vm = new Vue({
-		el: '#app',
-		data: {
-			km: 0,
-			m: 0
+<template>
+	<div>
+		千米 :<input type="text" v-model="km">
+		米 :<input type="text" v-model="m">
+	</div>
+</template>
+<script>
+    export default {
+		data() {
+			return {
+				km: 0,
+				m: 0
+			}
 		},
-		//侦听器
+        //侦听器
 		watch: {
-			km: function(val) {
+			km: (val) => {
 				this.km = val;
 				this.m = this.km * 1000
 			},
-			m: function(val) {
+			m: (val)  {
 				this.km = val / 1000;
 				this.m = val;
 			}
 		}
-	});
+	}
+</script>
+```
+
+- **`$on` 和 `$emit`**
+
+```html
+<template>
+	<div>
+		<button @click="isClick">子传父</button>
+	</div>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				value: "value"
+			}
+		},
+        mounted() {
+            //监听自定义事件
+      		this.$on('isClick', (val) => {
+        		console.log(val);
+      		});
+    	},
+		methods: {
+			isClick() {
+                //触发实例上的事件
+				this.$emit('isClick', this.value);
+			}
+		}
+	}
 </script>
 ```
 
@@ -319,58 +353,58 @@ this.$parent.方法名();
 
 - **子组件**
 
-  ```html
-  <template>
-  	<div>
-  		<button @click="submit">子传父</button>
-  	</div>
-  </template>
-  <script>
-  	export default {
-  		data() {
-  			return {
-  				value: "value"
-  			}
-  		},
-  		methods: {
-  			submit() {
-  				//通过 $emit 向父组件传 value 值
-  				this.$emit('Parent', this.value);
-  			}
-  		}
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div>
+		<button @click="submit">子传父</button>
+	</div>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				value: "value"
+			}
+		},
+		methods: {
+			submit() {
+				//通过 $emit 向父组件传 value 值
+				this.$emit('Parent', this.value);
+			}
+		}
+	}
+</script>
+```
 
 - **父组件**
 
-  ```html
-  <template>
-  	<div>
-  		<!-- 通过 自定义事件 接收子组件的 value 值 -->
-  		<子组件 @Parent="getValue"></子组件>
-  	</div>
-  </template>
-  <script>
-  	import 子组件 from '/子组件'
-  	export default {
-  		data() {
-  			return {
-  				value: ""
-  			}
-  		},
-  		components: {
-  			子组件
-  		},
-  		methods: {
-  			//自定义事件名
-  			getValue(value) {
-  				this.value = value;
-  			}
-  		}
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div>
+		<!-- 通过 自定义事件 接收子组件的 value 值 -->
+		<子组件 @Parent="getValue" />
+	</div>
+</template>
+<script>
+	import 子组件 from '/子组件'
+	export default {
+		data() {
+			return {
+				value: ""
+			}
+		},
+		components: {
+			子组件
+		},
+		methods: {
+			//自定义事件名
+			getValue(value) {
+				this.value = value;
+			}
+		}
+	}
+</script>
+```
 
 ##### 父组件 调用 子组件的方法
 
@@ -385,131 +419,131 @@ this.$refs.name.方法名();
 
 - **父组件**
 
-  ```html
-  <template>
-  	<div>
-  		<!-- 通过 自定义属性 向子组件传值 -->
-  		<子组件 :child="childValue"></子组件>
-  	</div>
-  </template>
-  <script>
-  	import 子组件 from '/子组件'
-  	export default {
-  		data() {
-  			return {
-  				childValue: "value"
-  			}
-  		},
-  		components: {
-  			子组件
-  		}
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div>
+		<!-- 通过 自定义属性 向子组件传值 -->
+		<子组件 :child="childValue" />
+	</div>
+</template>
+<script>
+	import 子组件 from '/子组件'
+	export default {
+		data() {
+			return {
+				childValue: "value"
+			}
+		},
+		components: {
+			子组件
+		}
+	}
+</script>
+```
 
 - **子组件**
 
-  ```html
-  <template>
-  	<div>
-  		<span>{{ child }}</span>
-  	</div>
-  </template>
-  <script>
-  	export default {
-  		//通过 props 接收父组件的值
-  		props: ['child']
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div>
+		<span>{{ child }}</span>
+	</div>
+</template>
+<script>
+	export default {
+		//通过 props 接收父组件的值
+		props: ['child']
+	}
+</script>
+```
 
 ##### 兄弟组件传值
 
 - **父组件**
 
-  ```html
-  <template>
-  	<div id="app">
-  		<A></A>
-  		<B></B>
-  	</div>
-  </template>
-  <script>
-  	import A from './a.vue'
-  	import B from './b.vue'
-  	export default {
-  		components: {
-  			A,
-  			B
-  		}
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div id="app">
+		<A />
+		<B />
+	</div>
+</template>
+<script>
+	import A from './a.vue'
+	import B from './b.vue'
+	export default {
+		components: {
+			A,
+			B
+		}
+	}
+</script>
+```
 
 - **A 组件**
 
-  ```html
-  <template>
-  	<div id="app">
-  		<button @click="aValue">A按钮</button>
-  	</div>
-  </template>
-  <script>
-  	import eventVue from './event.js'
-  	export default {
-  		data() {
-  			return {
-  				msgA: "组件A"
-  			}
-  		},
-  		methods: {
-  			aValue() {
-  				//$emit 方法会触发一个事件
-  				this.$emit("myFun", this.msgA);
-  			}
-  		}
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div id="app">
+		<button @click="aValue">A按钮</button>
+	</div>
+</template>
+<script>
+	import eventVue from './event.js'
+	export default {
+		data() {
+			return {
+				msgA: "组件A"
+			}
+		},
+		methods: {
+			aValue() {
+				//$emit 方法会触发一个事件
+				this.$emit("myFun", this.msgA);
+			}
+		}
+	}
+</script>
+```
 
 - **B 组件**
 
-  ```html
-  <template>
-  	<div id="app">
-  		<div>{{ msgB }}</div>
-  	</div>
-  </template>
-  <script>
-  	import eventVue from './event.js'
-  	export default {
-  		data() {
-  			return {
-  				msgB: "组件B"
-  			}
-  		},
-  		created() {
-  			this.bValue();
-  		},
-  		methods: {
-  			bValue() {
-  				//$on 接收A组件传的值
-  				this.$on("myFun", (msg) => {
-  					this.msgB = msg
-  				})
-  			}
-  		}
-  	}
-  </script>
-  ```
+```html
+<template>
+	<div id="app">
+		<div>{{ msgB }}</div>
+	</div>
+</template>
+<script>
+	import eventVue from './event.js'
+	export default {
+		data() {
+			return {
+				msgB: "组件B"
+			}
+		},
+		created() {
+			this.bValue();
+		},
+		methods: {
+			bValue() {
+				//$on 接收A组件传的值
+				this.$on("myFun", (msg) => {
+					this.msgB = msg
+				})
+			}
+		}
+	}
+</script>
+```
 
 - **`event.js`**
 
-  ```js
-  import Vue from 'vue'
-  
-  export default new Vue
-  ```
+```js
+import Vue from 'vue'
+
+export default new Vue
+```
 
 [返回顶部](#目录)
 
@@ -681,7 +715,7 @@ new Vue({
 <router-link :to="{path:'/home'}">
 ```
 
-- **`query`传参(参数显示在url上)**
+- **`query` 传参(参数显示在url上)**
 ```js
 this.$router.push({
 	path: '/home',
