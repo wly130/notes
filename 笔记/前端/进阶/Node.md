@@ -2,56 +2,84 @@
 
 [TOC]
 
-#### NPM 包管理器
+### 环境安装
 
-- **常用命令**
+- **[点击下载](https://nodejs.org/zh-cn/download/)**
 
-  - **参数**
+- **检查是否已安装**
 
-  | 参数                      | 作用                                                         |
-  | ------------------------- | ------------------------------------------------------------ |
-  | **-g**                    | **全局**                                                     |
-  | **-S 或 --save**          | **包信息将加入到 `dependencies`（==生产==阶段的依赖）**      |
-  | **-D 或 --save-dev**      | **包信息将加入到 `devDependencies`（==开发==阶段的依赖）**   |
-  | **-O 或 --save-optional** | **包信息将加入到 `optionalDependencies`（==可选==阶段的依赖）** |
+```shell
+node --version
+```
 
-  > **安装模块**
+### NPM 包管理器
 
-  ```shell
-  npm install 包名
-  npm install 包名@0.0.0	#安装指定版本
-  ```
+#### 常用命令
 
-  > 卸载模块 
+- **初始化(生成package.json)**
 
-  ```shell
-  npm uninstall 包名
-  ```
+```shell
+npm init
+```
 
-- **package.json 		对项目或者模块包的描述**
+- **安装模块**
 
-  ```json
-  {
-  	"name": "包的名称",
-  	"description": "自述文件",
-  	"version": "版本号",
-  	"main": "index.js",	//入口文件
-  	"scripts": {
-  	  //脚本命令
-  	},
-  	"repository": { //包代码的Repo信息
-  	  "type": "git / svn",
-  	  "url": "代码存放地址"
-  	},
-  	"license": "ISC",//软件授权条款
-  	"bugs": {	//bug 提交地址
-  	  "url": ""
-  	},
-  	"homepage": "包官网URL"
-  }
-  ```
+```shell
+npm install 包名
+npm install 包名@0.0.0	#安装指定版本
+```
 
-#### 文件操作
+- **卸载模块** 
+
+```shell
+npm uninstall 包名
+```
+
+- **更新模块**
+
+```shell
+npm update 包名
+```
+
+- **搜索模块**
+
+```shell
+npm search 包名
+```
+
+- **参数**
+
+| 参数                      | 作用                                                         |
+| ------------------------- | ------------------------------------------------------------ |
+| **-g**                    | **全局**                                                     |
+| **-S 或 --save**          | **包信息将加入到 `dependencies`（==生产==阶段的依赖）**      |
+| **-D 或 --save-dev**      | **包信息将加入到 `devDependencies`（==开发==阶段的依赖）**   |
+| **-O 或 --save-optional** | **包信息将加入到 `optionalDependencies`（==可选==阶段的依赖）** |
+
+**package.json 		对项目或者模块包的描述**
+
+```json
+{
+	"name": "包的名称",
+	"description": "自述文件",
+	"version": "版本号",
+	"main": "index.js",	//入口文件
+	"scripts": {
+	  //脚本命令
+	},
+	"repository": { //包代码的Repo信息
+	  "type": "git / svn",
+	  "url": "代码存放地址"
+	},
+	"license": "ISC",//软件授权条款
+	"bugs": {	//bug 提交地址
+	  "url": ""
+	},
+	"homepage": "包官网URL"
+}
+```
+
+### 文件操作
 
 - **导入模块**
 
@@ -96,11 +124,7 @@ fs.writeFile("文件名", msg, function (err) {
 | **fs.mkdir()**     | **创建目录**     |
 | **fs.readdir()**   | **读取目录**     |
 
-#### async 异步函数
-
-
-
-#### node 连接 MySQL
+### node 连接 MySQL
 
 - **下载模块**
 
@@ -114,7 +138,7 @@ npm install mysql
 //导入模块
 var mysql = require("mysql");
 //创建连接
-var connection = mysql.createConnection({
+var conn = mysql.createConnection({
 	host: "localhost", //主机名
 	user: "root", //用户名
 	password: "000000", //密码
@@ -122,10 +146,10 @@ var connection = mysql.createConnection({
 	database: "wly", //数据库名
 });
 //开始连接
-connection.connect();
-var sql = "sql语句";
+conn.connect();
+l sql = "sql语句";
 //执行sql语句
-connection.query(sql, function (err, res) {
+conn.query(sql, function (err, res) {
 	if (err) {
 		console.log(err);
 	}else {

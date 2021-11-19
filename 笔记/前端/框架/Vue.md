@@ -959,10 +959,10 @@ const api = {
 export default api
 ```
 
-- **nain.js**
+- **main.js**
 
 ```javascript
-import api from 'api.js'
+import api from './api.js'
 Vue.prototype.$api = api;
 ```
 

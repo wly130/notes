@@ -12,7 +12,7 @@
 | **删除数据库**         | **drop database** _数据库名_;                                |
 | **查看某个数据库**     | **show create databse** _数据库名_;                          |
 | **查看所有数据库**     | **show databases**;                                          |
-| **修改数据库编码方式** | **alter database** _数据库名_ **default character set** _编\*\*码方式\_bin;_ |
+| **修改数据库编码方式** | **alter database** _数据库名_ **default character set** _编码方式\_bin;_ |
 | **创建数据表**         | **create table** _表名_ _(<br>&nbsp;&nbsp;&nbsp;&nbsp;字段名 数据类型(),<br> &nbsp;&nbsp;&nbsp;&nbsp;...<br>)_; |
 | **删除数据表**         | **drop table** _表名_;                                       |
 | **进入数据库**         | **use** _数据库名_;                                          |
@@ -173,61 +173,61 @@ create 索引类型 index 别名 on 表名 (字段名);
 - **查询指定字段**
 
 ```sql
-select 字段1,字段2  from 表名;
+SELECT 字段1,字段2 FROM 表名;
 ```
 
 - **条件查询**
 
 ```sql
-select 字段1,字段2  from 表名 WHERE 条件;
+SELECT 字段1,字段2 FROM 表名 WHERE 条件;
 ```
 
 - **查询指定范围数据**
 
 ```sql
-select 字段1,字段2  from 表名 where 字段 BETWEEN 值1 AND 值2;
+SELECT 字段1,字段2 FROM 表名 WHERE 字段 BETWEEN 值1 AND 值2;
 ```
 
 - **空值查询**
 
 ```sql
-select * from 表名 where 字段名 IS NULL;
+SELECT * FROM 表名 WHERE 字段名 IS NULL;
 ```
 
 - **重复查询**
 
 ```sql
-select DISTINCT 字段1,字段2 from 表名;
+SELECT DISTINCT 字段1,字段2 FROM 表名;
 ```
 
 - **字符查询**
 
 ```sql
-select * from 表名 where 字段名 LIKE '%字符';
+SELECT * FROM 表名 WHERE 字段名 LIKE '%字符';
 ```
 
 - **数据表设置别名**
 
 ```sql
-select 表名.字段名 from 表名 AS 别名;
+SELECT 表名.字段名 FROM 表名 AS 别名;
 ```
 
 - **字段设置别名**
 
 ```sql
-select 字段名 AS 别名 from 表名;
+SELECT 字段名 AS 别名 FROM 表名;
 ```
 
 - **显示前 n 行数据**
 
 ```sql
-select * from 表名 LIMIT n;
+SELECT * FROM 表名 LIMIT n;
 ```
 
 - **显示第 n 行到第 f 行**
 
 ```sql
-select * from 表名 LIMIT n－1,f;
+SELECT * FROM 表名 LIMIT n－1,f;
 ```
 
 - **查询结果排序**[^1]
@@ -235,13 +235,13 @@ select * from 表名 LIMIT n－1,f;
   [^1]:ASC: 升序&nbsp;&nbsp;DESC: 降序
 
 ```sql
-select * from 表名 ORDER BY 字段名 ASC / DESC;
+SELECT * FROM 表名 ORDER BY 字段名 ASC / DESC;
 ```
 
 - **查询多个结果**
 
 ```sql
-select * from 表名 where 字段名 IN (value1, value2);
+SELECT * FROM 表名 WHERE 字段名 IN (value1, value2);
 ```
 
 - **连接多条查询语句**
@@ -253,7 +253,7 @@ select * from 表名 where 字段名 IN (value1, value2);
 - **复制表内容**
 
 ```sql
-insetr into 表2 select * from 表1;
+INSERT INTO 表2 SELECT * FROM 表1;
 ```
 
 [返回顶部](#目录)
@@ -266,7 +266,7 @@ insetr into 表2 select * from 表1;
 
 ```sql
 //如果表中有至少一个匹配，则返回行
-select 列名1,列名2  from 表名1 INNER JOIN 表名2;
+SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2;
 ```
 
 <img src="https://www.runoob.com/wp-content/uploads/2013/09/img_leftjoin.gif" alt="avatar" style="float:left" />
@@ -275,7 +275,7 @@ select 列名1,列名2  from 表名1 INNER JOIN 表名2;
 
 ```sql
 //即使右表中没有匹配的也从左表返回所有行
-select 列名1,列名2  from 左表 LEFT JOIN 右表;
+SELECT 列名1,列名2 FROM 左表 LEFT JOIN 右表;
 ```
 
 <img src="https://www.runoob.com/wp-content/uploads/2013/09/img_rightjoin.gif" alt="avatar" style="float:left" />
@@ -284,7 +284,7 @@ select 列名1,列名2  from 左表 LEFT JOIN 右表;
 
 ```sql
 //即使左表中没有匹配也从右表返回所有的行
-select 列名1,列名2  from 左表 RIGHT JION 右表;
+SELECT 列名1,列名2 FROM 左表 RIGHT JION 右表;
 ```
 
 <img src="https://www.runoob.com/wp-content/uploads/2013/09/img_fulljoin.gif" alt="avatar" style="float:left" />
@@ -293,13 +293,13 @@ select 列名1,列名2  from 左表 RIGHT JION 右表;
 
 ```sql
 //只要其中一个表中存在匹配，则返回行
-select 列名1,列名2  from 左表 FULL OUTER JOIN 右表;
+SELECT 列名1,列名2 FROM 左表 FULL OUTER JOIN 右表;
 ```
 
 - **分组查询**
 
 ```sql
-select 列名1,列名2 from 表名1 INNER JOIN 表名2 GROUP BY 字段名;
+SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2 GROUP BY 字段名;
 ```
 
 [返回顶部](#目录)
@@ -352,7 +352,7 @@ create function 存储函数名(参数)
 #### 数据库备份
 
 ```sql
-select * from 数据库名.表名 into outfilte '备份位置';
+select * FROM 数据库名.表名 into outfilte '备份位置';
 ```
 
 [返回顶部](#目录)
@@ -368,7 +368,7 @@ create view 视图名 as <select语句>;
 - **查看视图**
 
 ```sql
-select * from 视图名;
+select * FROM 视图名;
 ```
 
 - **修改视图**

@@ -133,3 +133,4 @@
 	Ctrl+↑ / ↓ 		向上/向下滚动
 	Shift+PgUp / PgDn 向上/向下滚动页面
 	Ctrl+Home / End 滚动到顶部/底部
+

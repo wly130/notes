@@ -21,7 +21,7 @@ npm install -g sass
 
 ### Scss 变量
 
-- **Scss** 使用 **$** 符号来标识变量
+- **Scss** 使用 **`$`** 符号来标识变量
 
 ```scss
 //定义变量

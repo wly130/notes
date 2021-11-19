@@ -7,14 +7,17 @@
 #### 目录结构
 
 - **uniapp**
-	- **components(目录)** **自定义组件**			
-	- **pages(目录)**        **==编写页面==**
-	- **static(目录)**        存放**==静态资源==**(图片,视频等)
-	- **App.vue**              调用**==应用生命周期函数==**、配置**==全局样式==**和**==全局变量==**
-	- **main.js**                入口文件，定义==**全局组件**==
-	- **manifest.json**    **==打包==**发布配置文件
-	- **pages.json**          全局配置
-	- **uni.scss**               预置了**scss变量**
+
+  - **api(目录)**              API封装
+
+  - **components(目录)** **自定义组件**			
+  - **pages(目录)**        **==编写页面==**
+  - **static(目录)**        存放**==静态资源==**(图片,视频等)
+  - **App.vue**              调用**==应用生命周期函数==**、配置**==全局样式==**和**==全局变量==**
+  - **main.js**                入口文件，定义==**全局组件**==
+  - **manifest.json**    **==打包==**发布配置文件
+  - **pages.json**          全局配置
+  - **uni.scss**               预置了**scss变量**
 
  #### main.js 文件
 
@@ -213,7 +216,9 @@ onUnload() { //页面卸载
   ```javascript
   uni.$off('事件名', '回调函数');
   ```
+
 #### WebSocket
+
 | API                       | 说明                    |
 | :------------------------ | :---------------------- |
 | **uni.connectSocket**     | **创建 WebSocket 连接** |
@@ -225,3 +230,70 @@ onUnload() { //页面卸载
 | **uni.onSocketClose**     | **监听 WebSocket 关闭** |
 
 [返回顶部](#目录)
+
+#### API封装
+
+- **request.js**
+
+```js
+var baseUrl = '';
+
+export function get(url, params) {
+	let token = null;
+	if (token == null) {
+		return false;
+	}
+	return new Promise((resolve, reject) => {
+		uni.request({
+			method: 'get',
+			// #ifdef APP-PLUS
+			url: baseUrl + url,
+			// #endif
+			// #ifdef H5
+			url: '/api' + url,
+			// #endif
+			header: {
+				"token": token
+			},
+			data: params,
+			success: (res) => {
+				resolve(res);
+			},
+			fail: (err) => {
+				reject(err);
+			}
+		})
+	})
+}
+
+export function post(url, params) {
+	let token = null;
+	if (token == null) {
+		return false;
+	}
+	return new Promise((resolve, reject) => {
+		uni.request({
+			method: 'post',
+			// #ifdef APP-PLUS
+			url: baseUrl + url,
+			// #endif
+			// #ifdef H5
+			url: '/api' + url,
+			// #endif
+			data: params,
+			header: {
+				"token": token,
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			success: (res) => {
+				resolve(res);
+			},
+			fail: (err) => {
+				reject(err);
+			}
+		})
+	})
+}
+```
+
+- **api.js**

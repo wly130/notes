@@ -120,7 +120,7 @@ module.exports = app;
 |req.params|获取路由的params|
 |req.path|获取请求路径|
 |req.protocol|获取协议类型|
-| req.query|获取URL的查询参数串|
+| req.query|获取URL参数|
 | req.route|获取当前匹配的路由|
 | req.subdomains|获取子域名|
 | req.accepts()|检查可接受的请求的文档类型|
@@ -152,76 +152,65 @@ module.exports = app;
 
 ### 数据库操作
 
-- **数据库连接配置(config.js)**
+- **数据库连接封装(config.js)**
 
 ```js
 const mysql = require('mysql');
-
-//创建数据库连接
-const config = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    port: '3306',
-    database: 'stusystem'
-})
-//使用连接池
-const pool = mysql.createPool(config);
 
 /**
  * @method 建立连接
  * @param {string} sql SQL语句
  * @param {Array} params 变量数组
+ * @param {function} callback 成功回调函数
  */
-function exec(sql, params) {
-    return new Promise((resolve, reject) => {
-        pool.getConnection((err, conn) => {
-            conn.query(sql, params, (error, res) => {
-                //释放连接
-                conn.release();
+function exec(sql, params, callback) {
+    const conn = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'password',
+        port: '3306',
+        database: '数据库名'
+    })
+    conn.connect((err) => {
+        if (err) {
+            throw err;
+        }
+        //数据操作
+        conn.query(sql, params, (err, res) => {
+            if (err) {
+                throw err;
+            }
+            //查询数据返回给回调函数
+            callback && callback(res);
+            //g
+            conn.end((err) => {
                 if (err) {
-                    return reject(error);
-                } else {
-                    return resolve(res);
+                    throw err;
                 }
             });
-        })
+        });
     });
 }
 
 module.exports = exec;
 ```
 
-- **数据库操作封装(db.js)**
-
-```js
-const exec = require('./config');
-
-const 函数名 = (data) => {
-    const sql = 'sqly';
-    const params = [...data];
-    return exec(sql, params).then(res => {
-        return res;
-    });
-}
-
-module.exports = {
-    函数名
-}
-```
-
 - **app.js**
 
 ```js
 const express = require('express'); //导入框架
-const db = require('./db.js');  //SQL操作函数
+const exec = require('./config.js');  //SQL操作函数
 const app = express();
 app.use(express.json());
 
 //请求访问接口
-app.get/post("/路由名", (req, res, next) => {
-    let data = req.body; //前端参数(obj)
-	db.函数名(data);
+app.get/post("/url", (req, res, next) => {
+    let body = req.body; //请求参数
+    let params = []; //sql参数
+    const sql = 'sql语句';
+    exec(sql, params, (data) => {
+        res.json({ data });
+    })
 });
 
 module.exports = app;
