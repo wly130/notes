@@ -1,5 +1,5 @@
 
-!()[https://segmentfault.com/img/remote/1460000039391680]
+<img src="https://segmentfault.com/img/remote/1460000039391680" />
 
 ## 第一阶段
 
