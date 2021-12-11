@@ -1,3 +1,5 @@
+<img src="../img/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE.png" style="zoom:100%;" />
+
 ## 第一阶段
 
 - 开发环境的搭建
