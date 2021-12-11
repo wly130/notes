@@ -1,6 +1,3 @@
-
-<img src="https://segmentfault.com/img/remote/1460000039391680" style="zoom:200%" />
-
 ## 第一阶段
 
 - 开发环境的搭建
