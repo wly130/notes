@@ -11,8 +11,8 @@
 ### 搭建 Vue 项目
 
 ```shell
-npm install @vue/cli -g  //安装脚手架
-vue init webpack 项目名  //创建项目
+npm install @vue/cli -g  #安装脚手架
+vue init webpack 项目名  #创建项目
 ```
 
 ### Vue 生命周期
@@ -1014,3 +1014,4 @@ module.exports = {
 	}
 }
 ```
+
