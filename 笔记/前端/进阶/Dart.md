@@ -30,22 +30,23 @@ main() {
 
 #### 数据类型
 
-```dart
-var all = ''; //所有类型
-dynamic all = ''; //所有类型
-Object all = ''; //所有类型
-final fin = 1; //常量
-const con = 2; //常量
-bool flag = true; //布尔类型
-double pi = 3.14; //小数类型
-int width = 200; //整数类型
-num number = 12; //数字类型
-String str = 'str'; //字符串类型
-```
+| 关键字        | 类型                      | 示例                    |
+| ------------- | ------------------------- | ----------------------- |
+| **`var`**     | **所有类型**              | **var all = '';**       |
+| **`dynamic`** | **所有类型**              | **dynamic all = '';**   |
+| **`Object`**  | **所有类型**              | **Object all = '';**    |
+| **`final`**   | **常量**                  | **final fin = 1;**      |
+| **`const`**   | **常量**                  | **const con = 2;**      |
+| **`bool`**    | **布尔类型**              | **bool flag = true;**   |
+| **`double`**  | **小数类型**              | **double pi = 3.14;**   |
+| **`int`**     | **整数类型**              | **int width = 200;**    |
+| **`num`**     | **数字类型 (小数和整数)** | **num number = 12;**    |
+| **`String`**  | **字符串类型**            | **String str = 'str';** |
 
 - **`final`和 `const` 的区别**
 
-  
+1. **`final` 的值在运行时确定**
+2. **`const` 的值在编译时确定**
 
 - **`dynamic`，`var`，`object` 的区别**
 
@@ -83,7 +84,7 @@ var list = List(n); //限定了长度为 n
 var list = [1, 2, 3]; //同类型赋值 限定类型和长度
 var list = [2, '3', true]; //不同类型赋值 限定类型和长度,任意位置可以用任意类型替换
 var list = <String>['a', '2']; //赋值指定泛型
-List<String> list = new List(n); //声明长度为 n,类型为String
+List<String> list = new List(n); //声明长度为 n,类型为String的数组
 
 /**
  * 属性
@@ -150,13 +151,33 @@ mapList.containsValue; //查看映射内的值, 返回true/false
 ### 函数
 
 ```dart
+//无返回值
 void Fun() {
-    //无返回值
 }
 
+//有返回值
 Function Fun() {
-    //有返回值
     return true;
+}
+
+//必填参数
+func(String str) {  
+	return str;
+}
+
+//可选参数
+func({String str}) {  
+	return str;
+}
+
+// @required 标识的参数必填，其他选填
+func({@required String str, int num}) {  
+	return str + num;
+}
+
+// [] 包裹的参数选填，其他参数必填
+func(String str, [int num]) {  
+	return str + num;
 }
 ```
 

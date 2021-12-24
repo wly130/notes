@@ -208,6 +208,7 @@ app.get/post("/url", (req, res, next) => {
     let body = req.body; //请求参数
     let params = []; //sql参数
     const sql = 'sql语句';
+    
     exec(sql, params, (data) => {
         res.json({ data });
     })

@@ -19,6 +19,8 @@ vue init webpack 项目名  #创建项目
 
 #### 生命周期函数
 
+##### Vue2
+
 ```mermaid
 graph TD;
     beforeCreate-->
@@ -32,6 +34,28 @@ graph TD;
     destroyed;
     初始化前-->
     初始化完成-->
+    挂载前-->
+    挂载完成-->
+    数据更新前-->
+    更新完成后
+    挂载完成-->
+    组件销毁前-->
+    销毁完成后;
+```
+
+##### Vue3
+
+```mermaid
+graph TD;
+    setup-->
+    onBeforeMount-->
+    onMounted-->
+    onBeforeUpdate-->
+    onUpdated
+    onMounted-->
+    onBeforeUnmount-->
+    onUnmounted;
+    初始化-->
     挂载前-->
     挂载完成-->
     数据更新前-->
@@ -55,6 +79,83 @@ graph TD;
 | **index.html**   | **项目的首页，入口页**         |
 | **package.json** | **定义项目的所有依赖**         |
 
+### 项目初始化
+
+#### main.js
+
+```js
+//Vue2
+import Vue from 'vue'
+import App from './App.vue'
+
+Vue.config.productionTip = false;
+
+new Vue({
+	render: h => h(App),
+}).$mount('#app')
+
+//Vue3
+import {
+	createApp
+} from 'vue'
+import App from './App.vue'
+
+const app = createApp(App);
+
+app.mount('#app')
+```
+
+#### 页面
+
+```html
+//Vue2
+<template>
+	<view id="app">
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+			}
+		},
+		methods: {
+		}
+	}
+</script>
+
+<style scoped>
+</style>
+
+//Vue3
+<template>
+	<view id="app">
+	</view>
+</template>
+
+<script>
+	import {
+		ref,
+		reactive,
+		toRefs
+	} from 'vue'
+	export default {
+		setup() {
+			let data = reactive({
+            });
+            
+			return {
+				...toRefs(data)
+			}
+		}
+	}
+</script>
+
+<style scoped>
+</style>
+```
+
 ### Vue 构造器
 
 ```html
@@ -68,25 +169,57 @@ graph TD;
 ```
 
 ```javascript
-var vue = new Vue({
-	el: "#id", //选择器
-	data: {
-		//定义属性
-		name: "你好",
-		age: 20,
-		str: {
-			//定义对象
-			name: "Vue",
-			age: 10,
-		}
+//Vue2
+export default {
+	data() {
+        return {
+        	//定义属性
+			name: "你好",
+			age: 20,
+			str: {
+				//定义对象
+				name: "Vue",
+				age: 10,
+			}
+    	}
 	},
 	methods: {
 		//定义函数
-		name: () {
+		name() {
 			return "Hello Vue";
-		},
-	},
-});
+		}
+	}
+}
+
+//Vue3
+import {
+	reactive,
+	toRefs
+} from 'vue';
+export default {
+	setup() {
+		let data = reactive({
+			//定义属性
+			name: "你好",
+			age: 20,
+			str: {
+				//定义对象
+				name: "Vue",
+				age: 10,
+			}
+		});
+        
+        //定义函数
+		function name() {
+			return "Hello Vue";
+		}
+
+		return {
+			...toRefs(data),
+            name
+		}
+	}
+}
 ```
 
 [返回顶部](#目录)
@@ -98,17 +231,21 @@ var vue = new Vue({
 > **文本渲染**
 
 ```html
-<div id="app">
-	<div v-html="msg"></div>
-	<div v-text="msg"></div>
-</div>
+<template>
+	<div id="app">
+		<div v-html="msg"></div>
+		<div v-text="msg"></div>
+	</div>
+</template>
+
 <script>
-	new Vue({
-		el: '#app',
-		data: {
-			msg: '<h1>菜鸟教程</h1>'
-		}
-	})
+	export default {
+		data() {
+        	return {
+        		msg: '<div>msg</div>'
+    		}
+		},
+	}
 </script>
 ```
 
@@ -126,17 +263,21 @@ var vue = new Vue({
 > #### **双向数据绑定**
 
 ```html
-<div id="app">
-	<p>{{ msg }}</p>
-	<input v-model="msg">
-</div>
+<template>
+	<div id="app">
+		<p>{{ msg }}</p>
+		<input v-model="msg">
+	</div>
+</template>
+
 <script>
-	new Vue({
-		el: '#app',
-		data: {
-			msg: 'Runoob!'
-		}
-	})
+	export default {
+		data() {
+        	return {
+        		msg: 'Hello'
+    		}
+		},
+	}
 </script>
 ```
 
@@ -149,24 +290,27 @@ var vue = new Vue({
 ```html
 <div id="app">
 	<ul>
-		<li v-for="item in sites">
+		<li v-for="(item,index) in sites" :key="index">
+            <span>{{ index }}</span>
+            <span>{{ item.id }}</span>
 			<span>{{ item.name }}</span>
 		</li>
 	</ul>
 </div>
 <script>
-	new Vue({
-		el: '#app',
-		data: {
-			sites: [{
-				name: 'Runoob'
-			}, {
-				name: 'Google'
-			}, {
-				name: 'Taobao'
-			}]
-		}
-	})
+	export default {
+		data() {
+        	return {
+        		sites: [{
+                    id; 1,
+                    name: 'FaceBook'
+                }, {
+                    id; 2,
+                    name: 'Google'
+                }]
+    		}
+		},
+	}
 </script>
 ```
 
@@ -320,24 +464,47 @@ var vue = new Vue({
 
 [返回顶部](#目录)
 
+### 全局变量和方法
+
+```js
+//Vue2
+Vue.prototype.变量名 = '';
+//Vue3
+app.config.globalProperties.变量名 = "";
+
+//Vue2
+Vue.prototype.方法名 = () => {}
+//Vue3
+app.config.globalProperties.方法名 = () => {}
+```
+
 ### 组件
 
 #### 全局组件
 
 ```js
+//Vue2
 import index from './component/index.vue'
 Vue.component(index);
+
+//Vue3
+import index from './component/index.vue'
+app.component(index);
 ```
 
 #### 局部组件
 
 ```js
+//Vue2
 import index from './component/index.vue'
 export default {
     components: {
         index
     }
 }
+
+//Vue3 自动注册组件
+import index from './component/index.vue'
 ```
 
 [返回顶部](#目录)
@@ -547,6 +714,157 @@ export default new Vue
 ```
 
 [返回顶部](#目录)
+
+### Vue3 Setup
+
+#### 定义数据源
+
+```html
+<template>
+	{{sum}}
+    {{data.count}}
+</template>
+
+<script>
+	import {
+		ref, //定义基本数据类型
+		reactive, //定义对象,数组类型
+	} from 'vue';
+	export default {
+		setup() {
+			//定义 ref 数据
+			let sum = ref(0);
+            sum.value = 0;
+
+			//定义 reactive 数据
+			let data = reactive({
+				count: 0
+			});
+
+			return {
+                sum,
+				data
+			}
+		}
+	}
+</script>
+```
+
+#### watch监听
+
+```html
+<template>
+	{{count}}
+</template>
+<script>
+	import {
+		ref,
+		reactive,
+		watch, //监听函数
+	} from 'vue';
+	export default {
+		setup() {
+            //创建监听
+			let stop = watch(() => {});
+			//清除监听
+			stop();
+			// 监听 reactive 数据变化
+			let state = reactive({
+				count: 0
+			});
+			watch(() => state.count, (val, old) => {
+				console.log(val); //新值
+				console.log(old); //旧值
+			})
+
+			//监听多个 reactive 数据
+			let state = reactive({
+				count: 0,
+				name: '张三'
+			})
+			watch([() => state.count, () => state.name],
+				([newCount, newName], [oldCount, oldName]) => {
+					console.log(newCount) //新 count 值
+					console.log(newName) //新 name 值
+					console.log(oldCount) //旧 count 值
+					console.log(oldName) //新 name 值
+				}, {
+					lazy: true //watch被创建时不执行回调函数
+				}
+			)
+
+			//监听 ref 数据
+			let count = ref(0);
+			watch(count, (val, old) => {
+				console.log(val); //新值
+				console.log(old); //旧值
+			})
+
+			//监听多个 ref 数据
+			let count = ref(0)
+			let name = ref('张三')
+			watch([count, name],
+				([newCount, newName], [oldCount, oldName]) => {
+					console.log(newCount) //新 count 值
+					console.log(newName) //新 name 值
+					console.log(oldCount) //旧 count 值
+					console.log(oldName) //新 name 值
+				}, {
+					lazy: true //watch被创建时不执行回调函数
+				}
+			)
+            
+			watch(count,
+				(newCount, oldCount, onCleanup) => {
+					const timer = setTimeout(() => {
+						console.log(newCount)
+					}, 1000);
+					//watch 被重复监听,会先清除上次异步任务
+					onCleanup(() => clearTimeout(timer))
+				}, {
+					lazy: true
+				}
+			)
+
+			return {
+				count
+			}
+		}
+	}
+</script>
+```
+
+#### Provide & Inject
+
+```js
+//父组件
+import Index from './components/index.vue'
+import {
+	provide
+} from 'vue';
+export default {
+	setup() {
+		//父组件向子级组件共享数据
+		provide('共享数据名称', '数据值')
+	},
+	components: {
+		Index
+	}
+}
+//子组件
+import {
+	inject
+} from 'vue';
+export default {
+	setup() {
+		//调用 inject 函数通过指定的数据名称获取共享数据
+		let data = inject('数据名称');
+		return {
+			data
+		}
+	}
+}
+```
 
 ### v-for 动态绑定 input 输入值
 
