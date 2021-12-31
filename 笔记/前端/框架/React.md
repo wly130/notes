@@ -609,6 +609,70 @@ class App extends React.Component {
 export default App;
 ```
 
+#### 更新列表
+
+```react
+import React, { Component } from 'react'
+
+export class index extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            info: [{
+                title: '第一个标题',
+                key: '第一个key'
+            }, {
+                title: '第二个标题',
+                key: '第二个key'
+            }, {
+                title: '第三个标题',
+                key: '第三个key'
+            }]
+        }
+    }
+    //添加数组
+    addVal = () => {
+        let info = [...this.state.info];
+        info.push({
+            title: '第四个标题',
+            key: '第四个key'
+        })
+        this.setState({ info: info });
+    }
+	//s数组
+    delVal = (index) => {
+        let info = [...this.state.info];
+        info.splice(index, 1);
+        this.setState({ info: info });
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.addVal}>添加</button>
+                <ul>
+                    {
+                        this.state.info.map((item, key) => {
+                            return (
+                                <li key={key}>
+                                    <p>{item.title}</p>
+                                    <p>{item.key}</p>
+                                    <button onClick={() => this.delVal(key)}>删除</button>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
+    }
+}
+
+export default index;
+
+
+```
+
 ### 表单处理
 
 - **`name` 属性值与 `state` 值相同**
@@ -1115,7 +1179,7 @@ function Example() {
 }
 ```
 
-#### `useEffect` 
+#### `useEffect`
 
 - **类似于类组件的生命周期函数 (异步加载)**
 

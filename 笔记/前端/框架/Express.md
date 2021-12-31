@@ -7,7 +7,7 @@
 - **安装依赖包**
 
 ```shell
-npm install -g express-generator  //全局安装
+npm install -g express-generator  #全局安装
 npm install --save express
 ```
 
