@@ -182,7 +182,7 @@ function exec(sql, params, callback) {
             }
             //查询数据返回给回调函数
             callback && callback(res);
-            //g
+            //关闭数据库l
             conn.end((err) => {
                 if (err) {
                     throw err;

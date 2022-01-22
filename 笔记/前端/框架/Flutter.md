@@ -396,7 +396,7 @@ class HomeState extends State<Home> {
 	          			groupValue: sex, //定义按钮组
 	        		),
 	        		Radio(
-	          			value: 1,
+	          			value: 2,
 	          			onChanged: (value) {
 	            			setState(() {
 	              				sex = value;
@@ -680,5 +680,13 @@ class HomeState extends State<Home> {
 	  	}
 	}
 }
+```
+
+### 路由
+
+#### 路由跳转
+
+```dart
+
 ```
 

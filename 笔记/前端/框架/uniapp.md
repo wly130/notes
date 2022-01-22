@@ -61,6 +61,12 @@
 - **rpx** 和 **px** 的转换
   - **rpx** = 750 \* 元素 px / 屏幕宽度 px
 
+#### 去掉顶部导航
+
+```json
+"navigationStyle":"custom"
+```
+
 #### 生命周期
 
 ##### 应用生命周期
@@ -297,3 +303,17 @@ export function post(url, params) {
 ```
 
 - **api.js**
+
+```js
+import {
+	get,
+	post
+} from './request.js';
+
+export default {
+	test(params) {
+		return post('/test', params);
+	},
+}
+```
+

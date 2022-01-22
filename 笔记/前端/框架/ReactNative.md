@@ -18,7 +18,7 @@ expo start   #运行项目
 
 ### 目录结构
 
-<img src="../../img/ReactNative%E7%9B%AE%E5%BD%95.png" style="zoom:100%;float:left;" />
+<img src="../../img/ReactNative%E7%9B%AE%E5%BD%95.png" style="zoom:100%;margin:0;" />
 
 | 名称         | 描述                                |
 | :----------- | :---------------------------------- |
@@ -119,7 +119,7 @@ export default App;
     value={text} //输入值
     multiline={true} //是否多行输入
     numberOfLines={4} //多行输入行数
-    password={true} //是否为密码
+    secureTextEntry={true} //是否为密码
     editable={false} //是否可编辑
     maxLength={11} //输入长度
     enablesReturnKeyAutomatically={true} //没有文字时禁用确认按钮
@@ -141,6 +141,14 @@ export default App;
 	onValueChange={value} //更改开关的值时调用
 	value={isEnabled} //开关的值
 />
+<Picker //选择器
+    selectedValue={this.state.flag} //选中值
+    onValueChange={(item, index) => {
+        this.setState({ flag: itemValue })
+    }}>
+    <Picker.Item label="选项1" value="1" />
+    <Picker.Item label="选项2" value="2" />
+</Picker>
 ```
 
 #### 提示组件
@@ -159,9 +167,20 @@ export default App;
 ></Modal>
 <RefreshControl //下拉刷新
 	refreshing={refreshing}
-	onRefresh={onRefresh}
+	onRefresh={() => {alert('回调函数')}}
 />
+<StatusBar //顶部状态栏
+	animated={true} //动画
+	backgroundColor="#61dafb" //状态栏背景颜色
+	barStyle={statusBarStyle} //状态栏文本颜色
+	showHideTransition="fade" //过渡动画
+	hidden={false} //是否隐藏 
+/>
+```
 
+#### 列表组件
+
+```react
 let list = [{
     title: "title1",
     data: ["data1", "data2", "data3"]
@@ -181,12 +200,15 @@ const Item = ({ title }) => (
 	sections={list} //列表数组
     renderItem={({ item }) => <Item title={item} />} //默认渲染器
 />
-<StatusBar //顶部状态栏
-	animated={true} //动画
-	backgroundColor="#61dafb" //状态栏背景颜色
-	barStyle={statusBarStyle} //状态栏文本颜色
-	showHideTransition="fade" //过渡动画
-	hidden={false} //是否隐藏 
+<FlatList
+	data={data}
+    renderItem={this.renderItem}
+    initialNumToRender={3} //初始化渲染数量
+    windowSize={3} //渲染区域高度
+    removeClippedSubviews={Platform.OS === 'android'} //是否裁剪子视图
+	maxToRenderPerBatch={10} //增量渲染最大数量
+    updateCellsBatchingPeriod={50} //增量渲染时间间隔
+	debug // 开启 debug 模式
 />
 ```
 
@@ -203,6 +225,496 @@ const Item = ({ title }) => (
 const styles = StyleSheet.create({});
 //合并样式,属性相同时，style2 覆盖 style1
 const styles = StyleSheet.compose(style1, style2);
+```
+
+### 第三方组件
+
+#### 路由
+
+- **安装**
+
+```sh
+npm install @react-navigation/native --save
+npm install @react-navigation/stack --save
+npm install react-native-gesture-handler --save
+npm install react-native-safe-area-context --save
+```
+
+- **配置路由表**
+
+```react
+/* /routes/index,js */
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+//引入页面
+import Index from "../pages/Index";
+
+const Stack = createStackNavigator();
+
+export default function Navigation() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Index">
+                <Stack.Screen 
+                    name="Index"
+                    component={Index}
+                    options={{
+                        title: "", //标题
+    					header: {() => {}}, //设置一些导航的属性，隐藏顶部导航栏置为null
+    					headerTitle: "", //导航栏标题
+    					headerBackTitle: "", //跳转页面左侧返回箭头后面的文字
+    					headerTruncatedBackTitle: "", //当上个页面标题不符合返回箭头后的文字时，默认改成"返回"
+    					headerRight: "", //设置导航条右侧
+    					headerLeft: "", //设置导航条左侧
+    					headerStyle: "", //设置导航条的样式
+    					headerTitleStyle: "", //设置导航栏文字样式
+    					headerBackTitleStyle: "", //设置导航栏‘返回’文字样式
+    					headerTintColor: "", //设置导航栏颜色
+    					headerPressColorAndroid: "", //设置颜色纹理，安卓版本大于5.0
+    					gesturesEnabled: "" //是否支持滑动返回手势
+                    }}
+                    />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
+}
+
+/* App,js */
+import { StyleSheet, View } from 'react-native';
+import Navigation from './routes/index'
+
+export default function App() {
+    return (
+        <View style={styles.container}>
+            <Navigation />
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+});
+```
+
+#### 跳转页面
+
+```react
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+
+export default class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        }
+    }
+    
+    submit = () => {
+        this.props.navigation.navigate('Page');
+    }
+
+    render() {
+        const { navigate } = this.props.navigation;
+        return (
+            <View>
+            	 <TouchableHighlight} onPress={this.submit}>
+               		<Text>跳转Page页</Text>
+            	</TouchableHighlight>
+                <TouchableHighlight} onPress={() => navigate('Page')}>
+               		<Text>跳转Page页</Text>
+            	</TouchableHighlight>
+                <TouchableHighlight} onPress={() => navigate.goBack()}>
+               		<Text>返回上一页</Text>
+            	</TouchableHighlight>
+                <TouchableHighlight} onPress={() => navigate('Page'， { key: 'key' })}>
+               		<Text>跳转页面传参</Text>
+            	</TouchableHighlight>
+            </View>
+        );
+    }
+}
+
+export default class Page extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    render() {
+        const { params } = this.props.route.params; //获取参数
+        return (
+            <View>
+            	<Text>{ params.key }</Text>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    app: {
+        flex: 1
+    }
+});
+```
+
+#### 选项卡
+
+- **安装**
+
+```sh
+npm install react-native-scrollable-tab-view --save
+```
+
+- **使用**
+
+```react
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native';
+import ScrollableTabView from 'react-native-scrollable-tab-view'; //引入
+
+export default class Home extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            Tabs: [],
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <ScrollableTabView
+                    tabBarBackgroundColor="#63B8FF" //背景色
+                    tabBarActiveTextColor="#FFFFFF" //选中文字颜色
+                    tabBarInactiveTextColor="#F5FFFA" //未选中文字颜色
+                    tabBarUnderlineStyle={{}} //选中时下方横线样式
+                    tabBarTextStyle={{}} //文字样式
+                    initialPage={1} //初始下标
+                    tabBarPosition='top' //位置
+                    onChangeTab={(e) => { }} //切换回调函数
+                    onScroll={(postion) => { }} //滑动回调函数
+                    locked={true} //是否禁用滑动
+                    scrollWithoutAnimation={false} //是否禁用动画
+                >
+                    <Text tabLabel='Tab1' />
+                    <Text tabLabel='Tab2' />
+                    <Text tabLabel='Tab3' />
+                </ScrollableTabView>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: 20
+    }
+});
+```
+
+#### 底部导航
+
+- **安装**
+
+```sh
+npm install react-native-tab-navigator --save
+```
+
+- **使用**
+
+```react
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native';
+import TabNavigator from 'react-native-tab-navigator'
+import Index1 from './index1';
+import Index2 from './index2';
+import Index3 from './index3';
+
+export default class Tab extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            tabList: [{
+                tabIndex: '1',
+                title: '页面1',
+                icon: require(''),
+                selectedIcon: require(''),
+                Component: Index1
+            }, {
+                tabIndex: '2',
+                title: '页面2',
+                icon: require(''),
+                selectedIcon: require(''),
+                Component: Index2
+            }, {
+                tabIndex: '3',
+                title: '页面3',
+                icon: require(''),
+                selectedIcon: require(''),
+                Component: Index3
+            }],
+            tabIndex: '1', //导航下标
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <TabNavigator>
+                    {
+                        this.state.tabList.map((item, key) => {
+                            return (
+                                <TabNavigator.Item
+                                    key={key}
+                                    selected={this.state.tabIndex === item.tabIndex} //是否选中
+                                    title={item.title} //标题
+                                    //未选中图标
+                                    renderIcon={() => <Image style={styles.icon} source={item.icon} />}
+                                    //选中图标
+                                    renderSelectedIcon={() => <Image style={styles.icon} source={item.selectedIcon} />} 
+                                    onPress={() => { this.setState({ tabIndex: item.tabIndex }) }} //点击切换
+                                >
+                                    <item.Component />
+                                </TabNavigator.Item>
+                            )
+                        })
+                    }
+                </TabNavigator>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});
+```
+
+#### 单选按钮
+
+- **安装**
+
+```shell
+npm install react-native-flexi-radio-button --save
+```
+
+- **使用**
+
+```react
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button'
+
+export default class Test extends Component {
+    constructor() {
+        super()
+        this.state = {}
+    }
+
+    onSelect = (index, value) => {
+        console.log(index); //单选下标
+        console.log(value); //单选值
+    }
+
+    render() {
+        return (
+            <View>
+                <RadioGroup onSelect={(index, value) => this.onSelect(index, value)} >
+                    <RadioButton value={1} >
+                        <Text>选项1</Text>
+                    </RadioButton>
+                    <RadioButton value={2}>
+                        <Text>选项2</Text>
+                    </RadioButton>
+                    <RadioButton value={3}>
+                        <Text>选项3</Text>
+                    </RadioButton>
+                </RadioGroup>
+            </View >
+        );
+    }
+}
+```
+
+#### 多选按钮
+
+- **安装**
+
+```shell
+npm install react-native-check-box --save
+```
+
+- **使用**
+
+```react
+import React, { Component } from 'react';
+import { View, Image } from 'react-native';
+import CheckBox from 'react-native-check-box';
+
+export default class Test extends Component {
+    constructor() {
+        super()
+        this.state = {
+            flag: false
+        }
+    }
+    
+    onChang = () => {
+        this.setState({
+            flag: !this.state.flag
+        })
+    }
+
+    render() {
+        return (
+            <View>
+                <CheckBox
+                    onClick={this.onChang} //点击事件
+                    isChecked={this.state.flag} //是否选中
+                    leftText={'左侧文字'} 
+                    leftTextStyle={{}} //左侧文字样式
+                    rightText={'右侧文字'}
+                    rightTextStyle={{}} //右侧文字样式
+                    checkedImage={<Image source={ } />} //选中图像
+                    unCheckedImage={<Image source={ } />} //未选择图像
+                    disabled={false} //是否禁用
+                    checkedCheckBoxColor="" //选中颜色
+                    uncheckedCheckBoxColor="" //未选中颜色
+                />
+            </View >
+        );
+    }
+}
+```
+
+#### 时间选择器
+
+- **安装**
+
+```shell
+
+```
+
+- **使用**
+
+```react
+import React, { Component } from 'react';
+import { View } from 'react-native';
+
+export default class Test extends Component {
+    constructor() {
+        super()
+        this.state = {}
+    }
+
+    render() {
+        return (
+            <View>
+                
+            </View >
+        );
+    }
+}
+```
+
+#### 提示组件
+
+- **安装**
+
+```shell
+npm install react-native-root-toast --save
+```
+
+- **使用**
+
+```react
+import React, { Component } from 'react';
+import {  View, Button } from 'react-native';
+import Toast from 'react-native-root-toast';
+
+export default class Test extends Component {
+    constructor() {
+        super()
+        this.state = {}
+    }
+    
+    customToast() {
+        return (
+            <View>
+                <Text>自定义提示框</Text>
+            </View>
+        );
+    }
+
+    Toast = () => {
+        //API调用
+        Toast.show('提示文本', {
+            duration: 1500, //显示时长
+            position: 0, //显示位置
+            visible: false,
+            shadow: false, //是否有阴影
+            animation: true, //显示/隐藏是否使用动画过渡
+            hideOnPress: true, // 是否通过点击事件对toast进行隐藏
+            delay: 0, //显示延时
+            textColor: "#ffffff", //文字颜色
+            backgroundColor: "#333333", //背景颜色
+            opacity: 1 //不透明度
+        });
+    }
+
+    render() {
+        return (
+            <View>
+                <Button title="点击提示" onPress={this.Toast} />
+                <Button title="自定义提示" onPress={() => {
+                	Toast.show(this.customToast(), {
+					    duration: 1500, //显示时长
+					    position: 0 //显示位置
+					});
+                }} />
+            </View>
+        );
+    }
+}
+```
+
+#### Icon组件
+
+- **安装**
+
+```shell
+npm install react-native-vector-icons --save
+```
+
+- **[图标仓库](https://oblador.github.io/react-native-vector-icons/)**
+- **使用**
+
+```react
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { Icon } from 'react-native-vector-icons'
+
+export default class Test extends Component {
+    render() {
+        return (
+            <View>
+                <Icon 
+                    name={''} //图标名称
+                    size={30} //图标大小
+                    style={{}} //图标其他样式
+                 />
+            </View>
+        );
+    }
+}
 ```
 
 ### API封装
@@ -268,12 +780,133 @@ const api = {
 export default api;
 ```
 
+- **使用**
+
+```react
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import api from '../api/api'; //引入api
+
+export default class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    componentDidMount() {
+        api.函数名({
+            key: 'value'
+        }).then(res => {
+        	console.log(res);
+        })
+    }
+
+    render() {
+        return (
+            <View></View>
+        );
+    }
+}
+```
+
+### 数据缓存
+
+- **安装**
+
+```shell
+npm install react-native-storage --save
+```
+
+#### 封装
+
+```js
+import Storage from 'react-native-storage';
+
+var storage = new Storage({
+    size: 1000, //最大容量
+    defaultExpires: null, //数据过期时间, null 为永不过期
+    enableCache: true,  //读写时在内存中缓存数据
+});
+export default $storage {
+    //写入
+    set(key, value, date) {
+        storage.save({
+            key: key, //key值
+            data: value, //value值
+            expires: date //过期时间
+        });
+    },
+    //读取
+    get(key, func) {
+        storage.load({
+            key: key,
+            autoSync: true,
+            syncInBackground: true,
+            syncParams: {
+                extraFetchOptions: {},
+                someFlag: true,
+            },
+        }).then(res => {
+            func(res);
+        }).catch(err => {
+            func(null);
+        });
+    },
+    //删除
+    del(key) {
+        storage.remove({
+            key: key
+        });
+    },
+    //清空
+    delAll() {
+        storage.clearMap();
+    }
+}
+```
+
+#### 使用
+
+```react
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import app from '../utils/global'; //引入全局
+
+export default class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    componentDidMount() {
+        //添加数据
+        app.$storage.set('key', { key: 'value' }, null);
+        //获取数据
+        app.$storage.get('key', (res) => {
+            console.log(res);
+        });
+        //删除数据
+        app.$storage.delAll('key');
+        //清空数据
+        app.$storage.delAll();
+    }
+
+    render() {
+        return (
+            <View></View>
+        );
+    }
+}
+```
+
 ### 第三方UI组件库
 
 - **Teaset**    [文档链接](https://github.com/rilyu/teaset)
 - **NativeBase**    [文档链接](https://nativebase.io/)
+- **Ant Design Mobile RN**    [文档链接](https://rn.mobile.ant.design/index-cn)
 - **React Native Elements**    [文档链接](https://reactnativeelements.com/)
 - **React-Native-Maps**    [文档链接](https://github.com/react-native-maps/react-native-maps)
 - **React Native icon**    [文档链接](https://github.com/oblador/react-native-vector-icons)
 - **UI Kitten**    [文档链接](https://akveo.github.io/react-native-ui-kitten/)
 - **react-native-material-kit**    [文档链接](https://github.com/xinthink/react-native-material-kit)
+
