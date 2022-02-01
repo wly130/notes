@@ -546,7 +546,7 @@ this.$parent.方法名();
 
 - **父组件**
 
-```html
+```vue
 <template>
 	<div>
 		<!-- 通过 自定义事件 接收子组件的 value 值 -->
@@ -576,7 +576,7 @@ this.$parent.方法名();
 
 ##### 父组件 调用 子组件的方法
 
-```html
+```vue
 <子组件 ref="name" ></子组件>
 this.$refs.name.方法名();
 ```
@@ -587,11 +587,11 @@ this.$refs.name.方法名();
 
 - **父组件**
 
-```html
+```vue
 <template>
 	<div>
 		<!-- 通过 自定义属性 向子组件传值 -->
-		<子组件 :child="childValue" />
+		<子组件 :child1="childValue1" />
 	</div>
 </template>
 <script>
@@ -611,19 +611,46 @@ this.$refs.name.方法名();
 
 - **子组件**
 
-```html
+```vue
 <template>
 	<div>
-		<span>{{ child }}</span>
+		<span>{{ child1 }}</span>
 	</div>
 </template>
 <script>
 	export default {
 		//通过 props 接收父组件的值
-		props: ['child']
+		props: {
+            child1: {
+                type: String, //数据类型
+                default: "value", //默认值
+                validator: (value) => {
+                    //自定义验证函数
+                	return value;
+            	}
+            },
+            child2: [String, Number], //多类型
+            child3: {
+            	type: Object,
+            	default: () => {
+                    //对象或数组默认值
+                	return { name: 'value' }
+           	 	}
+        	}
+        }
 	}
 </script>
 ```
+
+| type值   | 解释   |
+| -------- | ------ |
+| String   | 字符串 |
+| Number   | 数字   |
+| Array    | 数组   |
+| Object   | 对象   |
+| Date     | 时间   |
+| Function | 函数   |
+| Symbol   |        |
 
 ##### 兄弟组件传值
 
@@ -1191,8 +1218,8 @@ axios({
   	data: {
   	  	key: value,  //请求参数
   	}
-}).then(function (res) {}) //请求成功
-.catch(function (error) {}); //请求失败
+}).then((res) => {}) //请求成功
+.catch((error) => {}); //请求失败
 ```
 
 #### 封装网络请求API
@@ -1259,7 +1286,7 @@ export function post(url, params) {
 			})
 	});
 }
-export default axios
+export default axios;
 ```
 
 - **api.js**
@@ -1275,7 +1302,7 @@ const api = {
 		return post('/api/请求地址', params);
 	}
 }
-export default api
+export default api;
 ```
 
 - **main.js**

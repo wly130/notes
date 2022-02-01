@@ -35,28 +35,28 @@
 
 ```sql
 ALTER TABLE 表名 MODIFY 字段名 数据类型 NOT NULL;
-ALTER TABLE 表名 MODIFY 字段名 数据类型;//删除约束
+ALTER TABLE 表名 MODIFY 字段名 数据类型; #删除约束
 ```
 
 - **UNIQUE 唯一约束**
 
 ```sql
 ALTER TABLE 表名 ADD UNIQUE (字段名);
-ALTER TABLE 表名 DROP [INDEX/KEY] 字段名;//删除约束
+ALTER TABLE 表名 DROP [INDEX/KEY] 字段名; #删除约束
 ```
 
 - **PRIMARY KEY 唯一非空(主键)约束**
 
 ```sql
 ALTER TABLE 表名 ADD PRIMARY KEY (字段名);
-ALTER TABLE 表名 DROP PRIMARY KEY;//删除约束
+ALTER TABLE 表名 DROP PRIMARY KEY; #删除约束
 ```
 
 - **FOREIGN KEY 外键约束**
 
 ```sql
 ALTER TABLE 表名 ADD FOREIGN KEY (字段名) REFERENCES 外表名(外表字段名);
-ALTER TABLE 表名 DROP FOREIGN KEY 字段名;//删除约束
+ALTER TABLE 表名 DROP FOREIGN KEY 字段名; #删除约束
 ```
 
 - **CHECK 范围约束(MySQL 不支持)**
@@ -68,15 +68,15 @@ ALTER TABLE 表名 ADD CHECK (值的范围);
 - **DEFAULT 默认值约束**
 
 ```sql
-ALTER TABLE 表名 alter 字段名 SET DEFAULT '默认值';
-ALTER TABLE 表名 alter 字段名 DROP DEFAULT; //删除约束
+ALTER TABLE 表名 ALTER 字段名 SET DEFAULT '默认值';
+ALTER TABLE 表名 ALTER 字段名 DROP DEFAULT; #删除约束
 ```
 
 - **自增长**
 
 ```sql
 ALTER TABLE 表名 MODIFY 字段名 数据类型 AUTO_INCREMENT;
-ALTER TABLE 表名 MODIFY 字段名 数据类型;//删除自增长
+ALTER TABLE 表名 MODIFY 字段名 数据类型; #删除自增长
 ```
 
 [返回顶部](#目录)
@@ -84,8 +84,8 @@ ALTER TABLE 表名 MODIFY 字段名 数据类型;//删除自增长
 #### 创建索引
 
 ```sql
-alter table 表名 add 索引类型 别名 (字段名);
-create 索引类型 index 别名 on 表名 (字段名);
+ALTER TABLE 表名 ADD 索引类型 别名 (字段名);
+CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 ```
 
 |    单词     | 索引类型     |

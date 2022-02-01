@@ -28,31 +28,95 @@ expo start   #运行项目
 | **index.js** | 入口文件                            |
 | **app.json** | app的配置文件                       |
 
+### 生命周期
+
+```mermaid
+graph TD;
+    componentWillMount-->
+    render-->
+    componentDidMount-->
+    componentWillReceiveProps-->
+    shouldComponentUpdate-->
+    componentWillUpdate-->
+    重新执行render-->
+    componentDidUpdate;
+    componentDidMount-->
+    componentWillUnmount;
+    
+    准备加载组件时-->
+    渲染组件-->
+    渲染完成后-->
+    props改变时-->
+    判断是否更新-->
+    准备更新组件-->
+    重新渲染-->
+    更新完成后;
+    渲染完成后-->
+    卸载组件;
+```
+
+```react
+import React, { Component } from 'react';
+import { View, Text, Button } from 'react-native';
+
+export default class Test extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            mag: '原数据'
+        }
+    }
+
+    componentWillMount() {
+        console.log("加载组件前");
+    }
+
+    componentDidMount() {
+        console.log("渲染完成后");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("props改变时");
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("判断是否更新");
+        return true;
+    }
+
+    componentWillUpdate() {
+        console.log("准备更新组件");
+    }
+
+    componentDidUpdate() {
+        console.log("更新完成后");
+    }
+
+    render() {
+        console.log('渲染组件');
+        return (
+            <View>
+                <Button title="更新数据" onPress={() => this.setState({ msg: "更新数据" })} />
+                <Text>{ this.state.msg }</Text>
+            </View>
+        );
+    }
+    
+    componentWillUnmount() {
+        console.log("组件销毁前");
+    }
+}
+```
+
 ### 初始化
 
 **App.js**
 
 ```react
 import React from 'react';
-import { 
-    StyleSheet, //样式组件
-    Text, //文本组件
-    View, //视图组件
-    ScrollView, //滚动组件
-    Image, //图片组件
-    ImageBackground, //背景图片组件
-    TextInput, //输入框
-    Button, //按钮
-    Switch, //开关
-    ActivityIndicator, //加载
-    Modal, //弹出框
-    RefreshControl, //下拉刷新
-    SectionList, //列表
-    TouchableHightlight, //高亮触摸
-    TouchableOpacity //透明触摸
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-const App = () => {
+export default App = () => {
     return (
         <View>
         	<Text></Text>
@@ -64,8 +128,6 @@ const App = () => {
 const styles = StyleSheet.create({
 
 });
-
-export default App;
 ```
 
 ### 原生组件
@@ -80,18 +142,15 @@ export default App;
 	onPress={() => {alert('点击事件')}}
 	activeOpacity={0.7} //透明度
 	underlayColor="#ff0000" //点击时的背景颜色
->
-</TouchableHightlight>
+></TouchableHightlight>
 <TouchableOpacity //透明触摸，用户点击时，组件会出现透明效果
    	onPress={() => {alert('点击事件')}}
    	activeOpacity={0.7} //透明度
     underlayColor="#ff0000" //点击时的背景颜色
->
-</TouchableOpacity>
+></TouchableOpacity>
 <TouchableWithoutFeedback //无反馈性触摸，用户点击时，组件不会出现任何视觉变化
    	onPress={() => {alert('点击事件')}}
->
-</TouchableWithoutFeedback>
+></TouchableWithoutFeedback>
 ```
 
 #### 图片组件
@@ -138,7 +197,7 @@ export default App;
     disabled={false}
 	trackColor={{ false: "#767577", true: "#81b0ff" }} //开关轨道的自定义颜色
 	thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"} //前景开关手柄的颜色
-	onValueChange={value} //更改开关的值时调用
+	onValueChange={(v) => {}} //更改开关的值时调用
 	value={isEnabled} //开关的值
 />
 <Picker //选择器
@@ -595,31 +654,77 @@ export default class Test extends Component {
 }
 ```
 
-#### 时间选择器
+#### 日期选择器
 
 - **安装**
 
 ```shell
-
+npm install @react-native-community/datetimepicker --save
 ```
 
 - **使用**
 
 ```react
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, View, Button } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default class Test extends Component {
     constructor() {
         super()
-        this.state = {}
+        this.state = {
+            show: false, //是否显示弹窗
+            mode: "date", //选择器类型 date:年月日选择，time:时分秒选择
+            date: new Date()
+        }
+    }
+	//是否补0
+    MakeUp = (times) => {
+        if (times < 10) {
+            return '0' + times;
+        } else {
+            return times;
+        }
+    }
+    //星期格式化
+    weekFormat = (week) => {
+        let weekList = ['日', '一', '二', '三', '四', '五', '六'];
+        return '星期' + weekList[week];
+    }
+	//时间格式化
+    FormatDate = (date) => {
+        let year = date.getFullYear(); //年
+        let month = this.MakeUp(date.getMonth() + 1); //月
+        let day = this.MakeUp(date.getDate()); //日
+        let week = this.weekFormat(date.getDay()); //星期
+        let hour = this.MakeUp(date.getHours()); //小时
+        let minute = this.MakeUp(date.getMinutes()); //分钟
+
+        let str = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ' ' + week;
+        return str;
     }
 
     render() {
         return (
             <View>
-                
-            </View >
+                <Button title="选择日期" onPress={() => { this.setState({ mode: "date", show: true }) }} />
+                <Button title="选择时间" onPress={() => { this.setState({ mode: "time", show: true }) }} />
+                {
+                    this.state.show && (
+                        <DateTimePicker
+                            value={this.state.date} //选择值
+                            mode={this.state.mode}
+                            is24Hour={true} //是否使用24小时计时
+                            onChange={(e, date) => {
+                                //更新
+                                this.setState({ show: false, date: date })
+                            }}
+                        />
+                    )
+                }
+                {/* 显示格式化时间 */}
+                <Text>{this.FormatDate(this.state.date)}</Text>
+            </View>
         );
     }
 }
@@ -726,6 +831,7 @@ let baseUrl = 'http://192.168.1.1:8080';  //请求地址
 
 export function get(url, params) {
     let str = '';
+    //p
     if (Object.keys(params).length > 0) {
         str = '?';
         for (let i in params) {

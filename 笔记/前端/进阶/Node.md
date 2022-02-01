@@ -10,13 +10,14 @@
 
 ```shell
 node --version
+n --version
 ```
 
 ### NPM 包管理器
 
 #### 常用命令
 
-- **初始化(生成package.json)**
+- **初始化(生成 `package.json`)**
 
 ```shell
 npm init
@@ -65,7 +66,7 @@ npm search 包名
 	"version": "版本号",
 	"main": "index.js",	//入口文件
 	"scripts": {
-	  //脚本命令
+	  //自定义脚本命令
 	},
 	"repository": { //包代码的Repo信息
 	  "type": "git / svn",

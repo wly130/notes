@@ -15,7 +15,7 @@ npm install --save express
 
 ```shell
 express 项目名称
-npm install  //安装依赖
+npm install  #安装依赖
 ```
 
 - **目录结构**

@@ -37,6 +37,12 @@ flutter run
 | **pubspec.lock**    | 当前项目依赖所生成的文件                                |
 | **pubspec.yaml**    | 当前项目的一些配置文件                                  |
 
+### 生命周期
+
+```mermaid
+
+```
+
 ### 组件
 
 #### 基本组件
@@ -442,6 +448,70 @@ CheckboxListTile( //多选框和文字
 - **下拉框**
 - **开关**
 
+#### 时间组件
+
+- **获取时间**
+
+```dart
+DateTime.now(); //获取当前时间
+var timestamp = DateTime.now().microsecondsSinceEpoch;  //获取当前时间戳
+DateTime.fromMicrosecondsSinceEpoch(timestamp);  //时间戳格式化
+```
+
+- **时间选择器**
+
+```dart
+class MyApp extends StatelessWidget {
+	@override
+	Widget build(BuildContext context) {
+	  	return MaterialApp(
+	    	home: Scaffold(
+	      		body: Container(
+	        		child: [
+	        			ElevatedButton(
+          					onPressed: () => {
+          					  	DatePicker.showTimePicker(
+          					    	context,
+          					    	showTitleActions: true, //是否展示顶部操作按钮
+          					    	minTime: DateTime(2018, 3, 5), //最小时间
+          					    	maxTime: DateTime(2099, 6, 7), //最大时间
+          					    	onChanged: (date) { //change事件
+          					    	  	print('$date');
+          					    	},
+          					    	onConfirm: (date) { //确定事件
+          					    	  	print('$date');
+          					    	},
+          					    	currentTime: DateTime.now(), //当前时间
+          					    	locale: LocaleType.zh, //语言
+          					  	)
+          					},
+          					child: Text('选择日期')
+          				),
+          				ElevatedButton(
+          					onPressed: () => {
+          					  	DatePicker.showTimePicker(
+          					    	context,
+          					    	showTitleActions: true, //是否展示顶部操作按钮
+          					    	onChanged: (date) { //change事件
+          					    	  	print('$date');
+          					    	},
+          					    	onConfirm: (date) { //确定事件
+          					    	  	print('$date');
+          					    	},
+          					    	currentTime: DateTime.now(), //当前时间
+          					    	locale: LocaleType.zh, //语言
+          					  	)
+          					},
+          					child: Text('选择时间')
+          				)
+	        		]
+	      		),
+	    	)
+	  	);
+	}
+}
+```
+
 ### 列表渲染
 
 ```dart
@@ -687,6 +757,329 @@ class HomeState extends State<Home> {
 #### 路由跳转
 
 ```dart
+import 'package:flutter/material.dart';
+//引入页面
+import './pages/index.dart';
 
+class Home extends StatefulWidget {
+	Home({Key? key}) : super(key: key);
+	@override
+	HomeState createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
+	@override
+	Widget build(BuildContext context) {
+		return Container(
+	    	child: Row(
+	      		children: [
+	        		ElevatedButton(
+	            		onPressed: () => {
+	                 		Navigator.of(context).push(
+                            	MaterialPageRoute(
+                               		builder: (context) => index(title: '传值') //页面名
+                                )
+                            )
+	                	},
+	            		child: Text("跳转页面传值")
+                    ),
+                    ElevatedButton(
+	            		onPressed: () => {
+	                 		Navigator.of(context).pop(context, '参数')
+	                	},
+	            		child: Text("返回上一页")
+                    ),
+                    ElevatedButton(
+	            		onPressed: () => {
+	                 		Navigator.of(context).pushReplacementNamed(context, '/index')
+	                	},
+	            		child: Text("覆盖当前页跳转")
+                    ),
+                    ElevatedButton(
+	            		onPressed: () => {
+	                 		Navigator.of(context).pushAndRemoveUntil(
+                        		MaterialPageRoute(builder: (context) => index()),
+                        		(route) => route == null
+                            )
+	                	},
+	            		child: Text("返回根页面")
+                    )
+	      		],
+	    	),
+	  	);
+	}
+}
+
+//index页面
+class index extends StatelessWidget {
+    String title;
+  	index(this.title); //接收传值
+	@override
+	Widget build(BuildContext context) {
+		return Container(
+	    	child: Row(
+	      		children: [
+	        		Text(this.title) //赋值
+	      		],
+	    	),
+	  	);
+	}
+}
+```
+
+#### 命名路由
+
+```dart
+import 'package:flutter/material.dart';
+//引入页面
+import './pages/index.dart';
+
+//main.dart
+void main() {
+	runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+    //路由表
+	final routes = {
+        '/': (context, { arguments }) => Home(),
+    	'/index': (context, { arguments }) => index(arguments: arguments)
+    };
+	@override
+	Widget build(BuildContext context) {
+	  	return MaterialApp(
+	    	home: Scaffold(
+	      		body: Container(
+	        		child: Home()
+	      		),
+	    	),
+            //初始化路由
+            initialRoute: '/',
+            //配置命名路由
+	    	routes: this.routes
+	  	);
+	}
+}
+
+class Home extends StatefulWidget {
+	Home({Key? key}) : super(key: key);
+	@override
+	HomeState createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
+	@override
+	Widget build(BuildContext context) {
+		return Container(
+	    	child: Row(
+	      		children: [
+	        		ElevatedButton(
+	            		onPressed: () => {
+                        	//跳转页面传值
+	                 		Navigator.pushNamed(context, '/index', arguments: { title: '传值' })
+	                	},
+	            		child: Text("跳转页面")
+                    )
+	      		],
+	    	),
+	  	);
+	}
+}
+
+//index页面
+class index extends StatelessWidget {
+    final arguments;
+  	index(this.arguments); //接收传值
+	@override
+	Widget build(BuildContext context) {
+		return Container(
+	    	child: Row(
+	      		children: [
+	        		Text("${arguments['title']}") //赋值
+	      		],
+	    	),
+	  	);
+	}
+}
+```
+
+#### 封装路由表
+
+- **/lib/routes/routes.dart**
+
+```dart
+import 'package:flutter/material.dart';
+//引入页面
+import '../main.dart';
+import '../pages/index.dart';
+
+var routes = {
+	//配置路由路径
+	'/': (context, {arguments}) => main(arguments: arguments),
+	'/index': (context, {arguments}) => index()
+};
+
+var onGenerateRoute = (RouteSettings settings) {
+	//onGenerateRoute配置
+	final String? name = settings.name;
+	final Function pageContentBuilder = routes[name] as Function;
+	if (pageContentBuilder != null) {
+	  	if (settings.arguments != null) {
+	    	final Route route = MaterialPageRoute(
+	        	builder: (context) =>
+	            	pageContentBuilder(context, arguments: settings.arguments));
+	    	return route;
+		} else {
+	    	final Route route = MaterialPageRoute(
+                builder: (context) => pageContentBuilder(context)
+            );
+	    	return route;
+		}
+  	}
+};
+```
+
+- **/lib/main.dart**
+
+```dart
+import 'package:flutter/material.dart';
+import './routes/routes.dart';
+
+void main() {
+	runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {rride
+	Widget build(BuildContext context) {
+	  	return MaterialApp(
+	    	home: Scaffold(
+	      		body: Container(
+	        		child: Home()
+	      		),
+	    	),
+            //初始化路由
+            initialRoute: '/',
+            //配置命名路由
+	    	onGenerateRoute: onGenerateRoute
+	  	);
+	}
+}
+```
+
+### 网络请求
+
+#### 安装
+
+```yaml
+dio: ^4.0.4
+```
+
+#### 封装
+
+- **/lib/api/request.dart**
+
+```dart
+import 'dart:convert';
+import 'package:dio/dio.dart';
+
+//请求地址
+const baseUrl = "http://localhost";
+
+class Request {
+	static BaseOptions options = BaseOptions(
+	  	baseUrl: baseUrl,
+	  	connectTimeout: 15000, //请求时间
+	  	receiveTimeout: 10000, //响应时间
+	);
+	static Dio dio = Dio(options);
+
+	static Future request<T>(String url, String method, {Map? params, data}) async {
+	  	if (params != null) {
+      		url = url + '?';
+      		params.forEach((key, value) {
+        		url = url + '$key=' + '$value&';
+      		});
+      		url = url.substring(0, url.length - 1);
+    	}
+
+		try {
+			Response res = await dio.request(url, data: data, options: Options(method: method));
+		    if (res.statusCode == 200 || res.statusCode == 201) {
+		    	try {
+		        	if (res.data['status'] != 200) {
+		          		return Future.error(res.data['msg']);
+		        	} else {
+		          		if (res.data is Map) {
+		            		return res.data;
+		          		} else {
+		            		return json.decode(res.data);
+		          		}
+		        	}
+		     	} catch (e) {
+		        	return Future.error('解析响应数据异常');
+		      	}
+		    } else {
+    	    	return Future.error('HTTP错误');
+		    }
+		} catch (e) {
+            return Future.error('服务器无法连接');
+        }
+	}
+	//封装GET请求
+	static Future get<T>(String url, {Map? params}) {
+	  	return request(url, 'get', params: params);
+	}
+	//封装POST请求
+	static Future post<T>(String url, {Map? params, data}) {
+	  	return request(url, 'post', params: params, data: data);
+	}
+}
+```
+
+- **/lib/api/api.dart**
+
+```dart
+import './request.dart';
+
+class Api {
+  	static test(params) {
+    	return Request.get("/test", params: params);
+  	}
+    static test2(data) {
+    	return Request.post("/test2", data: data);
+  	}
+}
+```
+
+#### 调用
+
+```dart
+import 'package:flutter/material.dart';
+import './api/api.dart'; //引入
+
+class MyApp extends StatelessWidget {
+    void getinfo() {
+        //调用接口
+    	Api.test({'name': 'value'}).then((res) => {
+            print(res['data']) //打印 data 数据
+        });
+  	}
+    
+	@override
+	Widget build(BuildContext context) {
+		return Container(
+	    	child: Column(
+	      		children: [
+	        		RaisedButton(
+	          			child: Text('点击请求'),
+	          			onPressed: () {
+	            			getinfo()
+	          			},
+	        		),
+	      		],
+	    	),
+	  	);
+	}
+}
 ```
 

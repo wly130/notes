@@ -639,7 +639,7 @@ export class index extends Component {
         })
         this.setState({ info: info });
     }
-	//s数组
+	//删除数组
     delVal = (index) => {
         let info = [...this.state.info];
         info.splice(index, 1);
