@@ -992,7 +992,7 @@ export default class Login extends Component {
             console.log(res);
         });
         //删除数据
-        app.$storage.delAll('key');
+        app.$storage.delAl('key');
         //清空数据
         app.$storage.delAll();
     }

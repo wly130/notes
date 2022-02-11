@@ -19,7 +19,7 @@ vue init webpack 项目名  #创建项目
 
 #### 生命周期函数
 
-##### Vue2
+**Vue2**
 
 ```mermaid
 graph TD;
@@ -43,7 +43,7 @@ graph TD;
     销毁完成后;
 ```
 
-##### Vue3
+**Vue3**
 
 ```mermaid
 graph TD;

@@ -1,6 +1,6 @@
 ## Nuxt.js
 
-### [Nuxt.js](https://nuxtjs.org/) 是 Vue 服务端渲染框架
+**[Nuxt.js](https://nuxtjs.org/) 是 Vue 服务端渲染框架**
 
 ### 初始化
 
@@ -14,18 +14,6 @@ npx create-nuxt-app 项目名
 
 ```shell
 npm run dev
-```
-
-- **打包**
-
-```shell
-npm run build
-```
-
-- **启动打包后项目**
-
-```shell
-npm run start
 ```
 
 - **编译应用**
@@ -53,3 +41,12 @@ npm run generate
 
 ### 配置
 
+### 上传服务器
+
+1. **`npm run build` 打包**
+
+2. **`.nuxt`，`static`，`nuxt.config.js`，`package.json` 上传到服务器**
+
+3. **`npm install` 下载依赖包**
+
+4. **`npm run build` 启动项目**

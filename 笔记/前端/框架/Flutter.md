@@ -22,25 +22,79 @@ flutter run
 
 <img src="../../img/Flutter%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" style="zoom:120%;margin:0;" />
 
-| 文件或目录          | 说明                                                    |
-| ------------------- | ------------------------------------------------------- |
-| **.dart_tool**      | 一些dart工具库所在的位置和信息目录                      |
-| **android**         | Android项目目录                                         |
-| **build**           | 运行目录                                                |
-| **ios**             | iOS项目目录                                             |
-| **lib**             | 开发代码目录                                            |
-| **test**            | 测试代码目录                                            |
-| .**gitignore**      | git忽略配置文件                                         |
-| .**metadata**       | IDE 用来记录某个 Flutter 项目属性的的隐藏文件           |
-| .**packages**       | pub 工具需要使用的，包含 package 依赖的 yaml 格式的文件 |
-| **flutter_app.iml** | 工程文件的本地路径配置                                  |
-| **pubspec.lock**    | 当前项目依赖所生成的文件                                |
-| **pubspec.yaml**    | 当前项目的一些配置文件                                  |
+| 文件或目录          | 说明                                          |
+| ------------------- | --------------------------------------------- |
+| **.dart_tool**      | 工具库所在的位置和信息目录                    |
+| **android**         | Android项目目录                               |
+| **build**           | 运行目录                                      |
+| **ios**             | iOS项目目录                                   |
+| **lib**             | 开发代码目录                                  |
+| **test**            | 测试代码目录                                  |
+| .**gitignore**      | git忽略配置文件                               |
+| .**metadata**       | IDE 用来记录某个 Flutter 项目属性的的隐藏文件 |
+| .**packages**       | pub 工具需要使用的                            |
+| **flutter_app.iml** | 工程文件的本地路径配置                        |
+| **pubspec.lock**    | 当前项目依赖所生成的文件                      |
+| **pubspec.yaml**    | 当前项目的一些配置文件                        |
 
 ### 生命周期
 
 ```mermaid
+graph TD;
+	initState-->
+	didChangeDependencies-->
+	build-->
+	didUpdateWidget
+	build-->
+	deactivate-->
+	dispose;
+	
+	页面初始化-->
+	初始化完成-->
+	渲染页面-->
+	状态改变时
+	渲染页面-->
+	移除渲染树-->
+	组件销毁前;
+```
 
+```dart
+class MyApp extends StatelessWidget {
+	@override
+	void initState() {
+		print('初始化');
+	}
+
+	@override
+	void didChangeDependencies() {
+		print('初始化完成');
+	}
+
+	@override
+	Widget build(BuildContext context) {
+        print('渲染页面');
+		return MaterialApp(
+	    	home: Scaffold(
+	      		body: Home(),
+	    	)
+	  	);
+	}
+    
+    @override
+	void didUpdateWidget(covariant HomePage oldWidget) {
+		print('状态改变时');
+	}
+    
+    @override
+  	void deactivate() {
+    	print('移除渲染树');
+  	}
+
+  	@override
+ 	void dispose() {
+    	print('组件销毁前');
+  	}
+}
 ```
 
 ### 组件
@@ -219,11 +273,17 @@ AppBar(
     brightness,	//主题色调，dark和light
     textTheme,	//文本主题样式
     primary,	//是否显示状态栏
-    centerTitle,//否居中显示
+    centerTitle,//是否居中显示
     titleSpacing,//title区域内边距
     toolbarOpacity,//toolbar区域透明度
     bottomOpacity,//bottom区域透明度
 )
+PreferredSize(
+	child: AppBar(
+		title: Text('d'),
+	),
+    preferredSize: Size.fromHeight(20), //
+),
 ```
 
 - **底部导航**
@@ -455,7 +515,10 @@ CheckboxListTile( //多选框和文字
 ```dart
 DateTime.now(); //获取当前时间
 var timestamp = DateTime.now().microsecondsSinceEpoch;  //获取当前时间戳
-DateTime.fromMicrosecondsSinceEpoch(timestamp);  //时间戳格式化
+DateTime.fromMicrosecondsSinceEpoch(timestamp);  //时间戳转时间
+String time = "2020-08-15 18:00:00";
+strtimes = DateTime.parse(time);  //字符串转DateTime
+intendtime = strtimes.millisecondsSinceEpoch;  //时间转时间戳
 ```
 
 - **时间选择器**
@@ -648,7 +711,8 @@ class HomeState extends State<Home> {
 	        		Text('${count}'), //数据渲染
 	        		RaisedButton(
 	          			child: Text('+1'),
-	          			onPressed: () { //点击改变数据
+	          			onPressed: () {
+                            //点击改变数据
 	            			setState(() {
 	              				count++;
 	            			});
@@ -1080,6 +1144,83 @@ class MyApp extends StatelessWidget {
 	    	),
 	  	);
 	}
+}
+```
+
+### 屏幕适配
+
+#### 安装
+
+```yaml
+flutter_screenutil: ^5.1.1
+```
+
+#### 调用
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+void main({arguments}) {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  	@override
+  	Widget build(BuildContext context) {
+    	return MaterialApp(
+      		home: Scaffold(
+        		appBar: AppBar(title: Text('启动页'), centerTitle: true),
+        		body: HomePage(),
+      		),
+    	);
+  	}
+}
+
+class HomePage extends StatefulWidget {
+  	_HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+	@override
+	Widget build(BuildContext context) {
+        //初始化
+	  	ScreenUtil.init(
+	  	  	BoxConstraints(
+				maxWidth: MediaQuery.of(context).size.width, //获取屏幕宽度
+	  	      	maxHeight: MediaQuery.of(context).size.height), //获取屏幕高度
+	  	  	designSize: Size(360, 690),
+	  	  	context: context,
+	  	);
+        printScreenInformation();
+	  	return Container(
+	    	child: Center(
+	      		child:Row(
+	      			children: [
+	        			Text('设备宽度:${ScreenUtil.screenWidth}px'),
+           				Text('设备高度:${ScreenUtil.screenHeight}px'),
+                        Text('设备的像素密度:${ScreenUtil.pixelRatio}'),
+            			Text('底部安全区距离:${ScreenUtil.bottomBarHeight}px'),
+            			Text('状态栏高度:${ScreenUtil.statusBarHeight}px'),
+	      			],
+	    		),
+	    	),
+	  	);
+	}
+    void printScreenInformation() {
+    	print('设备宽度:${1.sw}dp');
+    	print('设备高度:${1.sh}dp');
+    	print('设备的像素密度:${ScreenUtil().pixelRatio}');
+    	print('底部安全区距离:${ScreenUtil().bottomBarHeight}dp');
+    	print('状态栏高度:${ScreenUtil().statusBarHeight}dp');
+    	print('实际宽度和字体(dp)与设计稿(dp)的比例:${ScreenUtil().scaleWidth}');
+    	print('实际高度(dp)与设计稿(dp)的比例:${ScreenUtil().scaleHeight}');
+    	print('高度相对于设计稿放大的比例:${ScreenUtil().scaleHeight}');
+    	print('系统的字体缩放比例:${ScreenUtil().textScaleFactor}');
+    	print('屏幕宽度的0.5:${0.5.sw}dp');
+    	print('屏幕高度的0.5:${0.5.sh}dp');
+    	print('屏幕方向:${ScreenUtil().orientation}');
+  	}
 }
 ```
 

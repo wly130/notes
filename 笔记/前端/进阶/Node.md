@@ -10,7 +10,7 @@
 
 ```shell
 node --version
-n --version
+np --version
 ```
 
 ### NPM 包管理器
