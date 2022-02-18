@@ -1124,7 +1124,9 @@ import './api/api.dart'; //引入
 class MyApp extends StatelessWidget {
     void getinfo() {
         //调用接口
-    	Api.test({'name': 'value'}).then((res) => {
+    	Api.test({
+            'name': 'value' //c
+        }).then((res) => {
             print(res['data']) //打印 data 数据
         });
   	}
