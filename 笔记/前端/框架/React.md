@@ -1276,13 +1276,13 @@ function Example() {
 
 ### Redux
 
-- **安装依赖包**
+#### 安装依赖包
 
 ```shell
 npm install react-redux --save
 ```
 
-- **index.js**
+#### index.js
 
 ```react
 import React from 'react';
@@ -1300,7 +1300,7 @@ ReactDOM.render(
 );
 ```
 
-- **redux/store.js**
+#### redux/store.js
 
 ```react
 import { createStore } from "redux"
@@ -1320,7 +1320,7 @@ const store = createStore((state = State, action) => {
 export default store;
 ```
 
-- **页面**
+#### 页面
 
 ```react
 import React, { Component } from 'react'

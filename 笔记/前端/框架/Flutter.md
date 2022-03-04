@@ -1125,7 +1125,7 @@ class MyApp extends StatelessWidget {
     void getinfo() {
         //调用接口
     	Api.test({
-            'name': 'value' //c
+            'name': 'value' //参数
         }).then((res) => {
             print(res['data']) //打印 data 数据
         });
@@ -1164,7 +1164,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main({arguments}) {
-  runApp(MyApp());
+	runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

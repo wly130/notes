@@ -50,10 +50,10 @@ main() {
 
 - **`dynamic`，`var`，`object` 的区别**
 
-|                    | dynamic | var   | object |
-| ------------------ | ------- | ----- | ------ |
-| 数据类型是否可变   | true    | false | true   |
-| 是否会静态类型检查 | false   | false | true   |
+|                        | dynamic | var   | object |
+| ---------------------- | ------- | ----- | ------ |
+| **数据类型是否可变**   | true    | false | true   |
+| **是否会静态类型检查** | false   | false | true   |
 
 #### 常用方法
 

@@ -1,11 +1,80 @@
-### 目录
+## Vue
 
-[TOC]
+### CDN引用
 
-### Vue 的引用
+- **Vue2**
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title>Vue2</title>
+	</head>
+	<body>
+		<div id="app">
+            <button @click="app()">点击</button>
+			{{name}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data: {
+				name: 'Hello Vue'
+			},
+			methods: {
+				app() {
+                    this.name = 'Hello Vue2';
+                }
+			}
+		})
+	</script>
+</html>
+```
+
+- **Vue3**
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://unpkg.com/vue@next"></script>
+		<title>Vue3</title>
+	</head>
+	<body>
+		<div id="app">
+            <button @click="app()">点击</button>
+			{{name}}
+		</div>
+	</body>
+	<script>
+		const {
+			createApp,
+			reactive,
+			toRefs
+		} = Vue;
+		const data = reactive({
+			name: 'Hello Vue'
+		})
+		const app = createApp({
+			setup() {
+                let app = () => {
+					data.state = 'Hello Vue3';
+				}
+				return {
+					...toRefs(data),
+                    app
+				}
+			}
+		});
+		app.mount("#app");
+	</script>
+</html>
 ```
 
 ### 搭建 Vue 项目
@@ -113,8 +182,7 @@ graph TD;
 		onUpdated,
 		onBeforeUnmount,
 		onUnmounted
-	} from 'vue'
-	    
+	} from 'vue';
 	onBeforeMount(() => {
 		console.log('挂载前')
 	})
@@ -812,7 +880,7 @@ export default new Vue
     let str = ref('str');
     let flag = ref(true);
     //修改 ref 数据
-    n.value = 0;
+    num.value = 1;
 
 	//定义 reactive 对象
 	let data = reactive({
