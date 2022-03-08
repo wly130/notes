@@ -70,7 +70,7 @@ npm run build
 
     需要加**大括号**
 
-```react
+```jsx
 let name = <div>Text{/*注释*/}</div>;
 ```
 
@@ -78,7 +78,7 @@ let name = <div>Text{/*注释*/}</div>;
 
     需要有一个**父元素**
 
-```react
+```jsx
 let num = (
   	<div>
   		<div>Text1</div>
@@ -89,7 +89,7 @@ let num = (
 
 - **插入变量**
 
-```react
+```jsx
 let text = "你好";
 let num = 10;
 let txt = (
@@ -102,7 +102,7 @@ let txt = (
 
 - **引入图片**
 
-```react
+```jsx
 import imgUrl from '../assets/photo.png';
 <img src={imgUrl} />
 //或
@@ -115,7 +115,7 @@ import imgUrl from '../assets/photo.png';
 >
 > **单位为 `px` 时可以忽略**
 
-```react
+```jsx
 import React from 'react';
 import './css'; //外部引入CSS
 
@@ -143,7 +143,7 @@ export default App;
 
 - **初始化state**
 
-```react
+```jsx
 constructor(props) {
 	super(props);
 	this.state={}
@@ -154,7 +154,7 @@ state = {}
 
 - **更新state**
 
-```react
+```jsx
 this.setState({ name: 'value' }, () => {
     //更新完成后执行的代码
 });
@@ -162,7 +162,7 @@ this.setState({ name: 'value' }, () => {
 
 - **更新对象属性**
 
-```react
+```jsx
 constructor(props) {
 	super(props);
 	this.state = {
@@ -202,7 +202,7 @@ this.setState({ name });
 
 - **使用 `biind` 传参**
 
-```react
+```jsx
 import React from 'react'
 class App extends React.Component {
     constructor(props) {
@@ -230,7 +230,7 @@ export default App;
 
 - **使用 `箭头函数` 传参**
 
-```react
+```jsx
 import React from 'react'
 class App extends React.Component {
     constructor(props) {
@@ -259,7 +259,7 @@ export default App;
 
 #### `函数` 判断
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
 	constructor(props) {
@@ -291,7 +291,7 @@ export default App;
 
 #### `元素变量` 判断
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
 	constructor(props) {
@@ -323,7 +323,7 @@ export default App;
 
 #### `三元运算符 `判断
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
 	constructor(props) {
@@ -348,7 +348,7 @@ export default App;
 
 #### `逻辑运算符&&` 判断
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
 	constructor(props) {
@@ -374,7 +374,7 @@ export default App;
 
 #### `Switch` 判断
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
 	constructor(props) {
@@ -406,7 +406,7 @@ export default App;
 
 #### `html`渲染
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
     constructor(props) {
@@ -448,7 +448,7 @@ export default App;
 
 #### `参数`方式渲染
 
-```react
+```jsx
 import React from 'react'
 class App extends React.Component {
     constructor(props) {
@@ -489,7 +489,7 @@ export default App;
 
 #### `函数`方式渲染
 
-```react
+```jsx
 import React from 'react'
 class App extends React.Component {
     constructor(props) {
@@ -532,7 +532,7 @@ export default App;
 
 #### `组件`方式渲染
 
-```react
+```jsx
 import React from 'react'
 class ForList extends React.Component {
     constructor(props) {
@@ -584,7 +584,7 @@ export default App;
 
 ####  `Array` 方式渲染
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
     constructor(props) {
@@ -611,7 +611,7 @@ export default App;
 
 #### 更新列表
 
-```react
+```jsx
 import React, { Component } from 'react'
 
 export class index extends Component {
@@ -675,7 +675,7 @@ export default index;
 
 - **`name` 属性值与 `state` 值相同**
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
     state = {
@@ -721,7 +721,7 @@ export default App;
 
 #### 函数组件
 
-```react
+```jsx
 let App = () => {
     return (
         <div>函数组件</div>
@@ -731,7 +731,7 @@ let App = () => {
 
 #### 类组件
 
-```react
+```jsx
 import React from 'react';
 class App extends React.Component {
    	constructor(props) {
@@ -794,7 +794,7 @@ graph TD;
 
 - **`componentWillMount` 和 `componentDidMount` 只执行一次**
 
-```react
+```jsx
 import React from 'react'
 class App extends React.Component {
     constructor(props) {
@@ -869,7 +869,7 @@ export default App;
 
 - **子组件 调用 父组件中的方法**
 
-```react
+```jsx
 //父组件
 fun() {
 	console.log('父组件方法')；
@@ -882,7 +882,7 @@ this.props.fun();
 
 - **子传父**
 
-```react
+```jsx
 //子组件
 import React from 'react';
 class Test extends React.Component {
@@ -925,7 +925,7 @@ export default App;
 
 - **父组件 调用 子组件的方法**
 
-```react
+```jsx
 <子组件 ref="fun" />
 
 this.$refs.fun.方法名();
@@ -933,7 +933,7 @@ this.$refs.fun.方法名();
 
 - **父传子**
 
-```react
+```jsx
 //父组件
 import React from 'react';
 import Test from './test';
@@ -964,7 +964,7 @@ export default Test;
 
 - **跨组件通信**
 
-```react
+```jsx
 import React from 'react';
 //父组件 给 孙组件 传值
 const Context = React.createContext();
@@ -1014,7 +1014,7 @@ export default App;
 
 - **index.js**
 
-```react
+```jsx
 import api from './api/api';
 
 React.$api = api;  //全局引入
@@ -1061,7 +1061,7 @@ npm install react-router-dom
 
 - **路由表**
 
-```react
+```jsx
 const routes = [{
     path: '/',
     component: require("../components/test"),
@@ -1077,7 +1077,7 @@ export default routes;
 
 - **路由配置**
 
-```react
+```jsx
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //BrowserRouter
 // import { HashRouter as Router, Route, Link } from "react-router-dom"; //HashRouter
@@ -1101,7 +1101,7 @@ export default RouterList;
 
 - **路径传参  (参数显示在路径上, 刷新页面后参数不消失)**
 
-```react
+```jsx
 <Link to="/test2/${name}">test2</Link>
 <Route path="/test2/:name" component={Test2} />
 
@@ -1116,7 +1116,7 @@ this.props.history.push({
 
 - **`query`传参  (刷新页面后参数消失)**
 
-```react
+```jsx
 <Link to={{ pathname: '/test2', query: { name: 'name' } }}>test2</Link>
 <Route path="/test2" component={Test2} />
 
@@ -1134,7 +1134,7 @@ this.props.history.push({
 
 - **`state`传参  (刷新页面后参数不消失)**
 
-```react
+```jsx
 <Link to={{ pathname: '/test2', state: { name: 'name' } }}>test2</Link>
 <Route path="/test2" component={Test2} />
 
@@ -1160,7 +1160,7 @@ this.props.history.push({
 
 - **定义state状态**
 
-```react
+```jsx
 import React, { useState } from 'react'
 function Example() {
     const [num, setNum] = useState(0);
@@ -1181,7 +1181,7 @@ function Example() {
 
 - **类似于类组件的生命周期函数 (异步加载)**
 
-```react
+```jsx
 import React, { useState, useEffect } from 'react'
 function Example() {
     const [num, setNum] = useState(0);
@@ -1211,7 +1211,7 @@ function Example() {
 
 - **共享状态**
 
-```react
+```jsx
 import React, { useContext } from 'react'
 function Example1() {
     const AppContext = React.createContext({});
@@ -1246,7 +1246,7 @@ function Example1() {
 
 #### `userReducer()`
 
-```react
+```jsx
 import React, { useReducer } from 'react'
 function Example() {
     /**
@@ -1284,7 +1284,7 @@ npm install react-redux --save
 
 #### index.js
 
-```react
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
@@ -1302,7 +1302,7 @@ ReactDOM.render(
 
 #### redux/store.js
 
-```react
+```jsx
 import { createStore } from "redux"
 
 const State = {
@@ -1322,7 +1322,7 @@ export default store;
 
 #### 页面
 
-```react
+```jsx
 import React, { Component } from 'react'
 import { connect } from "react-redux"
 

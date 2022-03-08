@@ -55,7 +55,7 @@ graph TD;
     卸载组件;
 ```
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 
@@ -112,7 +112,7 @@ export default class Test extends Component {
 
 **App.js**
 
-```react
+```jsx
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 
 #### 基础组件
 
-```react
+```jsx
 <View></View>  //视图组件
 <Text>你好</Text>  //文字组件
 <ScrollView></ScrollView>  //滚动组件
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 
 #### 图片组件
 
-```react
+```jsx
 <Image source={ require('./img/img.jpg') } /> //本地图片
 <Image source={{ uri:'https://img.jpg' }} /> //网络图片
 <ImageBackground source={{ uri:'https://img.jpg' }} resizeMode="cover"> //背景图片
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
 
 #### 表单组件
 
-```react
+```jsx
 <TextInput //输入框
     value={text} //输入值
     multiline={true} //是否多行输入
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
 
 #### 提示组件
 
-```react
+```jsx
 <ActivityIndicator //加载组件
     animating={true} //是否显示
     color="00ff00" //颜色
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
 
 #### 列表组件
 
-```react
+```jsx
 let list = [{
     title: "title1",
     data: ["data1", "data2", "data3"]
@@ -279,7 +279,7 @@ const Item = ({ title }) => (
 
 #### 样式组件
 
-```react
+```jsx
 //初始化
 const styles = StyleSheet.create({});
 //合并样式,属性相同时，style2 覆盖 style1
@@ -301,7 +301,7 @@ npm install react-native-safe-area-context --save
 
 - **配置路由表**
 
-```react
+```jsx
 /* /routes/index,js */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
 
 #### 跳转页面
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
@@ -431,7 +431,7 @@ npm install react-native-scrollable-tab-view --save
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view'; //引入
@@ -487,7 +487,7 @@ npm install react-native-tab-navigator --save
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator'
@@ -567,7 +567,7 @@ npm install react-native-flexi-radio-button --save
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button'
@@ -613,7 +613,7 @@ npm install react-native-check-box --save
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import CheckBox from 'react-native-check-box';
@@ -664,7 +664,7 @@ npm install @react-native-community/datetimepicker --save
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -740,7 +740,7 @@ npm install react-native-root-toast --save
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import {  View, Button } from 'react-native';
 import Toast from 'react-native-root-toast';
@@ -802,7 +802,7 @@ npm install react-native-vector-icons --save
 - **[图标仓库](https://oblador.github.io/react-native-vector-icons/)**
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Icon } from 'react-native-vector-icons'
@@ -888,7 +888,7 @@ export default api;
 
 - **使用**
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import api from '../api/api'; //引入api
@@ -973,7 +973,7 @@ export default $storage {
 
 #### 使用
 
-```react
+```jsx
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import app from '../utils/global'; //引入全局
