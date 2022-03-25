@@ -48,6 +48,12 @@ npm update 包名
 npm search 包名
 ```
 
+- **列出所有模块**
+
+```shell
+npm list
+```
+
 - **参数**
 
 | 参数                      | 作用                                                         |
@@ -78,6 +84,45 @@ npm search 包名
 	},
 	"homepage": "包官网URL"
 }
+```
+
+### Yarn 包管理器
+
+```shell
+npm install yarn -g  #全局安装yarn
+```
+
+#### 常用命令
+
+- **初始化(生成 `package.json`)**
+
+```shell
+yarn init
+```
+
+- **安装模块**
+
+```shell
+yarn add 包名
+yarn add 包名@0.0.0	#安装指定版本
+```
+
+- **卸载模块** 
+
+```shell
+yarn remove 包名
+```
+
+- **更新模块**
+
+```shell
+yarn upgrade 包名
+```
+
+- **搜索模块**
+
+```shell
+yarn info 包名
 ```
 
 ### 文件操作

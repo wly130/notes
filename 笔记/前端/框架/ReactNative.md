@@ -831,7 +831,6 @@ let baseUrl = 'http://192.168.1.1:8080';  //请求地址
 
 export function get(url, params) {
     let str = '';
-    //p
     if (Object.keys(params).length > 0) {
         str = '?';
         for (let i in params) {

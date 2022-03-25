@@ -2,6 +2,14 @@
 
 ## 标题 2
 
+### 标题 3
+
+#### 标题 4
+
+##### 标题 5
+
+###### 标题 6
+
 _斜体文本_
 **粗体文斜本**
 **_粗斜体文本_**
@@ -134,7 +142,7 @@ gantt
 	section 开发
 	理解需求:done,des4, after des3, 1d
 	设计框架:done, des5, after des4, 1d
-	开发:done, des6, after des5, 2d
+	开发:done, des6, after des5, 5d
 
 	section 测试
 	本地测试:done, des7,after des6, 2d
@@ -178,7 +186,7 @@ $(document).ready(function () {
 });
 ```
 
-行内代码`alert('RUNOOB');`
+行内代码  `alert('RUNOOB');`
 
 这是一个链接 [菜鸟教程](https://www.runoob.com)
 <https://www.runoob.com>
@@ -207,4 +215,4 @@ $(document).ready(function () {
   <source src="http://www.chongfanmitu.com/chat/Sounds/test.mp3" >
 </audio>
 
-<video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="float:left;"></video>
+<video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="margin:0"></video>

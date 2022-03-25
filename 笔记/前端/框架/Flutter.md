@@ -34,8 +34,8 @@ flutter run
 | .**metadata**       | IDE 用来记录某个 Flutter 项目属性的的隐藏文件 |
 | .**packages**       | pub 工具需要使用的                            |
 | **flutter_app.iml** | 工程文件的本地路径配置                        |
-| **pubspec.lock**    | 当前项目依赖所生成的文件                      |
-| **pubspec.yaml**    | 当前项目的一些配置文件                        |
+| **pubspec.lock**    | 依赖生成的文件                                |
+| **pubspec.yaml**    | 配置文件                                      |
 
 ### 生命周期
 
@@ -147,12 +147,16 @@ Text(
 
 - **图片组件**
 
+```yaml
+#pubspec.yaml引入本地图片
+flutter:
+  assets:
+    - images/img.jpeg
+```
+
 ```dart
-Image(
-	image, 	  //图片地址
-    width,    //宽度
-	height,   //高度
-)
+Image.asset('images/img.jpeg'); //加载本地图片
+Images.network('http://img.png'); //加载网络图片
 ```
 
 - **卡片组件**
@@ -280,9 +284,9 @@ AppBar(
 )
 PreferredSize(
 	child: AppBar(
-		title: Text('d'),
+		title: Text('导航'),
 	),
-    preferredSize: Size.fromHeight(20), //
+    preferredSize: Size.fromHeight(20), //导航栏高度
 ),
 ```
 
@@ -506,6 +510,72 @@ CheckboxListTile( //多选框和文字
 ```
 
 - **下拉框**
+
+```yaml
+dropdown_button2: ^1.2.2
+```
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+
+class Good extends StatefulWidget {
+  Good({Key? key}) : super(key: key);
+  @override
+  GoodState createState() => GoodState();
+}
+
+class GoodState extends State<Good> {
+  String? selectedValue = 'Item1'; //下拉下标
+  List<String> items = [ //下拉选项
+    'Item1',
+    'Item2',
+    'Item3'
+  ];
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DropdownButton2(
+                buttonHeight: 40,  //按钮高度
+                buttonWidth: MediaQuery.of(context).size.width * 0.45,  //按钮宽度
+                dropdownMaxHeight: 200,  //下拉框最大高度
+                dropdownDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                items: items
+                    .map((item) => DropdownMenuItem<String>(  //下拉框列表
+                          value: item,
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ))
+                    .toList(),
+                value: selectedValue,  //下拉下标
+                onChanged: (value) {  //选择事件
+                  setState(() {
+                    selectedValue = value as String;
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
 - **开关**
 
 #### 时间组件
@@ -524,6 +594,8 @@ intendtime = strtimes.millisecondsSinceEpoch;  //时间转时间戳
 - **时间选择器**
 
 ```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
@@ -533,7 +605,7 @@ class MyApp extends StatelessWidget {
 	        		child: [
 	        			ElevatedButton(
           					onPressed: () => {
-          					  	DatePicker.showTimePicker(
+          					  	DatePicker.showDatePicker(
           					    	context,
           					    	showTitleActions: true, //是否展示顶部操作按钮
           					    	minTime: DateTime(2018, 3, 5), //最小时间
@@ -574,6 +646,14 @@ class MyApp extends StatelessWidget {
 	}
 }
 ```
+
+### FutterPub组件库
+
+| 组件名                  | 作用     | 仓库地址                                                 |
+| ----------------------- | -------- | -------------------------------------------------------- |
+| expandable              | 折叠面板 | [链接](https://pub.dev/packages/expandable/example)      |
+| dropdown_button2        | 下拉选择 | [链接](https://pub.dev/packages/dropdown_button2)        |
+| flutter_datetime_picker | 时间选择 | [链接](https://pub.dev/packages/flutter_datetime_picker) |
 
 ### 列表渲染
 
@@ -1032,7 +1112,7 @@ class MyApp extends StatelessWidget {rride
 
 ### 网络请求
 
-#### 安装
+#### 安装组件
 
 ```yaml
 dio: ^4.0.4
