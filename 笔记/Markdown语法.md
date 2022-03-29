@@ -1,3 +1,17 @@
+# Typora快捷键
+
+| 快捷键                          | 作用                    | 快捷键                          | 作用                    |
+| ------------------------------- | ----------------------- | ------------------------------- | ----------------------- |
+| **<kbd>Ctrl + F</kbd>**         | **搜索**                | **<kbd>Ctrl + H</kbd>**         | **替换**                |
+| **<kbd>Ctrl + T</kbd>**         | **插入表格**            | **<kbd>Ctrl + Shift + K</kbd>** | **插入代码块**          |
+| **<kbd>Ctrl + B</kbd>**         | **加粗**                | **<kbd>Ctrl + I</kbd>**         | **倾斜**                |
+| **<kbd>Ctrl + Shift + I</kbd>** | **插入图片**            | **<kbd>Ctrl + K</kbd>**         | **插入链接**            |
+| **<kbd>Ctrl + /</kbd>**         | **源码 / 编辑模式切换** | **<kbd>Ctrl + Shift + L</kbd>** | **侧边栏显示/隐藏切换** |
+| **<kbd>Ctrl + Shift + ]</kbd>** | **插入无序列表**        | **<kbd>Ctrl + Shift + [</kbd>** | **插入有序列表**        |
+| **<kbd>Ctrl + F</kbd>**         | **插入标题**            | **<kbd>Ctrl + U</kbd>**         | **下划线**              |
+| **<kbd>Ctrl + L</kbd>**         | **选中一整行**          | **<kbd>Ctrl + D</kbd>**         | **选中单词**            |
+| **<kbd>Ctrl + Home</kbd>**      | **跳到头部**            | **<kbd>Ctrl + End</kbd>**       | **跳到底部**            |
+
 # 标题 1
 
 ## 标题 2
@@ -18,6 +32,39 @@ _斜体文本_
 ==标记==
 **H~2~O**
 **2^n^**
+
+- **支持的代码语言**
+
+| APL        | asciiarmor     | ASP                 | assembly         | bash              |
+| ---------- | -------------- | ------------------- | ---------------- | ----------------- |
+| basic      | **C**          | **C++**             | **C#**           | **CSS**           |
+| cassandra  | ceylon         | clike               | clojure          | cmake             |
+| cobol      | coffeescript   | commonlisp          | **cpp**          | CQL               |
+| crystal    | csharp         | cypher              | cython           | D                 |
+| **dart**   | diff           | django              | dockerfile       | dtd               |
+| dylan      | ejs            | elixir              | elm              | embeddedjs        |
+| erb        | erlang         | F#                  | **flow(流程图)** | forth             |
+| fortran    | fsharp         | gas                 | gfm              | glsl              |
+| go         | gherkin        | groovy              | **html**         | **http**          |
+| handlebars | haskell        | haxe                | htaccess         | **hxml**          |
+| idl        | **ini**        | jade                | **java**         | **javascript/js** |
+| jinja2     | **json**       | **jsp**             | **jsx**          | julia             |
+| **kotlin** | latex          | **less**            | lisp             | livescipt         |
+| lua        | makefile       | mariadb             | **markdown**     | mathematica       |
+| matlab     | mbox           | **mermaid(流程图)** | mssql            | **mysql**         |
+| nginx      | nim            | nsis                | objc             | **objective-c**   |
+| ocaml      | octave         | oz                  | pascal           | perl              |
+| perl6      | pgp            | **php**             | php+HTML         | plsql             |
+| powershell | properties     | protobuf            | pseudocode       | pseudocode        |
+| **python** | **react**      | reStructuredText    | rst              | ruby              |
+| rust       | SAS            | **SQL**             | scala            | scheme            |
+| **scss**   | sequence       | **shell/sh**        | smalltalk        | solidity          |
+| SPARQL     | spreadsheet    | sqlite              | squirrel         | **stylus**        |
+| swift      | tcl            | tex                 | tiddlywiki       | toml              |
+| tsx        | **typescript** | turtle              | twig             | vbscript/vb       |
+| velocity   | verilog        | vhdl                | **vue**          | visual basic      |
+| web-idl    | wiki           | xaml                | **xml**          | xml-dtd           |
+| xquery     | yacas          | **yaml**            |                  |                   |
 
 - **流程图**
 
@@ -165,7 +212,7 @@ gantt
 2. 列表
 3. 列表
 
-- [ ] **任务列表**
+- [X] **任务列表**
 
 > 区块引用 1
 >
@@ -191,8 +238,6 @@ $(document).ready(function () {
 这是一个链接 [菜鸟教程](https://www.runoob.com)
 <https://www.runoob.com>
 
----
-
 ![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png "RUNOOB")
 <img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
 这个链接用 [^1] 作为网址变量 [RUNOOB][1].
@@ -200,19 +245,19 @@ $(document).ready(function () {
 
 [^1]: http://static.runoob.com/images/runoob-logo.png
 
----
-
 | 左对齐 | 右对齐 | 居中对齐 |
 | :----- | -----: | :------: |
 | 单元格 | 单元格 |  单元格  |
 | 单元格 | 单元格 |  单元格  |
 
----
-
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd>重启电脑
+
+- **音频**
 
 <audio controls>
   <source src="http://www.chongfanmitu.com/chat/Sounds/test.mp3" >
 </audio>
 
-<video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="margin:0"></video>
+- **视频**
+
+<video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="margin:0;"></video>
