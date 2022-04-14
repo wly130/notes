@@ -1,8 +1,4 @@
-## MySQL
-
-### 目录
-
-[TOC]
+### MySQL
 
 #### 数据库常用操作
 
@@ -156,7 +152,7 @@ CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 </table>
 
 | 字符串类型 | 二进制类型 |
-| :--------: | :--------: |
+| :--------- | :--------- |
 |    CHAR    |    BIT     |
 |  VARCHAR   |   BINARY   |
 |   BINARY   | VARBINARY  |
@@ -164,7 +160,7 @@ CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 |    BLOB    |    BLOB    |
 |    TEXT    | MEDIUMBLOB |
 |    ENUM    |  LONGBLOB  |
-|    SET     |
+|    SET     ||
 
 [返回顶部](#目录)
 

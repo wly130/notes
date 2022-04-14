@@ -647,13 +647,19 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-### FutterPub组件库
+### Flutter组件库
+
+- **[仓库地址](https://pub.dev/)**
 
 | 组件名                  | 作用     | 仓库地址                                                 |
 | ----------------------- | -------- | -------------------------------------------------------- |
 | expandable              | 折叠面板 | [链接](https://pub.dev/packages/expandable/example)      |
 | dropdown_button2        | 下拉选择 | [链接](https://pub.dev/packages/dropdown_button2)        |
 | flutter_datetime_picker | 时间选择 | [链接](https://pub.dev/packages/flutter_datetime_picker) |
+| dio                     | 网络请求 | [链接](https://pub.dev/packages/dio)                     |
+| flutter_swiper          | 轮播图   | [链接](https://pub.dev/packages/flutter_swiper)          |
+| flutter_slidable        | 滑动操作 | [链接](https://pub.dev/packages/flutter_slidable)        |
+| table_calendar          | 日历     | [链接](https://pub.dev/packages/table_calendar)          |
 
 ### 列表渲染
 

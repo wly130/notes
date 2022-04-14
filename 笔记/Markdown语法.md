@@ -182,7 +182,7 @@ gantt
 	title 软件开发工作流程图
 
 	section 设计
-	分析需求:done,des1, 2021-01-06,1d
+	分析需求:done,des1, 2022-01-06,1d
 	设计原型:done,des2, after des1, 1d
 	UI设计:done,des3, after des2, 2d
 
