@@ -1,5 +1,3 @@
-[TOC]
-
 ### TypeScript
 
 #### 配置环境

@@ -297,7 +297,7 @@ bottomNavigationBar: BottomNavigationBar(
 	items: <BottomNavigationBarItem>[
 	  	BottomNavigationBarItem(
 	    	icon, //图标
-	    	title,//标题
+	    	label,//标题
 	    	backgroundColor, //背景色
 	  	)
 	],
