@@ -1,16 +1,17 @@
 # Typora快捷键
 
-| 快捷键                          | 作用                    | 快捷键                          | 作用                    |
-| ------------------------------- | ----------------------- | ------------------------------- | ----------------------- |
-| **<kbd>Ctrl + F</kbd>**         | **搜索**                | **<kbd>Ctrl + H</kbd>**         | **替换**                |
-| **<kbd>Ctrl + T</kbd>**         | **插入表格**            | **<kbd>Ctrl + Shift + K</kbd>** | **插入代码块**          |
-| **<kbd>Ctrl + B</kbd>**         | **加粗**                | **<kbd>Ctrl + I</kbd>**         | **倾斜**                |
-| **<kbd>Ctrl + Shift + I</kbd>** | **插入图片**            | **<kbd>Ctrl + K</kbd>**         | **插入链接**            |
-| **<kbd>Ctrl + /</kbd>**         | **源码 / 编辑模式切换** | **<kbd>Ctrl + Shift + L</kbd>** | **侧边栏显示/隐藏切换** |
-| **<kbd>Ctrl + Shift + ]</kbd>** | **插入无序列表**        | **<kbd>Ctrl + Shift + [</kbd>** | **插入有序列表**        |
-| **<kbd>Ctrl + F</kbd>**         | **插入标题**            | **<kbd>Ctrl + U</kbd>**         | **下划线**              |
-| **<kbd>Ctrl + L</kbd>**         | **选中一整行**          | **<kbd>Ctrl + D</kbd>**         | **选中单词**            |
-| **<kbd>Ctrl + Home</kbd>**      | **跳到头部**            | **<kbd>Ctrl + End</kbd>**       | **跳到底部**            |
+| 快捷键                          | 作用                    | 快捷键                               | 作用                    |
+| ------------------------------- | ----------------------- | ------------------------------------ | ----------------------- |
+| **<kbd>Ctrl + F</kbd>**         | **搜索**                | **<kbd>Ctrl + H</kbd>**              | **替换**                |
+| **<kbd>Ctrl + T</kbd>**         | **插入表格**            | **<kbd>Ctrl + Shift + K</kbd>**      | **插入代码块**          |
+| **<kbd>Ctrl + B</kbd>**         | **加粗**                | **<kbd>Ctrl + I</kbd>**              | **倾斜**                |
+| **<kbd>Ctrl + Shift + I</kbd>** | **插入图片**            | **<kbd>Ctrl + K</kbd>**              | **插入链接**            |
+| **<kbd>Ctrl + /</kbd>**         | **源码 / 编辑模式切换** | **<kbd>Ctrl + Shift + L</kbd>**      | **侧边栏显示/隐藏切换** |
+| **<kbd>Ctrl + Shift + ]</kbd>** | **插入无序列表**        | **<kbd>Ctrl + Shift + [</kbd>**      | **插入有序列表**        |
+| **<kbd>Ctrl + F</kbd>**         | **插入标题**            | **<kbd>Ctrl + U</kbd>**              | **下划线**              |
+| **<kbd>Ctrl + L</kbd>**         | **选中一整行**          | **<kbd>Ctrl + D</kbd>**              | **选中单词**            |
+| **<kbd>Ctrl + Home</kbd>**      | **跳到头部**            | **<kbd>Ctrl + End</kbd>**            | **跳到底部**            |
+| **<kbd>Ctrl + Enter</kbd>**     | **插入下面一行表格**    | **<kbd>Ctrl + Shift + Delete</kbd>** | **删除表格当前行**      |
 
 # 标题 1
 

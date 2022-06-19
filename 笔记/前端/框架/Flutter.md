@@ -1312,3 +1312,19 @@ class _HomePageState extends State<HomePage> {
 }
 ```
 
+### 修改软件信息
+
+- **在 `android` > `app` > `src` > `main` > `AndroidManifest.xml` 中修改**
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.fluproject">
+   <application
+        android:label="fluproject" //应用名称
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher" //应用图标,在res/mipmap文件夹里修改
+    >
+    </application>
+</manifest>
+```
+

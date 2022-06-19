@@ -1,5 +1,7 @@
 ## React 框架
 
+![](https://github.com/adam-golab/react-developer-roadmap/raw/master/roadmap-cn.png)
+
 ### React CDN引用
 
 - **react.min.js** **核心库**
@@ -132,8 +134,6 @@ class App extends React.Component {
 
 export default App;
 ```
-
-[返回顶部](#目录)
 
 ### state 状态
 
@@ -395,8 +395,6 @@ class App extends React.Component {
 
 export default App;
 ```
-
-[返回顶部](#目录)
 
 ### 列表渲染
 
@@ -709,8 +707,6 @@ class App extends React.Component {
 export default App;
 ```
 
-[返回顶部](#目录)
-
 ### React 组件
 
 - **组件名称必须以大写字母开头**
@@ -859,8 +855,6 @@ class App extends React.Component {
 export default App;
 ```
 
-[返回顶部](#目录)
-
 #### 组件通信
 
 - **子组件 调用 父组件中的方法**
@@ -1002,8 +996,6 @@ class App extends React.Component {
 export default App;
 ```
 
-[返回顶部](#目录)
-
 ### 封装API
 
 > **和 Vue 封装一样**
@@ -1042,8 +1034,6 @@ module.exports = (app) => {
     )
 }
 ```
-
-[返回顶部](#目录)
 
 ### React-router
 
@@ -1145,8 +1135,6 @@ this.props.history.push({
 //组件接收参数
 {this.props.location.state.name}
 ```
-
-[返回顶部](#目录)
 
 ### React Hooks
 
@@ -1268,8 +1256,6 @@ function Example() {
 }
 ```
 
-[返回顶部](#目录)
-
 ### Redux
 
 #### 安装依赖包
@@ -1362,6 +1348,4 @@ function getDispatch(dispatch) {
 
 export default connect(getState, getDispatch)(Index);
 ```
-
-[返回顶部](#目录)
 

@@ -1,7 +1,5 @@
 ## Node.js
 
-[TOC]
-
 ### 环境安装
 
 - **[点击下载](https://nodejs.org/zh-cn/download/)**

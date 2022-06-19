@@ -23,8 +23,6 @@
 | **修改数据**           | **update** _表名_ **set** _字段名 1=值 1，字段名 2=值 2_ **where** _条件;_ |
 | **查看数据**           | **select** * **from** *表名* **where** _条件;_               |
 
-[返回顶部](#目录)
-
 #### 约束
 
 - **NOT NULL 非空约束**
@@ -75,8 +73,6 @@ ALTER TABLE 表名 MODIFY 字段名 数据类型 AUTO_INCREMENT;
 ALTER TABLE 表名 MODIFY 字段名 数据类型; #删除自增长
 ```
 
-[返回顶部](#目录)
-
 #### 创建索引
 
 ```sql
@@ -90,8 +86,6 @@ CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 |  fulltext   | **全文索引** |
 |   spatial   | **空间索引** |
 | index / key | **字段索引** |
-
-[返回顶部](#目录)
 
 | 数据语句 | 用途                                 |
 | :------: | ------------------------------------ |
@@ -161,8 +155,6 @@ CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 |    TEXT    | MEDIUMBLOB |
 |    ENUM    |  LONGBLOB  |
 |    SET     ||
-
-[返回顶部](#目录)
 
 #### 单表查询
 
@@ -252,8 +244,6 @@ SELECT * FROM 表名 WHERE 字段名 IN (value1, value2);
 INSERT INTO 表2 SELECT * FROM 表1;
 ```
 
-[返回顶部](#目录)
-
 #### 多表查询
 
 <img src="https://www.runoob.com/wp-content/uploads/2013/09/img_innerjoin.gif" alt="avatar" style="float:left" />
@@ -298,8 +288,6 @@ SELECT 列名1,列名2 FROM 左表 FULL OUTER JOIN 右表;
 SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2 GROUP BY 字段名;
 ```
 
-[返回顶部](#目录)
-
 #### 存储过程
 
 - **创建存储过程**
@@ -343,15 +331,11 @@ create function 存储函数名(参数)
 |  OUT  | 输出参数     |
 | INOUT | 输入输出参数 |
 
-[返回顶部](#目录)
-
 #### 数据库备份
 
 ```sql
 select * FROM 数据库名.表名 into outfilte '备份位置';
 ```
-
-[返回顶部](#目录)
 
 #### 视图
 
@@ -380,8 +364,6 @@ alter view 视图名 as <新select语句>;
 drop view 视图名;
 ```
 
-[返回顶部](#目录)
-
 #### SQL 函数
 
 | 函数名                    | 作用                                     |
@@ -406,5 +388,3 @@ drop view 视图名;
 | **round()**               | 对某个数值字段进行指定小数位数的四舍五入 |
 | **now()**                 | 返回当前的系统日期和时间                 |
 | **format()**              | 格式化某个字段的显示方式                 |
-
-[返回顶部](#目录)

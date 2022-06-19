@@ -33,9 +33,5 @@
 | android:phoneNumber   | 设置为电话号码的输入方式                                     |
 | android:lines         | 设置文本行数                                                 |
 
-```xml
-
-```
-
 #### Button
 

@@ -916,7 +916,7 @@ export default class Login extends Component {
 
 ### 数据缓存
 
-- **安装**
+#### 安装
 
 ```shell
 npm install react-native-storage --save

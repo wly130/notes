@@ -1,5 +1,3 @@
-[TOC]
-
 ## jQuery
 
 **官网：<https://jquery.com/>**
