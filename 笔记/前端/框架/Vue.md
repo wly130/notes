@@ -339,8 +339,6 @@ let name = () => {
 }
 ```
 
-[返回顶部](#目录)
-
 ### Vue 指令
 
 #### **v-text 和 v-html**
@@ -397,8 +395,6 @@ let name = () => {
 	}
 </script>
 ```
-
-[返回顶部](#目录)
 
 #### **v-for**
 
@@ -477,8 +473,6 @@ let name = () => {
 - **`.left`            左键事件**
 - **`.right`          右键事件**
 - **`.middle`        中间滚轮事件**
-
-[返回顶部](#目录)
 
 ### Vue事件
 
@@ -579,8 +573,6 @@ let name = () => {
 </script>
 ```
 
-[返回顶部](#目录)
-
 ### 全局变量和方法
 
 ```js
@@ -623,8 +615,6 @@ export default {
 //Vue3 自动注册组件
 import index from './component/index.vue'
 ```
-
-[返回顶部](#目录)
 
 #### 组件之间传值
 
@@ -697,8 +687,6 @@ this.$parent.方法名();
 <子组件 ref="name" ></子组件>
 this.$refs.name.方法名();
 ```
-
-[返回顶部](#目录)
 
 ##### 父传子
 
@@ -856,8 +844,6 @@ import Vue from 'vue'
 
 export default new Vue
 ```
-
-[返回顶部](#目录)
 
 ### Vue3 Setup
 
@@ -1088,8 +1074,6 @@ this.$cookie.get('key');
 ```js
 this.$cookie.remove('key');
 ```
-
-[返回顶部](#目录)
 
 ### vue-router
 
@@ -1417,8 +1401,6 @@ let params = { //参数对象
 };
 this.$api.函数名(params).then(res => {});
 ```
-
-[返回顶部](#目录)
 
 ### 移动端适配
 
