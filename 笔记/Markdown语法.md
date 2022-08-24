@@ -53,7 +53,7 @@ _斜体文本_
 | **kotlin** | latex          | **less**            | lisp             | livescipt         |
 | lua        | makefile       | mariadb             | **markdown**     | mathematica       |
 | matlab     | mbox           | **mermaid(流程图)** | mssql            | **mysql**         |
-| nginx      | nim            | nsis                | objc             | **objective-c**   |
+| **nginx**  | nim            | nsis                | objc             | **objective-c**   |
 | ocaml      | octave         | oz                  | pascal           | perl              |
 | perl6      | pgp            | **php**             | php+HTML         | plsql             |
 | powershell | properties     | protobuf            | pseudocode       | pseudocode        |
@@ -62,7 +62,7 @@ _斜体文本_
 | **scss**   | sequence       | **shell/sh**        | smalltalk        | solidity          |
 | SPARQL     | spreadsheet    | sqlite              | squirrel         | **stylus**        |
 | swift      | tcl            | tex                 | tiddlywiki       | toml              |
-| tsx        | **typescript** | turtle              | twig             | vbscript/vb       |
+| tsx        | **typescript** | turtle              | twig             | **vbscript/vb**   |
 | velocity   | verilog        | vhdl                | **vue**          | visual basic      |
 | web-idl    | wiki           | xaml                | **xml**          | xml-dtd           |
 | xquery     | yacas          | **yaml**            |                  |                   |
