@@ -37,7 +37,7 @@ npm install  #安装依赖
 npm run start
 ```
 
-**默认访问地址为`http://localhost:3000/`**
+**默认访问地址为 `http://localhost:3000/`**
 
 ### 网络请求
 
@@ -47,9 +47,10 @@ npm run start
 const express = require('express');
 const app = express();
 
-app.get('/url', (req, res) => {
-    let data = req.query; //请求参数
-	res.send(); //响应参数
+app.get('/url/:nam', (req, res) => {
+    let query = req.query; //请求参数
+    let params = req.params; //路径参数
+	res.json(); //响应参数
 });
 
 module.exports = app;
@@ -70,7 +71,7 @@ app.use(bodyParser.urlencoded({ //解析 www-form-urlencoded 格式
 
 app.post("/url", (req, res, next) => {
     let data = req.body; //请求参数
-	res.send(); //响应参数
+	res.json(); //响应参数
 });
 
 module.exports = app;
@@ -160,10 +161,9 @@ const mysql = require('mysql');
 /**
  * @method 建立连接
  * @param {string} sql SQL语句
- * @param {Array} params 变量数组
  * @param {function} callback 成功回调函数
  */
-function exec(sql, params, callback) {
+function exec(sql, callback) {
     const conn = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -176,7 +176,7 @@ function exec(sql, params, callback) {
             throw err;
         }
         //数据操作
-        conn.query(sql, params, (err, res) => {
+        conn.query(sql, (err, res) => {
             if (err) {
                 throw err;
             }
@@ -203,18 +203,78 @@ const exec = require('./config.js');  //SQL操作函数
 const app = express();
 app.use(express.json());
 
-//请求访问接口
-app.get/post("/url", (req, res, next) => {
-    let body = req.body; //请求参数
-    let params = []; //sql参数
-    const sql = 'sql语句';
+//增加
+app.post("/add", (req, res, next) => {
+    let query = req.body; //请求参数
+    const sql = `INSERT INTO 数据表 (name) values (${query.name})`;
     
-    exec(sql, params, (data) => {
-        res.json({ data });
+    exec(sql, (data) => {
+        res.json({ data }); //返回参数
+    })
+});
+
+//删除
+app.post("/del", (req, res, next) => {
+    let body = req.body; //请求参数
+    const sql = `DELETE FROM 数据表 WHERE id=${body.id}`;
+    
+    exec(sql, (data) => {
+        res.json({ data }); //返回参数
+    })
+});
+
+//修改
+app.post("/updata", (req, res, next) => {
+    let body = req.body; //请求参数
+    const sql = `UPDATE 数据表 SET name=${body.name} WHERE id=${body.id}`;
+    
+    exec(sql, (data) => {
+        res.json({ data }); //返回参数
+    })
+});
+
+//查询
+app.get("/select/:id", (req, res, next) => {
+    let query = req.query; //请求参数
+    let params = req.params; //路径参数
+    const sql = `SELECT * FROM 数据表 WHERE name=${query.name}`;
+    
+    exec(sql, (data) => {
+        res.json({ data }); //返回参数
     })
 });
 
 module.exports = app;
 ```
 
-​	
+### 路由
+
+- **app.js**
+
+```js
+const express = require('express'); //导入框架
+
+//导入路由表
+const xxRouter = require('./routes/路由表');
+
+const app = express();
+app.use('/xxx', xxRouter);
+
+module.exports = app;
+```
+
+- **/routes/路由表.js**
+
+```js
+const express = require('express'); //导入框架
+const exec = require('../public/mysql/config'); //SQL操作函数
+const router = express.Router();
+
+//获取单词列表
+router.get("/url", (req, res, next) => {
+	res.send();
+});
+
+module.exports = router;
+```
+

@@ -1,29 +1,120 @@
-### MySQL
+## MySQL
 
-#### 数据库常用操作
+### 常用操作
 
-| 作用                   | 代码                                                         |
-| ---------------------- | ------------------------------------------------------------ |
-| **创建数据库**         | **create database** _数据库名_;                              |
-| **删除数据库**         | **drop database** _数据库名_;                                |
-| **查看某个数据库**     | **show create databse** _数据库名_;                          |
-| **查看所有数据库**     | **show databases**;                                          |
-| **修改数据库编码方式** | **alter database** _数据库名_ **default character set** _编码方式\_bin;_ |
-| **创建数据表**         | **create table** _表名_ _(<br>&nbsp;&nbsp;&nbsp;&nbsp;字段名 数据类型(),<br> &nbsp;&nbsp;&nbsp;&nbsp;...<br>)_; |
-| **删除数据表**         | **drop table** _表名_;                                       |
-| **进入数据库**         | **use** _数据库名_;                                          |
-| **修改字段名**         | **alter table** _表名_ **change** _旧字段名 新字段名 新数据类型;_ |
-| **修改表名**           | **alter table** _旧表名_ **rename** _新表名;_                |
-| **修改数据类型**       | **alter table** _表名_ **modify** _字段名 数据类型( );_      |
-| **添加字段名**         | **alter table** _表名_ **add** _新字段名 数据类型();_        |
-| **删除字段名**         | **alter table** _表名_ **drop** _字段名;_                    |
-| **查看数据表**         | **desc** _表名;_                                             |
-| **添加数据**           | **insert into** _表名 (字段 1，字段 2)_ **values** _(值 1，值 2);_ |
-| **删除数据**           | **delete from** _表名_ **where** _条件;_                     |
-| **修改数据**           | **update** _表名_ **set** _字段名 1=值 1，字段名 2=值 2_ **where** _条件;_ |
-| **查看数据**           | **select** * **from** *表名* **where** _条件;_               |
+- **创建数据库**
 
-#### 约束
+```sql
+CREATE DATABASE 数据库名;
+```
+
+- **删除数据库**
+
+```sql
+DROP DATABASE 数据库名;
+```
+
+- **进入数据库**
+
+```sql
+USE 数据库名;
+```
+
+- **查看某个数据库**
+
+```sql
+SHOW CREATE DATABASE 数据库名;
+```
+
+- **查看所有数据库**
+
+```sql
+SHOW DATABASES;
+```
+
+- **修改数据库编码方式**  
+
+```sql
+ALTER DATABASE 数据库名 DEFAULT CHARACTER SET 编码方式;
+```
+
+- **创建数据表**
+
+```sql
+CREATE TABLE 表名 (
+    字段1 数据类型(范围) <NULL>,
+    字段2 数据类型(范围) <NULL>
+    ...
+);
+```
+
+- **删除数据表**
+
+```sql
+DROP TABLE 表名;
+```
+
+- **修改字段名**
+
+```sql
+ALTER TABLE 表名 CHANGE 旧字段名 新字段名 新数据类型;
+```
+
+- **修改表名**
+
+```sql
+ALTER TABLE 旧表名 RENAME 新表名;
+```
+
+- **修改数据类型**
+
+```sql
+ALTER TABLE 表名 MODIFY 字段名 数据类型();
+```
+
+- **添加字段名**
+
+```sql
+ALTER TABLE 表名 ADD 新字段名 数据类型();
+```
+
+- **删除字段名**
+
+```sql
+ALTER TABLE 表名 DROP 字段名;
+```
+
+- **查看表结构**
+
+```sql
+DESC 表名;
+```
+
+- **添加数据**
+
+```sql
+INSERT INTO 表名 (字段1，字段2) VALUES (值1，值2);
+```
+
+- **删除数据**
+
+```sql
+DELETE FROM 表名 WHERE 条件;
+```
+
+- **修改数据**
+
+```sql
+UPDATE 表名 SET 字段名1=值1，字段名2=值2 WHERE 条件;
+```
+
+- **查询所有数据**
+
+```sql
+SELECT * FROM 表名 WHERE 条件;
+```
+
+### 约束
 
 - **NOT NULL 非空约束**
 
@@ -53,12 +144,6 @@ ALTER TABLE 表名 ADD FOREIGN KEY (字段名) REFERENCES 外表名(外表字段
 ALTER TABLE 表名 DROP FOREIGN KEY 字段名; #删除约束
 ```
 
-- **CHECK 范围约束(MySQL 不支持)**
-
-```sql
-ALTER TABLE 表名 ADD CHECK (值的范围);
-```
-
 - **DEFAULT 默认值约束**
 
 ```sql
@@ -73,27 +158,27 @@ ALTER TABLE 表名 MODIFY 字段名 数据类型 AUTO_INCREMENT;
 ALTER TABLE 表名 MODIFY 字段名 数据类型; #删除自增长
 ```
 
-#### 创建索引
+### 创建索引
 
 ```sql
 ALTER TABLE 表名 ADD 索引类型 别名 (字段名);
 CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 ```
 
-|    单词     | 索引类型     |
-| :---------: | ------------ |
-|   unique    | **唯一索引** |
-|  fulltext   | **全文索引** |
-|   spatial   | **空间索引** |
+| 单词        | 索引类型     |
+| :---------- | ------------ |
+| unique      | **唯一索引** |
+| fulltext    | **全文索引** |
+| spatial     | **空间索引** |
 | index / key | **字段索引** |
 
-| 数据语句 | 用途                                 |
-| :------: | ------------------------------------ |
-| **DML**  | 数据操作语言语句,插入、修改、删除等  |
-| **DDL**  | 数据定义语言语句,create、alter、drop |
-| **DCL**  | 数据控制语言语句,grant、revoke 语句  |
+| 数据语句 | 用途                                       |
+| :------: | ------------------------------------------ |
+| **DML**  | 数据操作语言语句,插入、修改、删除等        |
+| **DDL**  | 数据定义语言语句,`create`、`alter`、`drop` |
+| **DCL**  | 数据控制语言语句,`grant`、`revoke `语句    |
 
-#### 数据类型
+### 数据类型
 
 <table>
         <tr>
@@ -156,7 +241,7 @@ CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 |    ENUM    |  LONGBLOB  |
 |    SET     ||
 
-#### 单表查询
+### 单表查询
 
 - **查询指定字段**
 
@@ -212,10 +297,10 @@ SELECT 字段名 AS 别名 FROM 表名;
 SELECT * FROM 表名 LIMIT n;
 ```
 
-- **显示第 n 行到第 f 行**
+- **显示第 n 行后面 m 个数据**
 
 ```sql
-SELECT * FROM 表名 LIMIT n－1,f;
+SELECT * FROM 表名 LIMIT n－1,m;
 ```
 
 - **查询结果排序**[^1]
@@ -244,14 +329,14 @@ SELECT * FROM 表名 WHERE 字段名 IN (value1, value2);
 INSERT INTO 表2 SELECT * FROM 表1;
 ```
 
-#### 多表查询
+### 多表查询
 
 <img src="https://www.runoob.com/wp-content/uploads/2013/09/img_innerjoin.gif" alt="avatar" style="float:left" />
 
 - **INNER JION 查询**
 
 ```sql
-//如果表中有至少一个匹配，则返回行
+#如果表中有至少一个匹配，则返回行
 SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2;
 ```
 
@@ -260,7 +345,7 @@ SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2;
 - **LEFT JION 查询**
 
 ```sql
-//即使右表中没有匹配的也从左表返回所有行
+#即使右表中没有匹配的也从左表返回所有行
 SELECT 列名1,列名2 FROM 左表 LEFT JOIN 右表;
 ```
 
@@ -269,7 +354,7 @@ SELECT 列名1,列名2 FROM 左表 LEFT JOIN 右表;
 - **RIGHT JION 查询**
 
 ```sql
-//即使左表中没有匹配也从右表返回所有的行
+#即使左表中没有匹配也从右表返回所有的行
 SELECT 列名1,列名2 FROM 左表 RIGHT JION 右表;
 ```
 
@@ -278,7 +363,7 @@ SELECT 列名1,列名2 FROM 左表 RIGHT JION 右表;
 - **FULL JION 查询**
 
 ```sql
-//只要其中一个表中存在匹配，则返回行
+#只要其中一个表中存在匹配，则返回行
 SELECT 列名1,列名2 FROM 左表 FULL OUTER JOIN 右表;
 ```
 
@@ -288,41 +373,41 @@ SELECT 列名1,列名2 FROM 左表 FULL OUTER JOIN 右表;
 SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2 GROUP BY 字段名;
 ```
 
-#### 存储过程
+### 存储过程
 
 - **创建存储过程**
 
 ```sql
-deimiter //
-    create procedure 过程名(参数)
-    begin
+DEIMITER //
+    CREATE PROCEDURE 过程名(参数)
+    BEGIN
          过程内容;
-    end//
-deimiter ;
+    END//
+DEIMITER;
 ```
 
 - **调用存储过程**
 
 ```sql
-call 过程名(参数);
+CALL 过程名(参数);
 ```
 
 - **删除存储过程**
 
 ```sql
-drop procedure 过程名;
+DROP PROCEDURE 过程名;
 ```
 
 - **变量赋值**
 
 ```sql
-set @变量名=值
+SET @变量名=值;
 ```
 
 - **存储函数**
 
 ```sql
-create function 存储函数名(参数)
+CREATE functioFUNCTION 存储函数名(参数)
 ```
 
 | 参数  | 作用         |
@@ -331,13 +416,13 @@ create function 存储函数名(参数)
 |  OUT  | 输出参数     |
 | INOUT | 输入输出参数 |
 
-#### 数据库备份
+### 数据库备份
 
 ```sql
 select * FROM 数据库名.表名 into outfilte '备份位置';
 ```
 
-#### 视图
+### 视图
 
 - **创建视图**
 
@@ -364,7 +449,7 @@ alter view 视图名 as <新select语句>;
 drop view 视图名;
 ```
 
-#### SQL 函数
+### SQL 函数
 
 | 函数名                    | 作用                                     |
 | ------------------------- | ---------------------------------------- |

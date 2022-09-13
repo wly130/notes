@@ -1,9 +1,9 @@
 ### 变量
 
-- **定义变量** &nbsp;&nbsp;&nbsp;&nbsp;name=123 **等号两边不能有空格**
-- **使用变量** &nbsp;&nbsp;&nbsp;&nbsp;\$name _或_ \${name}
-- **只读变量** &nbsp;&nbsp;&nbsp;&nbsp;**readonly** name
-- **删除变量** &nbsp;&nbsp;&nbsp;&nbsp;**usnset** name **(不能删除只读变量)**
+- **定义变量**:  **`name=123` 等号两边不能有空格**
+- **使用变量**:  **`$name` 或 `${name}`**
+- **只读变量**:  **`readonly name`**
+- **删除变量**:  **`usnset name`** **(不能删除只读变量)**
 
 | 变量分类 | &nbsp;                              |
 | -------- | ----------------------------------- |
@@ -256,30 +256,30 @@ fi
 
 ```shell
 #量在范围内执行语句
-    for 变量名 in 范围
-    do
-        #执行语句
-    done
+for 变量名 in 范围
+do
+    #执行语句
+done
 ```
 
 #### while 循环
 
 ```shell
 #条件为 true 时执行语句,直至条件为 false 时停止
-    whole 判断条件
-    do
-        #执行语句
-    done
+whole 判断条件
+do
+    #执行语句
+done
 ```
 
 #### until 循环
 
 ```shell
 #条件为 false 时执行语句,直至条件为 true 时停止
-    until 判断条件
-    do
-        #执行语句
-    done
+until 判断条件
+do
+    #执行语句
+done
 ```
 
 #### case 语句多选择语句
