@@ -11,8 +11,8 @@
 > **开发环境**
 
 ```html
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/babel"></script>
 ```
@@ -20,8 +20,8 @@
 > **生产环境**
 
 ```html
-<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/babel"></script>
 ```
@@ -66,12 +66,51 @@ npm run build
 
 - **index.js**
 
+```jsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import api from "./api/api";
+
+React.$api = api; //API接口
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
 ```
 
+- **index.css**
+
+```css
+body,
+html {
+    height: 100%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
 ```
 
-- **index.js**
-- 
+- **App.js**
+
+```jsx
+import Routers from "./routes/index";
+import "./index.css";
+
+function App() {
+    return (
+        <div className="App">
+            <Routers />
+        </div>
+    );
+}
+
+export default App;
+```
 
 ### JSX语法
 
@@ -182,6 +221,27 @@ constructor(props) {
 let name = this.state,name;
 name.value = '456';
 this.setState({ name });
+```
+
+- **更新数组**
+
+```jsx
+constructor(props) {
+	super(props);
+	this.state = {
+        array: [{
+            id: 1,
+            name: 'name1'
+        }]
+    }
+}
+
+let array = [...this.state,array];
+array.push({
+    id: 2,
+    name: 'name2'
+})
+this.setState({ array: array });
 ```
 
 ### 事件处理
@@ -1056,42 +1116,49 @@ npm install react-router-dom
 
 #### Router配置
 
-- **路由表**
+- **routes.js**
 
-```jsx
+```js
+//引入自定义组件
+import Index from "../pages/index/index";
+
 const routes = [{
-    path: '/',
-    component: require("../components/test"),
-    exact: true
-}, {
-    path: '/Test2',
-    component: require("../components/test2"),
-    exact: true
+	path: "/",
+	component: <Index />,
+	exact: true
 }];
 
 export default routes;
 ```
 
-- **路由配置**
+- **index.js**
 
 ```jsx
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //BrowserRouter
-// import { HashRouter as Router, Route, Link } from "react-router-dom"; //HashRouter
-import routes from "./routers"; //引入路由表
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+//引入路由表
+import routes from "./routes";
 
-function RouterList() {
+function Routers() {
     return (
-        <Router>
-            {/*点击跳转*/}
-            <Link to="/test2">test2</Link>
-            {/*跳转接收*/}
-            <Route path={routes[1].path} component={routes[1].component} />
-        </Router>
+        <BrowserRouter>
+            <Routes>
+                {routes.map(({ path, component, exact }, key) => {
+                    return (
+                        <Route
+                            key={key}
+                            exact={exact}
+                            path={path}
+                            element={component}
+                        />
+                    );
+                })}
+            </Routes>
+        </BrowserRouter>
     );
 }
 
-export default RouterList;
+export default Routers;
 ```
 
 #### Router`跳转` 和 `传参`
@@ -1145,6 +1212,36 @@ this.props.history.push({
 
 //组件接收参数
 {this.props.location.state.name}
+```
+
+#### 封装路由
+
+```jsx
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+//引入路由表
+import routes from "./routes";
+
+function RouterList() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                {routes.map(({ path, component, exact }, key) => {
+                    return (
+                        <Route
+                            key={key}
+                            exact={exact}
+                            path={path} //路径
+                            element={component} //组件
+                        />
+                    );
+                })}
+            </Routes>
+        </BrowserRouter>
+    );
+}
+
+export default RouterList;
 ```
 
 ### React Hooks

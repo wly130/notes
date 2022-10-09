@@ -24,12 +24,13 @@ npm install  #安装依赖
 
 | 文件名           | 功能                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| **bin/www**      | 应用的启动文件,包含引用要启动的应用、设置应用监听的端口和启动http服务等 |
-| **public**       | 应用的静态资源文件目录                                       |
-| **routes**       | 应用的路由文件                                               |
-| **views**        | 应用的视图文件                                               |
-| **app.js**       | 应用的初始化文件                                             |
-| **package.json** | 应用的配置文件                                               |
+| **bin/www**      | 启动文件,包含引用要启动的应用、设置应用监听的端口和启动http服务 |
+| **assets**       | 上传文件目录                                                 |
+| **public**       | 静态资源文件目录                                             |
+| **routes**       | 路由文件                                                     |
+| **views**        | 视图文件                                                     |
+| **app.js**       | 初始化文件                                                   |
+| **package.json** | 配置文件                                                     |
 
 - **启动项目**
 
@@ -37,7 +38,25 @@ npm install  #安装依赖
 npm run start
 ```
 
+- **监控端口状态**
+
+```js
+app.listen(3000, 'localhost', () => {
+	console.log('服务已开启,端口号:3000');
+});
+```
+
 **默认访问地址为 `http://localhost:3000/`**
+
+### 请求头
+
+#### 设置请求头
+
+```js
+app.get('/url', (req, res) => {
+    res.header("Content-Type", "application/json;");
+});
+```
 
 ### 网络请求
 
@@ -65,9 +84,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-app.use(bodyParser.urlencoded({ //解析 www-form-urlencoded 格式
-	txtended: false
-}));
+app.use(bodyParser.urlencoded({
+	extended: true
+}))
 
 app.post("/url", (req, res, next) => {
     let data = req.body; //请求参数
@@ -80,16 +99,35 @@ module.exports = app;
 - **`form-data` 格式**
 
 ```shell
-npm install connect-multiparty
+npm install multer -S
 ```
 
 ```js
-const express = require('express');
+const express = require('express'); //导入框架
+const multer = require('multer');
+//获取图片地址,http开头
+const path = require("path");
 const app = express();
-const multipart = require('connect-multiparty');
-const multipartMiddleware = multipart(); //文件上传
+app.use(express.static(path.join(__dirname, "assets")));
 
-app.post('/url', multipartMiddleware, (req, res) => {});
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'assets/'); //上传文件目录.根目录下
+	},
+	filename: (req, file, cb) => {
+        //自定义 时间戳+文件名
+		cb(null, Date.now() + '-' + file.originalname);
+	}
+});
+const upload = multer({
+	storage: storage
+});
+
+app.post('/uploadFile', upload.single("file"), (req, res) => {
+    res.send({
+		f: req.file //文件详情
+	});
+});
 
 module.exports = app;
 ```
@@ -97,9 +135,9 @@ module.exports = app;
 - **`application/json` 格式**
 
 ```js
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
 app.use(bodyParser.json()); //解析 JOSN 格式
 
@@ -203,10 +241,10 @@ const exec = require('./config.js');  //SQL操作函数
 const app = express();
 app.use(express.json());
 
-//增加
+//添加
 app.post("/add", (req, res, next) => {
     let query = req.body; //请求参数
-    const sql = `INSERT INTO 数据表 (name) values (${query.name})`;
+    const sql = `INSERT INTO 数据表 (name) VALUES (${query.name})`;
     
     exec(sql, (data) => {
         res.json({ data }); //返回参数
@@ -234,10 +272,11 @@ app.post("/updata", (req, res, next) => {
 });
 
 //查询
-app.get("/select/:id", (req, res, next) => {
+app.get("/select", (req, res, next) => {
     let query = req.query; //请求参数
-    let params = req.params; //路径参数
-    const sql = `SELECT * FROM 数据表 WHERE name=${query.name}`;
+    
+    const where = `WHERE id=${query.id}`;
+    const sql = `SELECT * FROM 数据表 ${where}`;
     
     exec(sql, (data) => {
         res.json({ data }); //返回参数
@@ -278,3 +317,4 @@ router.get("/url", (req, res, next) => {
 module.exports = router;
 ```
 
+- **访问接口: `/xxx/url`**

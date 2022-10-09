@@ -57,22 +57,22 @@ main() {
 
 #### 常用方法
 
-| 方法名         | 作用                          |
-| -------------- | ----------------------------- |
-| codeUnitAt()   | 当前索引位置字符的UTF-16码    |
-| startsWith()   | 当前字符串是否以指定字符开头  |
-| endsWith()     | 当前字符串是否以指定字符结尾  |
-| toUpperCase()  | 大写                          |
-| toLowerCase()  | 小写                          |
-| indexOf()      | 获取指定字符的索引位置        |
-| contains()     | 字符串是否包含指定字符        |
-| trim()         | 去除字符串的首尾空格          |
-| length         | 字符串长度                    |
-| replaceFirst() | 替换第一次出现t字符位置的字符 |
-| replaceAll()   | 全部替换                      |
-| str is String  | 判断类型是否为String          |
-| str is! String | 判断类型是否不为String        |
-| str as String  | 强制转换成String类型          |
+| 方法名               | 作用                          |
+| -------------------- | ----------------------------- |
+| **`codeUnitAt()`**   | 当前索引位置字符的UTF-16码    |
+| **`startsWith()`**   | 当前字符串是否以指定字符开头  |
+| **`endsWith()`**     | 当前字符串是否以指定字符结尾  |
+| **`toUpperCase()`**  | 大写                          |
+| **`toLowerCase()`**  | 小写                          |
+| **`indexOf()`**      | 获取指定字符的索引位置        |
+| **`contains()`**     | 字符串是否包含指定字符        |
+| **`trim()`**         | 去除字符串的首尾空格          |
+| **`length`**         | 字符串长度                    |
+| **`replaceFirst()`** | 替换第一次出现t字符位置的字符 |
+| **`replaceAll()`**   | 全部替换                      |
+| **`str is String`**  | 判断类型是否为String          |
+| **`str is! String`** | 判断类型是否不为String        |
+| **`str as String`**  | 强制转换成String类型          |
 
 ### List() ,Set() 和 Map()
 
