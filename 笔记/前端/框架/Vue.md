@@ -80,8 +80,12 @@
 ### 搭建 Vue 项目
 
 ```shell
+#Vue2
 npm install @vue/cli -g  #安装脚手架
 vue init webpack 项目名  #创建项目
+
+#Vue3
+npm create vite@latest
 ```
 
 ### Vue 生命周期
@@ -224,24 +228,24 @@ graph TD;
 
 ```js
 //Vue2
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 
 Vue.config.productionTip = false;
 
 new Vue({
 	render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');
 
 //Vue3
 import {
 	createApp
-} from 'vue'
-import App from './App.vue'
+} from 'vue';
+import App from './App.vue';
 
 const app = createApp(App);
 
-app.mount('#app')
+app.mount('#app');
 ```
 
 #### 页面
@@ -249,8 +253,7 @@ app.mount('#app')
 ```html
 <-- Vue2 -->
 <template>
-	<view id="app">
-	</view>
+	<view id="app"></view>
 </template>
 
 <script>
@@ -275,7 +278,7 @@ app.mount('#app')
 	import {
 		ref,
 		reactive
-	} from 'vue'
+	} from 'vue';
 </script>
 
 <style scoped>
@@ -858,7 +861,7 @@ export default new Vue
 <script setup>
 	import {
 		ref, //定义基本数据类型
-		reactive, //定义对象,数组类型
+		reactive //定义对象,数组类型
 	} from 'vue';
 	
     //定义 ref 数据
@@ -1052,7 +1055,7 @@ import cookie from 'js-cookie'
 Vue.prototype.$cookie = cookie;
 ```
 
-- **写入`cookie`**
+- **写入 `cookie`**
 
 ```js
 this.$cookie.set('key', value);
@@ -1063,13 +1066,13 @@ this.$cookie.set('key', value, {
 });
 ```
 
-- **获取`cookie`**
+- **获取 `cookie`**
 
 ```js
 this.$cookie.get('key');
 ```
 
-- **删除`cookie`**
+- **删除 `cookie`**
 
 ```js
 this.$cookie.remove('key');
@@ -1086,8 +1089,9 @@ npm install vue-router -S
 - **routes/index.js**
 
 ```js
-import Vue from 'vue'
-import Router from 'vue-router'
+/* Vue2 */
+import Vue from 'vue';
+import Router from 'vue-router';
 Vue.use(Router);
 //页面路径
 const routes = [{
@@ -1099,6 +1103,26 @@ const router = new Router({
 	mode: 'hash', //默认hash模式,hash模式有#;history模式，没有#符号;
 	routes: routes
 });
+
+/* Vue3 */
+import {
+	createRouter,
+	createWebHashHistory
+} from "vue-router";
+
+const index = () => import("../pages/index.vue");
+
+const routes = [{
+	path: "/",
+	name: "index",
+	component: index
+}];
+
+const router = createRouter({
+	history: createWebHashHistory(),
+	routes: routes
+});
+
 //路由守卫
 router.beforeEach((to, from, next) => {
 	// to	  下一页面
@@ -1112,15 +1136,21 @@ export default router;
 
 ```js
 import routes from './routes/index.js' //路由
+/* Vue2 */
 new Vue({
     routes,
     render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');
+
+/* Vue3 */
+const app = createApp(App);
+app.use(router);
 ```
 
 - **App.vue**
 
 ```vue
+<!-- Vue2 -->
 <template>
     <div id="app">
         <router-view></router-view>
@@ -1131,6 +1161,11 @@ new Vue({
         name: "app",
     };
 </script>
+
+<!-- Vue3 -->
+<template>
+	<router-view></router-view>
+</template>
 ```
 
 ### 路由跳转传值
@@ -1262,6 +1297,7 @@ export default {
 - **vue.config.js**
 
 ```js
+//Vue2
 module.exports = {
 	publicPath: './',
 	devServer: {
@@ -1281,6 +1317,30 @@ module.exports = {
 		}
 	}
 }
+
+//Vue3
+import {
+	defineConfig
+} from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig({
+	plugins: [vue()],
+	server: {
+		host: 'localhost',
+		port: 8080,
+		proxy: {
+			'/api': {
+				target: "http://localhost:3000", //接口地址
+				changeOrigin: true, //是否跨域
+				secure: false,
+				pathRewrite: { //重写路径
+					"^/api": ""
+				}
+			}
+		}
+	}
+})
 ```
 
 - **axios 引用**
@@ -1318,7 +1378,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.interceptors.request.use(
 	config => {
 		// 每次发送请求之前判断是否存在token
-		const token = slocalStorage.getItem('token');
+		const token = localStorage.getItem('token');
 		if (token) { // 判断是否存在token
 			config.headers.Token = token;
 		}
@@ -1396,10 +1456,21 @@ Vue.prototype.$api = api;
 - **调用API**
 
 ```javascript
+//Vue2
 let params = { //参数对象
     key: 'value'
 };
 this.$api.函数名(params).then(res => {});
+
+//Vue3
+import {
+	getCurrentInstance
+} from "vue";
+var { proxy } = getCurrentInstance();
+let params = { //参数对象
+    key: 'value'
+};
+proxy.$api.函数名(params).then(res => {});
 ```
 
 ### 移动端适配

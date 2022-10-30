@@ -125,7 +125,7 @@ const upload = multer({
 
 app.post('/uploadFile', upload.single("file"), (req, res) => {
     res.send({
-		f: req.file //文件详情
+		file: req.file //文件详情
 	});
 });
 
@@ -220,7 +220,7 @@ function exec(sql, callback) {
             }
             //查询数据返回给回调函数
             callback && callback(res);
-            //关闭数据库l
+            //关闭数据库
             conn.end((err) => {
                 if (err) {
                     throw err;
@@ -292,7 +292,6 @@ module.exports = app;
 
 ```js
 const express = require('express'); //导入框架
-
 //导入路由表
 const xxRouter = require('./routes/路由表');
 
@@ -317,4 +316,4 @@ router.get("/url", (req, res, next) => {
 module.exports = router;
 ```
 
-- **访问接口: `/xxx/url`**
+- **访问接口: `http:localhost:3000/xxx/url`**

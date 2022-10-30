@@ -3,7 +3,7 @@
 **官网：<https://jquery.com/>**
 
 ```html
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 ```
 
 ### 初始化
@@ -129,7 +129,7 @@ jQuery(($) => {
 | **outerWidth()**  | 返回元素的宽度，包括内边距和边框         |
 | **outerHeight()** | 返回元素的高度，包括内边距和边框         |
 
-### 循环
+### 循环渲染
 
 #### `html()` 渲染
 
@@ -177,19 +177,19 @@ for (let i = 0; i < data.length; i++) {
 | **.ajaxSuccess()**  | AJAX 请求成功完成时运行的函数                      |
 | **.load()**         | 从服务器加载数据，并把返回的数据放置到指定的元素中 |
 
-- **Ajax 方法封装**
+- **`Ajax` 方法封装**
 
 ```js
 /**
  * @param {string} type 请求类型 post/get
+ * @param {Object} params 请求数据
  * @param {string} url 请求地址
- * @param {Object} data 请求数据
  */
-function api(type, data, url) {
+function Api(type, url, params) {
     return new Promise((resolve, reject) => {
         $.ajax({
 			type: type,
-			data: data,
+			data: params,
 			url: url,
 			dataType: "json",
    			async: false,
@@ -197,7 +197,7 @@ function api(type, data, url) {
 			success: (res) => {
 				resolve(res); 	//返回接口数据
 			},
-			error: (error) => {
+			error: (erro) => {
 				reject(error);  //返回错误信息
 			}
 		});
@@ -206,10 +206,10 @@ function api(type, data, url) {
 
 //api接口封装
 function 函数名(params){
-	return api('get', params, '请求地址');
+	return Api('get', '请求地址', params);
 }
 function 函数名(params){
-	return api('post', params, '请求地址');
+	return Api('post', '请求地址', params);
 }
 
 //调用api接口
