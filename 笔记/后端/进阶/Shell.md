@@ -138,14 +138,14 @@ ${!array[@]}
 
 ```Shell
 #定义
-    function 函数名{
-        return value
-    }
-    函数名(){
-        return value
-    }
+function 函数名{
+    return value
+}
+函数名(){
+    return value
+}
 #调用
-    函数名 参数1 参数2 参数3
+函数名 参数1 参数2 参数3
 ```
 
 ### 算术运算符

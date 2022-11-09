@@ -236,7 +236,7 @@ class 子类 extends 父类 {
 //implements  继承多个接口
 public class 子类 implements 父类
 }
-//uper 与 this 关键字
+//super 与 this 关键字
 super 调用父类方法
 this  调用自己的方法
 //final 关键字

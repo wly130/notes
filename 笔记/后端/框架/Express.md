@@ -189,98 +189,143 @@ module.exports = app;
 | res.status()|设置HTTP状态码|
 | res.type()|设置Content-Type的MIME类型|
 
-### 数据库操作
+### 数据库操作(Sequelize框架)
 
-- **数据库连接封装(config.js)**
+- **下载依赖包**
+
+```shell
+npm install mysql2 -S
+npm install sequelize -S
+```
+
+- **数据库连接(config/mysql-config.js)**
 
 ```js
-const mysql = require('mysql');
+const {
+	Sequelize,
+	DataTypes,
+    O
+} = require("sequelize");
 
-/**
- * @method 建立连接
- * @param {string} sql SQL语句
- * @param {function} callback 成功回调函数
- */
-function exec(sql, callback) {
-    const conn = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'password',
-        port: '3306',
-        database: '数据库名'
-    })
-    conn.connect((err) => {
-        if (err) {
-            throw err;
-        }
-        //数据操作
-        conn.query(sql, (err, res) => {
-            if (err) {
-                throw err;
-            }
-            //查询数据返回给回调函数
-            callback && callback(res);
-            //关闭数据库
-            conn.end((err) => {
-                if (err) {
-                    throw err;
-                }
-            });
-        });
-    });
+const sequelize = new Sequelize(
+	'my_project', //数据库名
+	'root', //用户名
+	'000000', { //密码
+		host: '127.0.0.1', //数据库地址
+		port: '3306',  //端口号
+		dialect: "mysql", //数据库类型
+		pool: {
+			max: 5,
+			min: 0,
+			acquire: 3000
+		}
+	}
+);
+const db = {};
+db.DataTypes = DataTypes; //字段类型
+db.sequelize = sequelize;
+db.Op = Op;
+
+module.exports = db;
+```
+
+- **封装数据库(models/index.js)**
+
+```js
+const db = require("../config/mysql-config");
+
+const m_type = db.sequelize.define(
+    "m_type", { //数据表名
+	id: { //字段名
+		type: db.DataTypes.INTEGER(10), //数据类型
+		primaryKey: true //是否为主键
+	},
+	type: {
+		type: db.DataTypes.STRING(255),
+        allowNull: false //是否为空
+	}
+}, {
+	tableName: 'm_type',
+	timestamps: false
+});
+
+module.exports = {
+	m_type
 }
-
-module.exports = exec;
 ```
 
 - **app.js**
 
 ```js
 const express = require('express'); //导入框架
-const exec = require('./config.js');  //SQL操作函数
+const { m_type } = require("./models/xxx");  //SQL操作函数
+const { Op } = require("sequelize");
 const app = express();
 app.use(express.json());
 
 //添加
 app.post("/add", (req, res, next) => {
-    let query = req.body; //请求参数
-    const sql = `INSERT INTO 数据表 (name) VALUES (${query.name})`;
+    let body = req.body; //请求参数
     
-    exec(sql, (data) => {
-        res.json({ data }); //返回参数
-    })
+    (async () => {
+		const data = await m_type.create({
+			id: body.id,
+			type: body.type,
+		})
+		res.json({
+			data
+		});
+	})();
 });
 
 //删除
 app.post("/del", (req, res, next) => {
     let body = req.body; //请求参数
-    const sql = `DELETE FROM 数据表 WHERE id=${body.id}`;
     
-    exec(sql, (data) => {
-        res.json({ data }); //返回参数
-    })
+    (async () => {
+		const data = await m_type.destroy({
+			where: {
+                id: body.id
+            }
+		});
+		res.json({
+			data
+		});
+	})();
 });
 
 //修改
 app.post("/updata", (req, res, next) => {
     let body = req.body; //请求参数
-    const sql = `UPDATE 数据表 SET name=${body.name} WHERE id=${body.id}`;
     
-    exec(sql, (data) => {
-        res.json({ data }); //返回参数
-    })
+    (async () => {
+		const data = await m_type.update({
+			id: body.id
+		}, {
+			where: {
+				type: body.type
+			}
+		});
+		res.json({
+			data
+		});
+	})();
 });
 
 //查询
 app.get("/select", (req, res, next) => {
     let query = req.query; //请求参数
     
-    const where = `WHERE id=${query.id}`;
-    const sql = `SELECT * FROM 数据表 ${where}`;
-    
-    exec(sql, (data) => {
-        res.json({ data }); //返回参数
-    })
+    (async () => {
+		const data = await m_type.findAll({
+			where: {
+				type: body.type
+			}
+		});
+		res.json({
+			data
+		});
+	})();
 });
 
 module.exports = app;
