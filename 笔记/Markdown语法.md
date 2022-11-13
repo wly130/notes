@@ -194,7 +194,50 @@ gantt
 
 	section 测试
 	本地测试:done, des7,after des6, 2d
-	客户测试:done,des8,after des7, 2d
+	x测试:done,des8,after des7, 2d
+```
+
+- **时序图**
+
+| 类型 | 描述               |
+| ---- | ------------------ |
+| ->   | 没有箭头的实线     |
+| -->  | 没有箭头的虚线     |
+| ->>  | 有箭头的实线       |
+| -->> | 有箭头的虚线       |
+| -x   | 末端有十字叉的实线 |
+| --x  | 末端有十字叉的虚线 |
+
+```mermaid
+sequenceDiagram
+	%%  autonumber 生成序号
+	autonumber
+	%%  participant 声明
+	Title: 我是标题
+	participant A as 老板
+	participant B as 下属
+	rect red
+    A->B: 请求
+    A-->B: 请求
+    A->>B: 请求
+    A-->>B: 请求
+    end
+    Note right of B: 下属的描述
+	Note left of A: 老板的描述
+	Note over A,B: 关系
+    loop 循环
+        B->>B: 循环
+    end
+    activate B
+		A->>B: 激活
+	deactivate B
+	B-xA: 响应
+	B--xA: 响应
+	alt 判断
+		A ->> B: 是
+	else 不是
+        A ->> B: 不是
+	end
 ```
 
 创建脚注格式类似这样 [^runoob]。
@@ -213,7 +256,8 @@ gantt
 2. 列表
 3. 列表
 
-- [X] **任务列表**
+- [x] **任务列表**
+- [ ] **任务列表**
 
 > 区块引用 1
 >

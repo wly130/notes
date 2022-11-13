@@ -144,20 +144,22 @@ module.exports = {
 ### 单表查询
 
 ```javascript
-const db = require("../config/mysql-config");
+const {
+	表名
+} = require('../models/x');
 const Op = db.Op;
 
 /**
  * 查询所有数据
  * SELECT * FROM 表名;
  */
-db.表名.findAll();
+表名.findAll();
 
 /**
  * 查询特定字段的数据
  * SELECT id, name FROM 表名;
  */
-db.表名.findAll({
+表名.findAll({
 	attributes: ['id', 'name']
 });
 
@@ -165,7 +167,7 @@ db.表名.findAll({
  * 查询字段别名的数据
  * SELECT userid AS id FROM 表名;
  */
-db.表名.findAll({
+表名.findAll({
 	attributes: [['userid', 'id']]
 });
 
@@ -173,14 +175,14 @@ db.表名.findAll({
  * 查询数据总数
  * SELECT COUNT(id) AS count FROM 表名;
  */
-db.表名.findAll({
+表名.findAll({
 	attributes: [[db.sequelize.fn('COUNT', db.sequelize.col('id')), 'count']]
 });
 
 /**
  * WHERE 操作符
  */
-db.表名.findAll({
+表名.findAll({
 	where: {
    		[Op.and]: [{ id: 5 }, { name: "name" }], // (id = 5) AND (name = "name")
    		[Op.or]: [{ id: 5 }, { name: "name" }], // (id = 5) OR (name = "name")
@@ -211,7 +213,7 @@ db.表名.findAll({
  * 排序
  * SELECT name FROM 表名 ORDER BY 字段名 ASC/DESC;
  */
-db.表名.findAll({
+表名.findAll({
     ['name'],
 	order: [['id', 'DESC/ASC']]
 });
@@ -220,7 +222,7 @@ db.表名.findAll({
  * 显示第 n 行后面 m 个数据
  * SELECT * FROM 表名 LIMIT n,m;
  */
-db.表名.findAll({
+表名.findAll({
     offset: n,
     limit: m
 });
@@ -230,7 +232,7 @@ db.表名.findAll({
  * SELECT * FROM 表名 LIMIT n,m;
  * SELECT COUNT(*) AS count FROM 表名;
  */
-db.表名.findAndCountAll({
+表名.findAndCountAll({
 	offset: n,
 	limit: m,
 	where: {}

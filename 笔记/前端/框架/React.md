@@ -185,7 +185,7 @@ class App extends React.Component {
 export default App;
 ```
 
-### state 状态
+### `state` 状态
 
 - **初始化state**
 
@@ -1182,6 +1182,40 @@ module.exports = (app) => {
         })
     )
 }
+```
+
+### 配置样式隔离
+
+- **创建 `xxx.module.css` 文件**
+
+```css
+.index {
+	color: #FF0000;
+}
+```
+
+- **页面调用**
+
+```jsx
+import React, { Component } from "react";
+import styles from "./index.module.scss";
+
+class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { };
+    }
+
+    render() {
+        return (
+            <div id="index">
+                <div className={styles.index}></div>
+            </div>
+        );
+    }
+}
+
+export default Index;
 ```
 
 ### React-router
