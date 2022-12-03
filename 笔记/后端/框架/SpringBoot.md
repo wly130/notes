@@ -1,4 +1,4 @@
-## SpringBoot
+## SpringBoot + MyBatis
 
 ### 项目结构
 

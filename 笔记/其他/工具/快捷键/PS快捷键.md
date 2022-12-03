@@ -8,7 +8,7 @@ Photoshop 快捷键
 | 所有图层 | **<kbd>Ctrl + Alt + A</kbd>**         |
 | 反选     | **<kbd>Ctrl + Shift + I</kbd>**       |
 | 取消选择 | **<kbd>Ctrl + Shift + Alt + F</kbd>** |
-| 羽化选择 | **<kbd>Ctrl+Alt+D</kbd>**             |
+| 羽化选择 | **<kbd>Ctrl + Alt + D</kbd>**         |
 
 #### 编辑类
 

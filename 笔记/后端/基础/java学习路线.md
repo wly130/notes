@@ -1,15 +1,21 @@
-<img src="../img/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE.png" style="zoom:100%;" />
+<img src="../../img/后端学习路线图.png" style="zoom:100%;" />
 
-## 第一阶段
+## Java学习路线
+
+### 第一阶段
 
 - 开发环境的搭建
   - 开发工具的安装和使用
-    - jdk
-    - IDEA
+    - JDK
+    - **IDEA(中国常用)**
+    - **Eclipse(日本常用)**
   - 环境变量的设置
   - 基础的电脑命令行命令
-- 重要知识点
-  - 面向对象
+- **重要知识点(重要)**
+  - 基本语法
+  - 继承
+  - 多态
+  - 泛型
   - 集合
   - IO操作
   - 异常处理
@@ -17,72 +23,69 @@
   - 注解
   - 反射
 - 基础的数据结构和算法
-- debug
+- **Debug(重要)**
 - 做点控制台小程序
 
-## 第二阶段（入门）
+### 第二阶段（入门）
 
-- 前端基础知识
+- **前端基础知识(重要)**
   - JavaScript
-  - html
-  - css
+  - HTML
+  - CSS
 - 计算机网络基础
   - 网络通信协议
   - IP地址
-  - 常见的响应格式
+  - **常见的响应格式(重要)**
     - JSON
     - XML
   - 状态码
-- 数据库基础知识
-  - 关系型数据库
-    - mysql（优先）
+- **数据库基础知识(重要)**
+  - **关系型数据库(重要)**
+    - MySQL
     - Oracle
   - 非关系型
     - MongoDB
 - 服务器基础知识
-  - linux基础操作
+  - **Linux基础操作(重要)**
   - nginx基础知识
-  - Java部署容器
-    - tomcat
+  - **Java部署容器(重要)**
+    - tomcat(重点)
     - jetty
-- Javaweb基础知识
+- **JavaWeb基础知识(重要)**
   - servlet/jsp（jsp了解即可）
-  - jdbc
+  - JDBC
     - 数据库连接
-    - crud操作
+    - CRUD操作
     - 数据源/连接池
   - Ajax通信
     - restful风格接口
-  - 理解服务端渲染和spa单页面
+  - 服务端渲染和SPA单页面
   - session/cookie
   - filter/listener
-- 做点原生Javaweb项目
+- 做点原生JavaWeb项目
 
-## 第三阶段
+### 第三阶段
 
 - 为框架学习打基础
 
   - 复习反射（一定要理解）
   - 常用的设计模式
-  - maven
-  - Git/Svn
+  - **maven(重要)**
+  - **Git/SVN(重要)**
 
-- SSM
+- SSM(重要)
 
-  - spring IOC/AOP
-  - springmvc
-  - mybatis
+  - Spring
+  - **SpringMVC(重要)**
+  - **MyBatis(重要)**
 
-- 常见的页面模板(资料在springboot中)
+- 常见的页面模板
 
   - freemaker
   - thymeleaf
 
-- springboot
+- **SpringBoot(重要)**
 
-  - springdatajpa
-  - 整合下面的常见框架，并且可以单独使用他们
-  
 - 日志处理
 
   - log4j
@@ -90,7 +93,7 @@
 
 - 常见的缓存
 
-  - redis（重要）
+  - **redis(重要)**
   - memcached
 
 - 常见的权限框架和授权认证(没标注资料的在下方项目实战里面有)
@@ -147,21 +150,22 @@
 
   - netty
 
-- 整合做点项目（github找项目）
+- 整合做点项目
 
-## 第四阶段
-- 热门的分布式方案（上面的项目实战就有）
+### 第四阶段
+
+- 热门的分布式方案
   - Dubbo zookeeper
   - spring cloud alibaba
   - springcloud全家桶
   - 通信方式
-    - Http
+    - HTTP
     - Rpc
 - 源码阅读
   - spring、springmvc、mybatis、netty
 - nodejs、python（混合微服务）
 - 数据库进阶
-  - Mysql调优
+  - MySQL调优
   - 分布式事务
   - 分库分表
     - mycat

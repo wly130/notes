@@ -55,6 +55,7 @@ const m_type = db.sequelize.define(
         allowNull: false, //是否允许为空
         primaryKey: true, //是否为主键
         autoIncrement: true, //自动自增
+        unique: true, //是否唯一
         comment: 'id' //备注
 	},
 	type: {
@@ -143,45 +144,60 @@ module.exports = {
 
 ### 单表查询
 
+#### 初始化
+
 ```javascript
 const {
 	表名
-} = require('../models/x');
+} = require('../models/xxx');
 const Op = db.Op;
+```
 
+#### 查询所有数据
+
+```javascript
 /**
- * 查询所有数据
  * SELECT * FROM 表名;
  */
 表名.findAll();
+```
 
+#### 查询特定字段的数据
+
+```javascript
 /**
- * 查询特定字段的数据
  * SELECT id, name FROM 表名;
  */
 表名.findAll({
 	attributes: ['id', 'name']
 });
+```
 
+#### 查询字段别名的数据
+
+```javascript
 /**
- * 查询字段别名的数据
  * SELECT userid AS id FROM 表名;
  */
 表名.findAll({
 	attributes: [['userid', 'id']]
 });
+```
 
+#### 查询数据总数
+
+```javascript
 /**
- * 查询数据总数
  * SELECT COUNT(id) AS count FROM 表名;
  */
 表名.findAll({
 	attributes: [[db.sequelize.fn('COUNT', db.sequelize.col('id')), 'count']]
 });
+```
 
-/**
- * WHERE 操作符
- */
+#### `WHERE` 操作符
+
+```javascript
 表名.findAll({
 	where: {
    		[Op.and]: [{ id: 5 }, { name: "name" }], // (id = 5) AND (name = "name")
@@ -208,27 +224,36 @@ const Op = db.Op;
 		}
 	}
 });
+```
 
+#### 排序
+
+```javascript
 /**
- * 排序
  * SELECT name FROM 表名 ORDER BY 字段名 ASC/DESC;
  */
 表名.findAll({
     ['name'],
 	order: [['id', 'DESC/ASC']]
 });
+```
 
+#### 显示第 `n` 行后面 `m` 个数据
+
+```javascript
 /**
- * 显示第 n 行后面 m 个数据
  * SELECT * FROM 表名 LIMIT n,m;
  */
 表名.findAll({
     offset: n,
     limit: m
 });
+```
 
+#### 显示第 `n` 行后面 `m` 个数据和总数
+
+```javascript
 /**
- * 显示第 n 行后面 m 个数据和总数
  * SELECT * FROM 表名 LIMIT n,m;
  * SELECT COUNT(*) AS count FROM 表名;
  */
@@ -240,4 +265,52 @@ const Op = db.Op;
 ```
 
 ### 多表查询
+
+#### 一对一关联
+
+```javascript
+const A = db.sequelize.define("A", {
+	id: {
+		type: db.DataTypes.INTEGER(10),
+		primaryKey: true
+	},
+	type: {
+		type: db.DataTypes.STRING(255)
+	}
+}, {
+	tableName: 'A',
+	timestamps: false
+});
+
+const B = db.sequelize.define("B", {
+	typeId: {
+		type: db.DataTypes.INTEGER(10),
+		primaryKey: true
+	},
+	type: {
+		type: db.DataTypes.STRING(255)
+	}
+}, {
+	tableName: 'B',
+	timestamps: false
+});
+
+/**
+ * A表 关联 B表
+ * A.id 对应 B,typeId
+ */
+A.belongsTo(B, {
+	foreignKey: 'id',
+	targetKey: 'typeId'
+});
+
+/**
+ * SELECT * FROM A LEFT OUTER JOIN B ON A.typeId= B.id;
+ */
+A.findAll({
+    include: [{
+		model: B
+	}]
+});
+```
 

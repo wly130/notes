@@ -1,5 +1,7 @@
 ## Angular
 
+
+
 ### 绑定属性
 
 ```html
@@ -63,6 +65,66 @@ import { CommonModule } from '@angular/common';
 export class IndexComponent {
 	constructor() { }
 	public num: number = 10;
+}
+```
+
+### 鼠标事件
+
+- **index.component.html**
+
+```html
+<button (click)="getInput($event)">点击</button>
+```
+
+- **index.component.ts**
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+	selector: 'app-index',
+	templateUrl: './index.component.html'
+})
+
+export class IndexComponent {
+    public getInput(e: any) {
+		console.log(e); //获取点击事件对象
+	}
+}
+```
+
+### 键盘事件
+
+| 事件                | 作用                |
+| ------------------- | ------------------- |
+| **keydown.enter**   | **监听回车键**      |
+| **keydown.space**   | **监听空格键**      |
+| **keydown.control** | **监听 `Ctrl` 键**  |
+| **keyup.shift**     | **监听 `Shift` 键** |
+| **keyup.alt**       | **监听 `Alt` 键**   |
+
+- **index.component.html**
+
+```html
+<input type="text" #input (keydown.enter)="getInput($event)">
+```
+
+- **index.component.ts**
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+	selector: 'app-index',
+	templateUrl: './index.component.html'
+})
+
+export class IndexComponent {
+    public value: string = '';
+    
+	public getInput(e: any) {
+		this.value = e.target.value; //获取输入值
+	}
 }
 ```
 
