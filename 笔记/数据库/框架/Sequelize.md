@@ -309,7 +309,8 @@ A.belongsTo(B, {
  */
 A.findAll({
     include: [{
-		model: B
+		model: B,
+        attributes: ['id', 'name']
 	}]
 });
 ```
