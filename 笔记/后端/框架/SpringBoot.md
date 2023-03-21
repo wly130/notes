@@ -298,8 +298,128 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/word")
 public class TestController {
 	@PostMapping("/test")
-	public int Test(@RequestParam int id) {
+	public int Test(@RequestPart int id) {
 		return id;
+	}
+}
+```
+
+### 文件上传
+
+#### Controller
+
+```java
+package com.test.springtest.controller;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.test.springtest.service.service;
+
+@RestController
+@RequestMapping("/test")
+public class Controller {
+    @Autowired
+	private Service Service;
+    
+	@ResponseBody
+	@PostMapping("/uploadFile")
+	public String uploadFile(@RequestPart MultipartFile fileName) throws IOException {
+		return Service.uploadFile(fileName);
+	}
+}
+
+```
+
+#### Service
+
+```java
+package com.test.springtest.service;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
+@Service
+public class Service {
+	/**
+	 * 文件上传
+	 * @return
+	 */
+	public String uploadFile(MultipartFile fileName) throws IOException{
+        return fileName.getOriginalFilename();
+	}
+}
+```
+
+### 日志 (log4j)
+
+#### log4j.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Property>
+		<Property name="APP_LOG_ROOT">E:/javaProject/springtest/src/main/resources/log</Property> <!-- 文件路径 -->
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		<RollingFile name="appLog" fileName="${APP_LOG_ROOT}/application.log" filePattern="${APP_LOG_ROOT}/application-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="19500KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.laoxu.springboot" additivity="false">
+			<AppenderRef ref="appLog" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>
+```
+
+#### Controller
+
+```java
+package com.test.springtest.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.test.springtest.service.service;
+
+@RestController
+public class Controller {
+    private static Logger log = LogManager.getLogger();
+    
+    @Autowired
+	private Service Service;
+
+	@PostMapping("/test")
+	public String Test() {
+        log.info("日志输出");
+		return Service.Test();
 	}
 }
 ```

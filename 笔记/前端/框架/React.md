@@ -1243,7 +1243,7 @@ const routes = [{
 export default routes;
 ```
 
-- **index.js**
+- **index.js (封装路由)**
 
 ```jsx
 import React from "react";
@@ -1324,36 +1324,6 @@ this.props.history.push({
 
 //组件接收参数
 {this.props.location.state.name}
-```
-
-#### 封装路由
-
-```jsx
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-//引入路由表
-import routes from "./routes";
-
-function RouterList() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                {routes.map(({ path, component, exact }, key) => {
-                    return (
-                        <Route
-                            key={key}
-                            exact={exact}
-                            path={path} //路径
-                            element={component} //组件
-                        />
-                    );
-                })}
-            </Routes>
-        </BrowserRouter>
-    );
-}
-
-export default RouterList;
 ```
 
 ### React Hooks
