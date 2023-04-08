@@ -1,6 +1,165 @@
-## Angular
+## Angular1+
 
+- **CDN: https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js**
 
+### 绑定
+
+```html
+<div ng-app="myApp" ng-controller="myCtrl">
+    <input ng-model="name"> <!-- 双向数据绑定 -->
+    {{name}}
+    <button ng-click="Click()">点击</button>
+    <button ng-disabled="flag">点击</button>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', ($scope) => {
+        $scope.name = ""; //定义变量
+        $scope.Click = () => { //定义函数
+            $scope.title = "Hello" + $scope.name;
+        }
+        $scope.flag = true; //是否禁用标签
+    });
+</script>
+```
+
+### 循环渲染
+
+```html
+<div ng-app="myApp" ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="item in list">
+            {{$index}} <!-- 下标,从0开始 -->
+            {{item}}
+        </li>
+    </ul>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', ($scope) => {
+        $scope.list = [1, 2, 3, 4];
+    });
+</script>
+```
+
+### 条件渲染
+
+```html
+<div ng-app="myApp" ng-controller="myCtrl">
+    <ul>
+        <!-- true时显示,false时移除元素 -->
+        <li ng-if="flag">显示</li> 
+        <li ng-if="!flag">隐藏</li>
+    </ul>
+    <ul>
+        <!-- true时显示,false时隐藏元素 -->
+        <li ng-show="flag">显示</li>
+        <li ng-show="!flag">隐藏</li>
+    </ul>
+    <ul>
+        <!-- false时显示,true时隐藏元素 -->
+        <li ng-hide="flag">隐藏</li>
+        <li ng-hide="!flag">显示</li>
+    </ul>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', ($scope) => {
+        $scope.flag = true;
+    });
+</script>
+```
+
+### 过滤器
+
+```html
+<p>{{ lastName | lowercase }}</p>
+```
+
+- **自定义过滤器**
+
+```js
+app.filter('过滤器名', function() {
+	return function(text) {
+    	return true;
+    }
+});
+```
+
+| 过滤器    | 描述                   |
+| --------- | ---------------------- |
+| currency  | 格式化数字为货币格式   |
+| filter    | 从数组项中选择一个子集 |
+| lowercase | 格式化字符串为小写     |
+| orderBy   | 根据某个表达式排列数组 |
+| uppercase | 格式化字符串为大写     |
+
+### $location
+
+```js
+$location.absUrl(); //网站地址
+$location.url(); 
+$location.protocol(); //协议名
+$location.host(); //主机地址
+$location.port(); //端口号
+$location.path(); //当前URL的路径
+$location.search(); 
+$location.hash(); 
+$location.replace(); 
+```
+
+### 网络请求
+
+```js
+var app = angular.module('myApp', []);
+app.controller('myCtrl', ($scope) => {
+    $http({
+		method: 'GET', //请求类型
+		url: 'url' //请求地址
+	}).then((res) => {
+        //请求成功
+		console.log(res.data);	
+	}, (err) => {
+		//请求失败
+	});
+});
+```
+
+### 路由
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp">
+        <ul>
+            <li><a href="#!/">首页</a></li>
+            <li><a href="#!/page1">页面1</a></li>
+            <li><a href="#!/page2">页面2</a></li>
+        </ul>
+        <div ng-view></div>
+    </div>
+</body>
+<script>
+    var router = angular.module('myApp', ['ngRoute']);
+    router.config(['$routeProvider', ($routeProvider) => {
+        $routeProvider
+            .when('/', { template: '首页' })
+            .when('/page1', { template: '页面1' })
+            .when('/page2', { template: '页面2' })
+            .otherwise({ redirectTo: '/' });
+    }]);
+</script>
+</html>
+```
+
+## Angular2+
 
 ### 绑定属性
 

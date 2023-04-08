@@ -2,7 +2,7 @@
 
 ### 项目结构
 
-<img src="E:\GitProject\notes\笔记\img\SpringBoot目录结构.png" alt="SpringBoot目录结构" style="margin:0" />
+<img src="../../img/SpringBoot目录结构.png" alt="SpringBoot目录结构" style="margin:0" />
 
 | 目录/文件名                | 作用                |
 | -------------------------- | ------------------- |

@@ -60,7 +60,11 @@ npm run build
 | ----------------- | ---------------------- |
 | **manifest.json** | **扩展配置文件**       |
 | **robots.txt**    | **对特定网页进行屏蔽** |
+| **api**           | **接口配置**           |
+| **router**        | **路由配置**           |
+| **App.js**        | **页面初始文件**       |
 | **index.js**      | **项目入口文件**       |
+| **setupProxy.js** | **跨域配置**           |
 
 ### 初始化
 
@@ -236,7 +240,7 @@ constructor(props) {
     }
 }
 
-let array = [...this.state,array];
+let array = [...this.state.array];
 array.push({
     id: 2,
     name: 'name2'
