@@ -1202,7 +1202,7 @@ module.exports = (app) => {
 
 ```jsx
 import React, { Component } from "react";
-import styles from "./index.module.scss";
+import styles from "./index.module.css";
 
 class Index extends Component {
     constructor(props) {
