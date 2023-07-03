@@ -5,12 +5,28 @@
 - **src/main/resources/application.properties**
 
 ```properties
-mybatis.ttype-aliases-package=com.test.springtest.entity
+mybatis.type-aliases-package=com.test.springtest.entity
 mybatis.mapper-locations=classpath:com/test/springtest/mapper/*.xml
+mybatis.config-location=classpath:mybatis/mybatis-config.xml
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/my_project?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
 spring.datasource.username=root
 spring.datasource.password=000000
+```
+
+### `mybatis-config.xml`
+
+```xml
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Integer" type="java.lang.Integer" />
+		<typeAlias alias="Long" type="java.lang.Long" />
+		<typeAlias alias="HashMap" type="java.util.HashMap" />
+		<typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap" />
+		<typeAlias alias="ArrayList" type="java.util.ArrayList" />
+		<typeAlias alias="LinkedList" type="java.util.LinkedList" />
+	</typeAliases>
+</configuration>
 ```
 
 ### XML映射文件
@@ -104,7 +120,7 @@ spring.datasource.password=000000
 | resultMap     | 外部 resultMap 的命名引用                                    |
 | flushCache    | 任何时候只要语句被调用，都会导致本地缓存和二级缓存都会被清空，默认值：false |
 | useCache      | 将会导致本条语句的结果被二级缓存，默认值：对 select 元素为 true |
-| timeout       | 抛出异常之前，驱动程序等待数据库返回请求结果的秒数。默认值为 unset（依赖驱动） |
+| timeout       | 抛出异常之前，驱动程序等待数据库返回请求结果的秒数。默认值为 unset |
 
 | \<insert>，\<update>, \<delete> 属性 | 描述                                                         |
 | ------------------------------------ | ------------------------------------------------------------ |

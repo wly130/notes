@@ -71,6 +71,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+        <!-- 处理JOSN数据 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.33</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -130,9 +136,14 @@ public class TestController {
 ```java
 package com.test.springtest.entity;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+
 public class Test {
 	private int id;
 	private String type;
+    private JSONObject object;
+    private JSONArray arr;
 
 	public int getId() {
 		return id;
@@ -148,6 +159,22 @@ public class Test {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+    
+    public JSONObject getObject() {
+		return object;
+	}
+
+	public void setObject(JSONObject object) {
+		this.object = object;
+	}
+    
+    public JSONObject getArr() {
+		return c_test;
+	}
+
+	public void setArr(JSONObject arr) {
+		this.arr = arr;
 	}
 }
 ```

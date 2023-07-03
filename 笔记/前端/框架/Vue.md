@@ -351,8 +351,8 @@ let name = () => {
 ```html
 <template>
 	<div id="app">
-		<div v-html="msg"></div>
-		<div v-text="msg"></div>
+		<div v-html="msg"></div> <!-- 渲染标签 -->
+		<div v-text="msg"></div> <!-- 不渲染标签 -->
 	</div>
 </template>
 
@@ -384,7 +384,7 @@ let name = () => {
 <template>
 	<div id="app">
 		<p>{{ msg }}</p>
-		<input v-model="msg">
+		<input v-model="msg" type="text" />
 	</div>
 </template>
 
@@ -406,7 +406,7 @@ let name = () => {
 ```html
 <div id="app">
 	<ul>
-		<li v-for="(item,index) in sites" :key="index">
+		<li v-for="(item,index) in list" :key="index">
             <span>{{ index }}</span>
             <span>{{ item.id }}</span>
 			<span>{{ item.name }}</span>
@@ -417,7 +417,7 @@ let name = () => {
 	export default {
 		data() {
         	return {
-        		sites: [{
+        		list: [{
                     id; 1,
                     name: 'FaceBook'
                 }, {
@@ -456,6 +456,14 @@ let name = () => {
 
 - **v-if = "false" 从页面中移除该元素**
 - **v-show = "false" 隐藏该元素(不移除)**
+
+#### v-once
+
+- **只被渲染一次,首次渲染后,即使数据发生变化,也不会被重新渲染**
+
+```html
+<div v-once></div>
+```
 
 #### **v-on**
 
@@ -995,7 +1003,7 @@ let data = inject('数据名称');
 		data() {
 			return {
 				list: [{
-					name: '0001',
+					name: '001',
 					value: ''
 				}, {
 					name: '0002',
@@ -1327,16 +1335,13 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
 	plugins: [vue()],
 	server: {
-		host: 'localhost',
+		host: '0.0.0.0',
 		port: 8080,
 		proxy: {
 			'/api': {
 				target: "http://localhost:3000", //接口地址
 				changeOrigin: true, //是否跨域
-				secure: false,
-				pathRewrite: { //重写路径
-					"^/api": ""
-				}
+				rewrite: (path) => path.replace(/^\/api/, '')
 			}
 		}
 	}
@@ -1435,12 +1440,13 @@ export default axios;
 ```javascript
 import {get, post} from './request.js'
 
+var baseUrl = "/api";
 const api = {
 	函数名(params){
-		return get('/api/请求地址', params);
+		return get(baseUrl + '/请求地址', params);
 	},
     函数名(params){
-		return post('/api/请求地址', params);
+		return post(baseUrl + '//请求地址', params);
 	}
 }
 export default api;

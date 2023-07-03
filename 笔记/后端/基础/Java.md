@@ -2,11 +2,16 @@
 
 ### 注解
 
-| 注解                  | 作用                             |
-| --------------------- | -------------------------------- |
-| **@Override**         | 检查是否是重写方法               |
-| **@Deprecated**       | 标记过时方法                     |
-| **@SuppressWarnings** | 指示编译器去忽略注解中声明的警告 |
+| 注解                         | 作用                               |
+| ---------------------------- | ---------------------------------- |
+| **@Override**                | 重写方法                           |
+| **@Deprecated**              | 过时方法                           |
+| **@SuppressWarnings**        | 指示编译器去忽略注解中声明的警告   |
+| **@Controller**              | 控制器类                           |
+| **@ResponseBody**            | 返回值                             |
+| **@RequestMapping**          | 映射请求路径                       |
+| **@GetMapping/@PostMapping** | 处理请求方法的类型                 |
+| **@RequestParam**            | 将请求参数绑定到控制器的方法参数上 |
 
 ### 变量
 
@@ -18,35 +23,35 @@
 
 - **final** 定义**常量**,内容**不可变**,常量名**字母大写**
 
-|   进制   | &nbsp;        |
-| :------: | ------------- |
-|  二进制  | a = 01100100; |
-|  十进制  | a = 100;      |
-|  八进制  | a = 0144;     |
+| 进制     | &nbsp;        |
+| :------- | ------------- |
+| 二进制   | a = 01100100; |
+| 十进制   | a = 100;      |
+| 八进制   | a = 0144;     |
 | 十六进制 | a = 0x64;     |
 
 ### 数据类型
 
 #### 基本数据类型
 
-|  整数型   |   字节数   |         范围         |      默认值      |
-| :-------: | :--------: | :------------------: | :--------------: |
-| **byte**  | **1 字节** |  **-2^7^ ~ 2^7^-1**  | **byte a = 0;**  |
-| **short** | **2 字节** | **-2^15^ ~ 2^15^-1** | **short a = 0;** |
-|  **int**  | **4 字节** | **-2^31^ ~ 2^31^-1** |  **int a = 0;**  |
-| **long**  | **8 字节** | **-2^63^ ~ 2^63^-1** | **long a = 0L;** |
+| 整数型    | 字节数     | 范围                 | 默认值             |
+| :-------- | :--------- | :------------------- | :----------------- |
+| **byte**  | **1 字节** | **-2^7^ ~ 2^7^-1**   | **`byte a = 0;`**  |
+| **short** | **2 字节** | **-2^15^ ~ 2^15^-1** | **`short a = 0;`** |
+| **int**   | **4 字节** | **-2^31^ ~ 2^31^-1** | **`int a = 0;`**   |
+| **long**  | **8 字节** | **-2^63^ ~ 2^63^-1** | **`long a = 0L;`** |
 
-|   浮点型   |   字节数   |        默认值         |
-| :--------: | :--------: | :-------------------: |
+| 浮点型     | 字节数     | 默认值                |
+| :--------- | :--------- | :-------------------- |
 | **double** | **8 字节** | **`double a = 00d;`** |
 | **float**  | **4 字节** | **`float a = 00F;`**  |
 
-|  字符型  |   字节数   |
-| :------: | :--------: |
+| 字符型   | 字节数     |
+| :------- | :--------- |
 | **char** | **2 字节** |
 
-|   布尔型    |      默认值      |
-| :---------: | :--------------: |
+| 布尔型      | 默认值           |
+| :---------- | :--------------- |
 | **boolean** | **true / false** |
 
 #### 引用数据类型
@@ -70,9 +75,9 @@
 | **abstract**  | 用来创建抽象类和抽象方法                                     |
 
 - **访问控制和继承**
-  - **父类**中声明为 **public** 的方法在**子类**中也必须为 **public**
-  - **父类**中声明为 **protected**的方法在**子类**中声明为 **protected**,或者声明为 **public**,不能声明为 **private**
-  - **父类**中声明为 **private** 的方法,**不能够被继承**
+  - **父类**中声明为 **`public`** 的方法在**子类**中也必须为 **public**
+  - **父类**中声明为 **`protected`** 的方法在**子类**中声明为 **protected**,或者声明为 **public**,不能声明为 **private**
+  - **父类**中声明为 **`private`** 的方法,**不能够被继承**
 
 ### 抽象
 
@@ -87,7 +92,7 @@ abstract class 类名{
 }
 ```
 
-- **抽象类的特点：**
+- **特点**
   - **抽象类和抽象方法都要被 `abstract` 修饰,抽象方法一定要定义在抽象类中**
   - **抽象类不可以直接创建对象**
   - **只有覆盖了抽象类中所有的抽象方法后,其子类才可以创建对象,否则该子类还是一个抽象类**
@@ -104,7 +109,7 @@ abstract class 类名{
 
 - **形参** 声明时用于**接收外部传来的数据**,值不确定
 - **实参** 调用时传递的**实际数据**,值确定
-- **无返回值为 void**
+- **无返回值为 `void`**
 - **方法重载** ==方法名==**相同**,但**形参**的**类型**和**个数不同**
 - **finalize()** 方法用来**清除回收对象**
 
@@ -180,11 +185,12 @@ abstract class 类名{
 ### 异常处理
 
 ```java
-try{
+try {
    // 程序代码
-}catch(异常类型 异常的变量名){
+} catch(异常类型 异常的变量名) {
    // 程序代码
-}finally{
+} finally {
+   /*finally 关键字放在最后,无论是否发生异常,finally 代码块中的代码总会被执行*/
    // 程序代码
 }
 
@@ -193,8 +199,6 @@ public void 方法名() throws 异常类型{
     throw new 异常类型();
 }
 
-/*finally 关键字
-    放在最后,无论是否发生异常,finally 代码块中的代码总会被执行*/
 //自定义异常
 class 类名 extends Exception{
 
@@ -236,9 +240,9 @@ class 子类 extends 父类 {
 //implements  继承多个接口
 public class 子类 implements 父类
 }
-//super 与 this 关键字
-super 调用父类方法
-this  调用自己的方法
+
+//super 调用父类方法
+//this  调用自己的方法
 //final 关键字
 //声明类可以把类定义为不能继承的,或者用于修饰方法,该方法不能被子类重写
 final class 类名 {  // 声明类
@@ -261,11 +265,100 @@ public void setName(String name){
 
 ### 多态
 
-#### 实现多态3个必要条件
+#### 必要条件
 
 - **继承:** 在多态中必须存在有继承关系的子类和父类
 -  **重写:** 子类对父类中某些方法进行重新定义,在调用这法时就会调用子类的方法
 -  **向上转型:** 在多态中需要将子类的引用赋给父类对象,这样该引用才既能可以调用父类的方法,又能调用子类方法
+
+#### 实现
+
+- **Animal**
+
+```java
+public class Animal {
+	private String name = "动物";
+	private String foot = "食物";
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFoot() {
+		return foot;
+	}
+
+	public void setFoot(String foot) {
+		this.foot = foot;
+	}
+
+	public String MyName() {
+		return "我是" + getName();
+	}
+
+	public String eat() {
+		return "吃" + getFoot();
+	}
+}
+```
+
+- **Cat**
+
+```java
+//继承
+public class Cat extends Animal {
+    //重写方法
+	@Override
+	public String MyName() {
+		return "我是猫";
+	}
+
+	@Override
+	public String eat() {
+		return "吃鱼";
+	}
+}
+```
+
+- **Dog**
+
+```java
+//继承
+public class Dog extends Animal {
+    //重写方法
+	@Override
+	public String MyName() {
+		return "我是狗";
+	}
+
+	@Override
+	public String eat() {
+		return "吃肉";
+	}
+}
+```
+
+- **Test**
+
+```java
+public class Test {
+	public static void main(String[] args) {
+        //传入的参数不同,返回的值不同
+		String cat = useAnimal(new Cat());
+		System.out.println(cat); //我是猫,吃鱼
+		String dog = useAnimal(new Dog());
+		System.out.println(dog); //我是狗,吃肉
+	}
+	
+	public static String useAnimal(Animal an) {
+		return an.MyName() + "," + an.eat();
+	}
+}
+```
 
 ### 集合
 
@@ -381,7 +474,7 @@ public static <T> void Show(T t){
 
 #### 创建线程
 
-> **实现 Runnable 接口**
+- **实现 Runnable 接口**
 
 ```java
 public class Show implements Runnable{
@@ -393,7 +486,7 @@ public class Show implements Runnable{
 }
 ```
 
-> **继承 Thread 类**
+- **继承 Thread 类**
 
 ```java
 public class Show extends Thread{
@@ -405,7 +498,7 @@ public class Show extends Thread{
 }
 ```
 
-> **Callable 和 Future 创建线程**
+- **Callable 和 Future 创建线程**
 
 ```java
 public class Show implements Callable<Integer>{

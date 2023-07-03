@@ -84,10 +84,11 @@ module.exports = {
 | ------- | -------- |
 | STRING  | VARCHAR  |
 | TEXT    | TEXT     |
-| INTEGER | INTEGER  |
+| INTEGER | INT      |
 | BIGINT  | BIGINT   |
 | FLOAT   | FLOAT    |
 | DATE    | DATETIME |
+| JSON    | JSON     |
 
 ### 添加数据
 
@@ -118,12 +119,12 @@ module.exports = {
 
 ```javascript
 /**
- * 修改 name="name1" 为 "name2"
- * UPDATE 表名 SET name="name1" WHERE name="name1";
+ * 修改 id=1 为 "name2"
+ * UPDATE 表名 SET name="name2" WHERE id=1;
  */
 表名.update({ name: "name2" }, {
 	where: {
-		name: "name1"
+		id: 1
   	}
 });
 ```
@@ -154,9 +155,7 @@ module.exports = {
 #### 初始化
 
 ```javascript
-const {
-	表名
-} = require('../models/xxx');
+const { 表名 } = require('../models/xxx');
 const Op = db.Op;
 ```
 
@@ -226,8 +225,8 @@ const Op = db.Op;
 			[Op.all]: sequelize.literal('SELECT 1'), // name > ALL (SELECT 1)
 			[Op.in]: [1, 2], // name IN [1, 2]
 			[Op.notIn]: [1, 2], // name NOT IN [1, 2]
-			[Op.like]: '%文字', // name LIKE '%hat'
-			[Op.notLike]: '%文字', // name NOT LIKE '%hat'
+			[Op.like]: '文字', // name LIKE '%hat'
+			[Op.notLike]: '文字', // name NOT LIKE '%hat'
 		}
 	}
 });
@@ -315,9 +314,9 @@ A.belongsTo(B, {
  * SELECT * FROM A LEFT OUTER JOIN B ON A.typeId= B.id;
  */
 A.findAll({
-    include: [{
+	include: [{
 		model: B,
-        attributes: ['id', 'name']
+	    attributes: ['id', 'name']
 	}]
 });
 ```
