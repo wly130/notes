@@ -968,16 +968,16 @@ export default new Vue
 </script>
 ```
 
-#### Provide & Inject
+#### `Provide` & `Inject`
 
 ```js
 //父组件
-import Index from './components/index.vue'
+import Index from './components/index.vue';
 import {
 	provide
 } from 'vue';
 //父组件向子级组件共享数据
-provide('共享数据名称', '数据值')
+provide('数据名称', '数据值')
 
 //子组件
 import {
@@ -1172,6 +1172,9 @@ app.use(router);
 
 <!-- Vue3 -->
 <template>
+	<keep-alive> <!-- <keep-alive>b跳转页面不刷新 -->
+       <router-view></router-view>
+    </keep-alive>
 	<router-view></router-view>
 </template>
 ```

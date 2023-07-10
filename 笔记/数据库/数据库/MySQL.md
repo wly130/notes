@@ -98,6 +98,7 @@ INSERT INTO 表名 (字段1) VALUES (1); #添加数字
 INSERT INTO 表名 (字段1) VALUES ('name'); #添加字符串
 INSERT INTO 表名 (字段1) VALUES ('1000-01-01 00:00:00'); #添加时间
 INSERT INTO 表名 (字段1) VALUES ('{"key":"value"}'); #添加JSON
+INSERT IGNORE INTO 表名 (字段1，字段2) VALUES (值1，值2); #添加多条数据时,忽略报错数据,继续添加其余数据
 ```
 
 #### 删除数据
@@ -266,7 +267,18 @@ SELECT DISTINCT 字段1,字段2 FROM 表名;
 #### 字符查询
 
 ```sql
-SELECT * FROM 表名 WHERE 字段名 LIKE '%字符';
+SELECT * FROM 表名 WHERE 字段名 LIKE '%x%'; #查询包含x的数据
+SELECT * FROM 表名 WHERE 字段名 LIKE '%x'; #查询以x结尾的数据
+SELECT * FROM 表名 WHERE 字段名 LIKE 'x%'; #查询以x开头的数据
+SELECT * FROM 表名 WHERE 字段名 LIKE '_x'; #查询长度为2,以x结尾的数据
+```
+
+#### 正则表达式查询
+
+```sql
+SELECT * FROM 表名 WHERE 字段名 REGEXP '^x'; #查询以x开头的数据
+SELECT * FROM 表名 WHERE 字段名 REGEXP 'x$'; #查询以x结尾的数据
+SELECT * FROM 表名 WHERE 字段名 REGEXP '[1-9]'; #查询包含括号内的数据
 ```
 
 #### 数据表设置别名

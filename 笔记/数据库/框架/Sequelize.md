@@ -54,8 +54,7 @@ module.exports = db;
 ```js
 const db = require("../config/mysql-config");
 
-const m_type = db.sequelize.define(
-    "m_type", { //数据表名
+const m_type = db.sequelize.define("m_type", { //数据表名
 	id: { //字段名
 		type: db.DataTypes.INTEGER(10), //数据类型
 		primaryKey: true //是否为主键
@@ -159,6 +158,17 @@ const { 表名 } = require('../models/xxx');
 const Op = db.Op;
 ```
 
+#### 查询类型
+
+```javascript
+表名.count(); //返回总数数字
+表名.findAll(); //返回所有数据
+表名.findByPk(id); //返回符合主键Id的所有数据
+表名.findOne(); //返回第一条数据
+表名.findOrCreate(); //先查询,如果没有就添加一条新数据
+表名.findAndCountAll(); //返回总数和所有数据
+```
+
 #### 查询所有数据
 
 ```javascript
@@ -190,17 +200,6 @@ const Op = db.Op;
 });
 ```
 
-#### 查询数据总数
-
-```javascript
-/**
- * SELECT COUNT(id) AS count FROM 表名;
- */
-表名.findAll({
-	attributes: [[db.sequelize.fn('COUNT', db.sequelize.col('id')), 'count']]
-});
-```
-
 #### `WHERE` 操作符
 
 ```javascript
@@ -225,8 +224,8 @@ const Op = db.Op;
 			[Op.all]: sequelize.literal('SELECT 1'), // name > ALL (SELECT 1)
 			[Op.in]: [1, 2], // name IN [1, 2]
 			[Op.notIn]: [1, 2], // name NOT IN [1, 2]
-			[Op.like]: '文字', // name LIKE '%hat'
-			[Op.notLike]: '文字', // name NOT LIKE '%hat'
+			[Op.like]: '文字', // name LIKE '文字'
+			[Op.notLike]: '文字', // name NOT LIKE '文字'
 		}
 	}
 });
@@ -236,15 +235,14 @@ const Op = db.Op;
 
 ```javascript
 /**
- * SELECT name FROM 表名 ORDER BY 字段名 ASC/DESC;
+ * SELECT * FROM 表名 ORDER BY 字段名 ASC/DESC;
  */
 表名.findAll({
-    ['name'],
 	order: [['id', 'DESC/ASC']]
 });
 ```
 
-#### 显示第 `n` 行后面 `m` 个数据
+#### 显示第 `n` 行后面 `m` 个数据(分页)
 
 ```javascript
 /**
@@ -253,20 +251,6 @@ const Op = db.Op;
 表名.findAll({
     offset: n,
     limit: m
-});
-```
-
-#### 显示第 `n` 行后面 `m` 个数据和总数
-
-```javascript
-/**
- * SELECT * FROM 表名 LIMIT n,m;
- * SELECT COUNT(*) AS count FROM 表名;
- */
-表名.findAndCountAll({
-	offset: n,
-	limit: m,
-	where: {}
 });
 ```
 
@@ -318,6 +302,14 @@ A.findAll({
 		model: B,
 	    attributes: ['id', 'name']
 	}]
+});
+```
+
+### 运行函数
+
+```javascript
+表名.findAll({
+	attributes: [[db.sequelize.fn('函数名', db.sequelize.col('参数')), '别名']]
 });
 ```
 
