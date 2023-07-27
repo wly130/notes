@@ -1,4 +1,4 @@
-## React 框架
+## 	React 框架
 
 ![](https://github.com/adam-golab/react-developer-roadmap/raw/master/roadmap-cn.png)
 
@@ -43,7 +43,7 @@ create-react-app 项目名
 - **启动项目**
 
 ```shell
-npm start
+npm run start
 ```
 
 - **项目打包**
@@ -70,9 +70,11 @@ npm run build
 
 - **index.js**
 
-```js
+```jsx
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from 'react-router-dom';
+import { AliveScope } from 'react-activation';
 import "./index.css";
 import App from "./App";
 import api from "./api/api";
@@ -80,7 +82,15 @@ import api from "./api/api";
 React.$api = api; //API接口
 
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+	<BrowserRouter>
+    	<AliveScope>
+      		<React.StrictMode>
+        		<App />
+      		</React.StrictMode>
+    	</AliveScope>
+  	</BrowserRouter>
+);
 ```
 
 - **index.css**
@@ -102,13 +112,16 @@ html {
 - **App.js**
 
 ```jsx
-import Routers from "./routes/index";
+import { useNavigate, useRoutes } from 'react-router-dom';
+import routes from './routes/routes';
 import "./index.css";
 
 function App() {
+    const elements = useRoutes(routes); //z
+    const navigate = useNavigate();
     return (
         <div className="App">
-            <Routers />
+            {elements}
         </div>
     );
 }
@@ -167,7 +180,7 @@ import imgUrl from '../assets/photo.png';
 >
 > **单位为 `px` 时可以忽略**
 
-```jsx
+```react
 import React from 'react';
 import './css'; //外部引入CSS
 
@@ -383,7 +396,7 @@ class App extends React.Component {
         }
         return (
             <div>
-                {IFFlag }
+                {IFFlag}
             </div>
         )
     }
@@ -1171,7 +1184,7 @@ React.$api.函数名(params).then(res => {});  //调用API
 npm install http-proxy-middleware
 ```
 
-- **src/setupProxy.js**
+- **setupProxy.js**
 
 ```js
 const proxy = require('http-proxy-middleware');
@@ -1188,38 +1201,51 @@ module.exports = (app) => {
 }
 ```
 
-### 配置样式隔离
+### styled-components
 
-- **创建 `xxx.module.css` 文件**
+- **安装依赖包**
 
-```css
-.index {
-	color: #FF0000;
-}
+```shell
+npm install styled-components
 ```
 
-- **页面调用**
+- **应用**
 
 ```jsx
-import React, { Component } from "react";
-import styles from "./index.module.css";
-
-class Index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { };
+import { keyframes, styled, injectGlobal } from 'styled-components';
+//定义标签样式
+const BOX = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+//定义动画
+const Animation = keyframes`
+    0% {
+        opacity: 0;
     }
-
-    render() {
-        return (
-            <div id="index">
-                <div className={styles.index}></div>
-            </div>
-        );
+    100% {
+        opacity: 1;
     }
-}
-
-export default Index;
+`;
+const Button = styled.div`
+    animation: 1s ${Animation} ease-out;
+`;
+//定义全局样式
+injectGlobal`
+	body {
+    	margin: 0;
+    	padding: 0;
+  	}
+`;
+//传参
+const BOX = styled.div`
+    color: ${props => props.boxColor};
+`;
+const box = <BOX boxColor="red">文字</BOX>;
+//定义标签属性
+const INPUT = styled.input.attrs({
+    type: 'password'
+})``;
 ```
 
 ### React-router
@@ -1228,53 +1254,25 @@ export default Index;
 
 ```shell
 npm install react-router-dom
+npm install react-activation #路由缓存
 ```
 
 #### Router配置
 
 - **routes.js**
 
-```js
+```jsx
+import KeepAlive from 'react-activation'; //配置缓存页面
 //引入自定义组件
 import Index from "../pages/index/index";
 
 const routes = [{
 	path: "/",
-	component: <Index />,
+	element: <KeepAlive cacheKey="Index"><Index /></KeepAlive>,
 	exact: true
 }];
 
 export default routes;
-```
-
-- **index.js (封装路由)**
-
-```jsx
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-//引入路由表
-import routes from "./routes";
-
-function Routers() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                {routes.map(({ path, component, exact }, key) => {
-                    return (
-                        <Route
-                            key={key}
-                            exact={exact}
-                            path={path}
-                            element={component}
-                        />
-                    );
-                })}
-            </Routes>
-        </BrowserRouter>
-    );
-}
-
-export default Routers;
 ```
 
 #### Router`跳转` 和 `传参`
@@ -1334,7 +1332,24 @@ this.props.history.push({
 
 **在函数组件中可以使用 `生命周期函数` 和 `State状态`**
 
-#### `useState` 
+#### 跳转
+
+```jsx
+import React, { useNavigate } from 'react'
+function Example() {
+    const navigate = useNavigate();
+  	let pathJump = (path) => {
+    	navigate(path);
+  	}
+    return (
+        <div>
+            <button onClick={() => pathJump("/u")}>跳转</button>
+        </div>
+    );
+}
+```
+
+#### `useState`
 
 - **定义state状态**
 

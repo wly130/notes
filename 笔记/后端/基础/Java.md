@@ -83,13 +83,9 @@
 
 ```java
 //抽象方法的定义格式
-public abstract 返回值类型 方法名(参数){
-
-}
+public abstract 返回值类型 方法名(参数){}
 //抽象类的定义格式
-abstract class 类名{
-
-}
+abstract class 类名{}
 ```
 
 - **特点**
@@ -114,6 +110,36 @@ abstract class 类名{
 - **finalize()** 方法用来**清除回收对象**
 
 ### 字符串
+
+#### 定义
+
+```java
+String name = "value";
+String name = new String("value");
+char cahrName = 'A';
+```
+
+#### 操作
+
+```java
+String name1 = "value";
+String name2 = "abcd";
+char c = name1.charAt(2); //返回对应下标字符
+boolean flag = name1.isEmpty(); //判断是否为空
+String name = name1.concat(name2); //拼接字符串
+boolean flag = name1.equals(name2); //判断字符串内容是否相同
+boolean flag = (name1 == name2); //判断引用地址是否相同
+int index = name1.indexOf("v"); //返回对应字符的下标,没有返回-1
+int index = name1.length(); //返回字符串长度
+String str = "www.google.com-name";
+str.split(""); //分割每一个字符
+str.split("\\."); //根据特殊符号分割字符(.$|*)
+str.split("-"); //根据字符分割字符
+str.split("b|c"); //根据多个字符分割字符
+str.replace('原字符', '新字符'); //替换对应字符的所有字符
+str.replaceAll(正则表达式, '新字符'); //替换匹配正则表达式的所有字符
+String name = str.substring(n - 1, m); //返回 n-m之间的字符串
+```
 
 ### IO 流
 
@@ -143,7 +169,7 @@ abstract class 类名{
 | **read()**             | 从当前数据流中读取一个字节                                   |
 | **read(byte[] bytes)** | 从当前输入流读取一定的 byte 数据                             |
 | **reset()**            | 将当前的输入流重新定位到最后一次调用 mark()方法时的位置      |
-| **mark(int read)**     | 在当前输入流中做标记位置,当调用 reset()方法时将返回到该位置,从标记位置开始,到再读入 read 个字符,标记都维持有效。 |
+| **mark(int read)**     | 在当前输入流中做标记位置,当调用 reset()方法时将返回到该位置,从标记位置开始,到再读入 read 个字符,标记都维持有效 |
 | **markSupported()**    | 测试当前输入流是否支持 mark()和 reset()方法                  |
 | **skip(long n)**       | 跳过和丢弃当前输入的 n 个字节数据                            |
 | **close()**            | 关闭当前输入流                                               |
@@ -362,6 +388,10 @@ public class Test {
 
 ### 集合
 
+#### 定义
+
+#### 遍历
+
 | 集合接口       | 作用                       |
 | -------------- | -------------------------- |
 | **Collection** | 存储一组不唯一，无序的对象 |
@@ -371,13 +401,13 @@ public class Test {
 | **Map**        | 存储一组键值对象           |
 | **SortedMap**  | 使 Key 保持在升序排列      |
 
-| 集合实现类     | 作用                                        |
-| -------------- | ------------------------------------------- |
-| **ArrayList**  | 可以动态修改的数组                          |
-| **LinkedList** | 线性表,允许有 null                          |
-| **HashSet**    | 无序不重复的集合,允许有 null 但最多只能一个 |
-| **HashMap**    | 散列表,存储键值对映射,无序的                |
-| **TreeSet**    | 实现排序功能                                |
+| 集合实现类     | 作用                                    |
+| -------------- | --------------------------------------- |
+| **ArrayList**  | 可以动态修改的数组                      |
+| **LinkedList** | 线性表,允许有 null                      |
+| **HashSet**    | 无序不重复的集合,允许有 null 但只能一个 |
+| **HashMap**    | 散列表,存储键值对映射,无序的            |
+| **TreeSet**    | 实现排序功能                            |
 
 | 集合方法          | 作用                             |
 | ----------------- | -------------------------------- |
@@ -405,6 +435,79 @@ Iterator<?> it = ArryList.iterator();// 获取
 it.hasNext();   // 判断是否为空
 it.next();      // 输出集合元素
 it.remove();    // 删除集合元素
+```
+
+### 数组
+
+#### 定义
+
+```java
+List<String> strList = new ArrayList<>();
+Set<String> setList = new HashSet<String>();
+```
+
+#### 操作
+
+```java
+//添加元素
+for (int i = 0; i < 10; i++) {
+	strList.add(i);
+    setList.add(i);
+}
+//删除元素
+strList.remove(i); //删除下标为i的元素
+Iterator<Integer> it = strList.iterator();
+while (it.hasNext()) {
+	Integer str = it.next();
+	if (str == 1) {
+		it.remove();
+	}
+}
+Collections.sort(strList); //元素排序
+```
+
+#### `List` 遍历
+
+```java
+//普通for循环
+for (int i = 0; i < strList.size(); i++) {
+	System.out.println(strList.get(i));
+}
+//增强的for循环
+for (String str : strList) {
+	System.out.println(str);
+}
+//Iterator迭代器
+Iterator<String> it = strList.iterator();
+while (it.hasNext()) {
+	String str = (String) it.next();
+	System.out.println(str);
+}
+//Lambda箭头函数
+strList.forEach(System.out::println); //简写
+strList.forEach(str -> {
+	System.out.println(str);
+});
+```
+
+#### `Set` 遍历
+
+```java
+//增强的for循环
+for (String str : setList) {
+	System.out.println(str);
+}
+//Iterator迭代器
+Iterator<String> it = setList.iterator();
+while (it.hasNext()) {
+	String str = (String) it.next();
+	System.out.println(str);
+}
+//Lambda箭头函数
+setList.forEach(System.out::println); //简写
+setList.forEach(str -> {
+	System.out.println(str);
+});
 ```
 
 ### 泛型
@@ -449,7 +552,39 @@ public static <T> void Show(T t){
 
 ### Stream流
 
+#### 定义
 
+```java
+List<String> list = new ArrayList<>();
+Stream<String> stream = list.stream(); //获取一个顺序流
+Stream<String> parallelStream = list.parallelStream(); //获取一个并行流
+```
+
+#### 操作
+
+|方法名|作用|
+| ---- | ---- |
+|**filter**| 过滤流中的某些元素|
+|**limit(n)**| 获取 `n` 个元素 |
+|**skip(n)**| 跳过 `n` 元素, 配合 `limit(n)` 可实现分页 |
+|**distinct()**| 去除重复元素 |
+|**map**| 接收一个函数作为参数, 应用到每个元素上|
+|**flatMap**| 接收一个函数作为参数，将流中的每个值都换成另一个流，然后把所有流连接成一个流|
+|**allMatch**|当流中元素都符合条件时才返回true, 否则返回false|
+|**noneMatch**|当流中元素都不符合符合条件时才返回true, 否则返回false|
+|**anyMatch**|只要流中有一个元素满足符合条件则返回true, 否则返回false|
+|**findFirst**|返回流中第一个元素|
+|**findAny**|返回流中的任意元素|
+|**count**|返回流中元素的总个数|
+|**max**|返回流中元素最大值|
+
+```java
+Stream<Integer> stream = Stream.of(6, 4, 6, 7, 3, 9, 8, 10, 12, 14, 14);
+Stream<Integer> newStream = stream.filter(i -> i > 5) //过滤大于5的元素
+	.distinct() //去重
+	.skip(2) //从第2个元素开始
+	.limit(2); //显示2个元素
+```
 
 ### 多线程
 

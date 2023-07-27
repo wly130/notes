@@ -322,7 +322,7 @@ SELECT * FROM 表名 WHERE key->'$.key' = 'value';
 #### 查询 `Array`
 
 ```sql
-SELECT * FROM 表名 WHERE key->'$[*].key' = 'value';
+SELECT * FROM 表名 WHERE key ->'$[*].key' = 'value';
 SELECT * FROM 表名 WHERE JSON_CONTAINS(key,JSON_OBJECT('key', "value"));
 ```
 
