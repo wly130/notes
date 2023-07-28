@@ -204,27 +204,34 @@ npm install sequelize -S
 const {
 	Sequelize,
 	DataTypes,
-    O
+	Op
 } = require("sequelize");
 
-const sequelize = new Sequelize(
-	'my_project', //数据库名
-	'root', //用户名
-	'000000', { //密码
-		host: '127.0.0.1', //数据库地址
-		port: '3306',  //端口号
-		dialect: "mysql", //数据库类型
-		pool: {
-			max: 5,
-			min: 0,
-			acquire: 3000
-		}
+const databaseName = 'my_project';
+const hostName = 'root';
+const password = '000000';
+const host = '127.0.0.1';
+const port = 3306;
+
+const seq = new Sequelize(
+	databaseName,
+	hostName,
+	password, {
+	host: host,
+	port: port,
+	dialect: "mysql",
+	pool: {
+		max: 5,
+		min: 0,
+		acquire: 3000
 	}
-);
-const db = {};
-db.DataTypes = DataTypes; //字段类型
-db.sequelize = sequelize;
-db.Op = Op;
+});
+
+const db = {
+	DataTypes: DataTypes,
+	sequelize: seq,
+	Op: Op
+};
 
 module.exports = db;
 ```
@@ -234,8 +241,7 @@ module.exports = db;
 ```js
 const db = require("../config/mysql-config");
 
-const m_type = db.sequelize.define(
-    "m_type", { //数据表名
+const m_type = db.sequelize.define("m_type", { //数据表名
 	id: { //字段名
 		type: db.DataTypes.INTEGER(10), //数据类型
 		primaryKey: true //是否为主键
