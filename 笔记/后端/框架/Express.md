@@ -58,6 +58,83 @@ app.get('/url', (req, res) => {
 });
 ```
 
+#### 设置 `Token`
+
+- **下载依赖**
+
+```shell
+npm install jsonwebtoken express-jwt
+```
+
+- **配置 `Token`**
+
+```js
+//引入jsonwebtoken
+const jwt = require('jsonwebtoken');
+//密钥
+const SECRET_KEY = 'KEY';
+//生成token
+var setToken = (user_id) => {
+    return new Promise((resolve, reject) => {
+        const token = jwt.sign({ 
+            user_id: user_id 
+        }, SECRET_KEY, { 
+            expiresIn: "24h", //token有效期
+			expiresIn: 60 * 60 * 24 * 7,  ///两种写法
+			algorithm: "HS256"  //默认使用 HS256 算法
+        });
+        resolve(token)
+    });
+}
+//验证token
+var getToken = (token) => {
+    return new Promise((resolve, reject) => {
+        if (!token) {
+            reject({
+                code: 404,
+                error: 'token空'
+            })
+        } else {
+            let info = jwt.verify(token.split(' ')[1], SECRET_KEY);
+            resolve(info);//解析返回值
+        }
+    })
+}
+module.exports = {
+    setToken,
+    getToken
+}
+```
+
+- **验证 `Token`**
+
+```js
+const jwt = require("jsonwebtoken");
+const { expressjwt } = require("express-jwt");
+
+const SECRET_KEY = 'KEY';
+expressjwt({ 
+    secret: SECRET_KEY, 
+    algorithms: ["HS256"] })
+.unless({
+    path: [/^\/api\//] //不验证的接口
+});
+
+app.use((err, req, res, next) => {
+	//token 解析失败
+	if (err.name === "UnauthorizedError") {
+    	return res.send({
+	    	code: 401,
+	   	 	message: "无效token"
+	  	});
+	}
+	res.send({
+	  	code: 500,
+	  	message: "未知的错误"
+	});
+});
+```
+
 ### 网络请求
 
 #### GET请求
@@ -187,7 +264,7 @@ module.exports = app;
 | res.sendFile() |传送指定路径的文件|
 | res.set()|设置HTTP头，传入object可以一次设置多个头|
 | res.status()|设置HTTP状态码|
-| res.type()|设置Content-Type的MIME类型|
+| res.type()|设置 `Content-Type` 的MIME类型|
 
 ### 数据库操作(Sequelize框架)
 
@@ -274,13 +351,11 @@ app.post("/add", (req, res, next) => {
     let body = req.body; //请求参数
     
     (async () => {
-		const data = await m_type.create({
+		await m_type.create({
 			id: body.id,
 			type: body.type,
 		})
-		res.json({
-			data
-		});
+		res.json("添加成功");
 	})();
 });
 
@@ -289,14 +364,12 @@ app.post("/del", (req, res, next) => {
     let body = req.body; //请求参数
     
     (async () => {
-		const data = await m_type.destroy({
+		await m_type.destroy({
 			where: {
                 id: body.id
             }
 		});
-		res.json({
-			data
-		});
+		res.json("删除成功");
 	})();
 });
 
@@ -305,16 +378,14 @@ app.post("/updata", (req, res, next) => {
     let body = req.body; //请求参数
     
     (async () => {
-		const data = await m_type.update({
+		await m_type.update({
 			id: body.id
 		}, {
 			where: {
 				type: body.type
 			}
 		});
-		res.json({
-			data
-		});
+		res.json("修改成功");
 	})();
 });
 

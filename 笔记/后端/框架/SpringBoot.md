@@ -1,5 +1,12 @@
 ## SpringBoot + MyBatis
 
+| 开发环境       | 版本      |
+| -------------- | --------- |
+| **JDK**        | **17**    |
+| **Maven**      | **3.9.3** |
+| **SpringBoot** | **3.1.2** |
+| **MyBatis**    | **3.0.2** |
+
 ### 项目结构
 
 <img src="../../img/SpringBoot目录结构.png" alt="SpringBoot目录结构" style="margin:0" />

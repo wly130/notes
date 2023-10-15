@@ -59,10 +59,50 @@ const m_type = db.sequelize.define("m_type", { //数据表名
 		type: db.DataTypes.INTEGER(10), //数据类型
 		primaryKey: true //是否为主键
         allowNull: false, //是否允许为空
-        primaryKey: true, //是否为主键
         autoIncrement: true, //自动自增
         unique: true, //是否唯一
         comment: 'id' //备注
+        validate: {
+			is: /^[a-z]+$/i,          // 匹配这个 RegExp
+			is: ["^[a-z]+$",'i'],     // 与上面相同,以字符串构造 RegExp
+			not: /^[a-z]+$/i,         // 不匹配 RegExp
+			not: ["^[a-z]+$",'i'],    // 与上面相同,但是以字符串构造 RegExp
+			isEmail: true,            // 检查 email 格式 (foo@bar.com)
+			isUrl: true,              // 检查 url 格式 (https://foo.com)
+			isIP: true,               // 检查 IPv4 (129.89.23.1) 或 IPv6 格式
+			isIPv4: true,             // 检查 IPv4 格式 (129.89.23.1)
+			isIPv6: true,             // 检查 IPv6 格式
+			isAlpha: true,            // 只允许字母
+			isAlphanumeric: true,     // 将仅允许使用字母数字
+			isNumeric: true,          // 只允许数字
+			isInt: true,              // 检查有效的整数
+			isFloat: true,            // 检查有效的浮点数
+			isDecimal: true,          // 检查任何数字
+			isLowercase: true,        // 检查小写
+			isUppercase: true,        // 检查大写
+			notNull: true,            // 不允许为空
+			isNull: true,             // 只允许为空
+			notEmpty: true,           // 不允许空字符串
+			equals: 'text',           // 字符串判断
+			contains: 'text',         // 强制特定子字符串
+			notIn: [['text', 'bar']], // 检查值不是这些之一
+			isIn: [['text', 'bar']],  // 检查值是其中之一
+			notContains: 'bar',       // 不允许特定的子字符串
+			len: [2, 10],             // 仅允许长度在2到10之间的值
+			isUUID: 4,                // 只允许 uuid
+			isDate: true,             // 只允许日期字符串
+			isAfter: "2011-11-05",    // 仅允许特定日期之后的日期字符串
+			isBefore: "2011-11-05",   // 仅允许特定日期之前的日期字符串
+			max: 23,                  // 仅允许值 <= 23
+			min: 23,                  // 仅允许值 >= 23
+			isCreditCard: true,       // 检查有效的信用卡号
+			//自定义验证器
+      		isEven(value) {
+      			if (parseInt(value) % 2 !== 0) {
+      		    	throw new Error('');
+      		  	}
+      		}
+    	}
 	},
 	type: {
 		type: db.DataTypes.STRING(255)
@@ -79,15 +119,18 @@ module.exports = {
 
 ### 数据类型
 
-| 名称    | 类型     |
-| ------- | -------- |
-| STRING  | VARCHAR  |
-| TEXT    | TEXT     |
-| INTEGER | INT      |
-| BIGINT  | BIGINT   |
-| FLOAT   | FLOAT    |
-| DATE    | DATETIME |
-| JSON    | JSON     |
+| 名称         | 类型     |
+| ------------ | -------- |
+| STRING       | VARCHAR  |
+| TEXT         | TEXT     |
+| TEXT('tiny') | TINYTEXT |
+| INTEGER      | INT      |
+| BIGINT       | BIGINT   |
+| FLOAT        | FLOAT    |
+| DOUBLE       | DOUBLE   |
+| DATE         | DATETIME |
+| DATEONLY     | DATE     |
+| JSON         | JSON     |
 
 ### 添加数据
 
@@ -185,7 +228,7 @@ const Op = db.Op;
  * SELECT id, name FROM 表名;
  */
 表名.findAll({
-	attributes: ['id', 'name']
+	attributes: ['id', 'name']	
 });
 ```
 
@@ -295,7 +338,7 @@ A.belongsTo(B, {
 });
 
 /**
- * SELECT * FROM A LEFT OUTER JOIN B ON A.typeId= B.id;
+ * SELECT * FROM A LEFT OUTER JOIN B ON A.typeId = B.id;
  */
 A.findAll({
 	include: [{

@@ -233,6 +233,16 @@ class 类名 extends Exception{
 
 ### 包装类
 
+- **基本类型和包装类的区别**
+
+1. **基本数据类型存放在栈中, 包装类存放在堆中, 栈的效率更高**
+
+2. **包装类是对象, 拥有字段和方法, 对象的调用是引用对象的地址**
+
+3. **基本数据类型是值传递, 包装类是引用传递**
+
+4. **向 `ArrayList`, `LinkedList` 放数据, 只能放 `Object` 类型的, 基本类型放不进去**
+
 | 基本类型 | 包装类    |
 | :------- | :-------- |
 | boolean  | Boolean   |
@@ -658,9 +668,8 @@ public class Show implements Callable<Integer>{
 ```java
 Class.forName("com.mysql.jdbc.cj.Driver");
 Connection conn = DriverManager.getConnection(
-     "jdbc:mysql://localhost:3306/wly?useUnicode=true&
-     characterEncoding=utf8serverTimezone=UTC&
-     useSSL=false","root","000000");
+     "jdbc:mysql://localhost:3306/wly?useUnicode=true&characterEncoding=utf8serverTimezone=UTC&useSSL=false",
+     "root","000000");
 ```
 
 > **Statement 接口**

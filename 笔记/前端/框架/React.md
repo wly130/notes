@@ -117,7 +117,7 @@ import routes from './routes/routes';
 import "./index.css";
 
 function App() {
-    const elements = useRoutes(routes); //z
+    const elements = useRoutes(routes); //
     const navigate = useNavigate();
     return (
         <div className="App">
@@ -486,7 +486,7 @@ export default App;
 
 ### 列表渲染
 
-#### `html`渲染
+#### `html` 渲染
 
 ```jsx
 import React from 'react';
@@ -1243,7 +1243,7 @@ const BOX = styled.div`
 `;
 const box = <BOX boxColor="red">文字</BOX>;
 //定义标签属性
-const INPUT = styled.input.attrs({
+const In = styled.input.attrs({
     type: 'password'
 })``;
 ```

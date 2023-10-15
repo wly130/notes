@@ -15,7 +15,7 @@ npm --version
 
 #### 常用命令
 
-- **初始化(生成 `package.json`)**
+- **初始化(生成 `package.json` )**
 
 ```shell
 npm init
@@ -187,7 +187,7 @@ var conn = mysql.createConnection({
 	user: "root", //用户名
 	password: "000000", //密码
 	port: "3306", //端口号
-	database: "wly", //数据库名
+	database: "project", //数据库名
 });
 //开始连接
 conn.connect();

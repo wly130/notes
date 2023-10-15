@@ -1153,7 +1153,7 @@ class Request {
     	}
 
 		try {
-			Response res = await dio.request(url, data: data, options: Options(method: method));
+			Response res = await dio.request(baseUrl +url, data: data, options: Options(method: method));
 		    if (res.statusCode == 200 || res.statusCode == 201) {
 		    	try {
 		        	if (res.data['status'] != 200) {
