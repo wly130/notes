@@ -74,16 +74,14 @@ const jwt = require('jsonwebtoken');
 //密钥
 const SECRET_KEY = 'KEY';
 //生成token
-var setToken = (user_id) => {
+var setToken = (data) => {
     return new Promise((resolve, reject) => {
-        const token = jwt.sign({ 
-            user_id: user_id 
-        }, SECRET_KEY, { 
+        const token = jwt.sign(data, SECRET_KEY, { 
             expiresIn: "24h", //token有效期
 			expiresIn: 60 * 60 * 24 * 7,  ///两种写法
-			algorithm: "HS256"  //默认使用 HS256 算法
+			algorithm: "HS256"  //加密算法
         });
-        resolve(token)
+        resolve(token);
     });
 }
 //验证token

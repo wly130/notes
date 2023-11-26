@@ -50,6 +50,7 @@ npm search 包名
 
 ```shell
 npm list
+npm list -g --depth 0 #查看全局a
 ```
 
 - **参数**
