@@ -56,7 +56,7 @@ const db = require("../config/mysql-config");
 
 const m_type = db.sequelize.define("m_type", { //数据表名
 	id: { //字段名
-		type: db.DataTypes.INTEGER(10), //数据类型
+		type: db.DataTypes.INTEGER, //数据类型
 		primaryKey: true //是否为主键
         allowNull: false, //是否允许为空
         autoIncrement: true, //自动自增
@@ -105,7 +105,7 @@ const m_type = db.sequelize.define("m_type", { //数据表名
     	}
 	},
 	type: {
-		type: db.DataTypes.STRING(255)
+		type: db.DataTypes.STRING
 	}
 }, {
 	tableName: 'm_type',
@@ -161,7 +161,7 @@ module.exports = {
 
 ```javascript
 /**
- * 修改 id=1 为 "name2"
+ * 修改 id=1 的 name 为 "name2"
  * UPDATE 表名 SET name="name2" WHERE id=1;
  */
 表名.update({ name: "name2" }, {
@@ -212,15 +212,6 @@ const Op = db.Op;
 表名.findAndCountAll(); //返回总数和所有数据
 ```
 
-#### 查询所有数据
-
-```javascript
-/**
- * SELECT * FROM 表名;
- */
-表名.findAll();
-```
-
 #### 查询特定字段的数据
 
 ```javascript
@@ -248,8 +239,8 @@ const Op = db.Op;
 ```javascript
 表名.findAll({
 	where: {
-   		[Op.and]: [{ id: 5 }, { name: "name" }], // (id = 5) AND (name = "name")
-   		[Op.or]: [{ id: 5 }, { name: "name" }], // (id = 5) OR (name = "name")
+   		[Op.and]: { id: 5, name: "name" }, // (id = 5) AND (name = "name")
+   		[Op.or]: { id: 5, name: "name" }, // (id = 5) OR (name = "name")
    		name: {
 			[Op.eq]: 3, // name = 3
 			[Op.ne]: 20, // name != 20
@@ -299,53 +290,73 @@ const Op = db.Op;
 
 ### 多表查询
 
-#### 一对一关联
-
 ```javascript
 const A = db.sequelize.define("A", {
 	id: {
-		type: db.DataTypes.INTEGER(10),
+		type: db.DataTypes.INTEGER,
+		primaryKey: true,
+        autoIncrement: true
+	},
+    type_id: {
+		type: db.DataTypes.INTEGER,
 		primaryKey: true
 	},
 	type: {
-		type: db.DataTypes.STRING(255)
+		type: db.DataTypes.STRING
 	}
 }, {
 	tableName: 'A',
 	timestamps: false
 });
-
 const B = db.sequelize.define("B", {
-	typeId: {
-		type: db.DataTypes.INTEGER(10),
-		primaryKey: true
+	type_id: {
+		type: db.DataTypes.INTEGER,
+		primaryKey: true,
+        autoIncrement: true
 	},
 	type: {
-		type: db.DataTypes.STRING(255)
+		type: db.DataTypes.STRING
 	}
 }, {
 	tableName: 'B',
 	timestamps: false
 });
-
-/**
- * A表 关联 B表
- * A.id 对应 B,typeId
- */
+const A_B = db.sequelize.define("A_B", {
+    a_b_id: {
+		type: db.DataTypes.INTEGER,
+		primaryKey: true,
+        autoIncrement: true
+	},
+	id: {
+		type: db.DataTypes.INTEGER
+	},
+	type_id: {
+		type: db.DataTypes.INTEGER
+	}
+}, {
+	tableName: 'A_B',
+	timestamps: false
+});
+//一对一关联,外键在B
+A.hasOne(B, {
+	foreignKey: 'type_id',
+	targetKey: 'type_id'
+});
+//一对一关联,外键在A
 A.belongsTo(B, {
-	foreignKey: 'id',
-	targetKey: 'typeId'
+	foreignKey: 'type_id',
+	targetKey: 'type_id'
+});
+//一对多关联,外键在B
+A.hasMany(B, {
+	foreignKey: 'type_id',
+	targetKey: 'type_id'
+});
+//多对多关联
+A.belongsToMany(B, {
+	through: 'A_B'
 });
 
-/**
- * SELECT * FROM A LEFT OUTER JOIN B ON A.typeId = B.id;
- */
-A.findAll({
-	include: [{
-		model: B,
-	    attributes: ['id', 'name']
-	}]
-});
 ```
 
 ### 运行函数
@@ -354,5 +365,31 @@ A.findAll({
 表名.findAll({
 	attributes: [[db.sequelize.fn('函数名', db.sequelize.col('参数')), '别名']]
 });
+```
+
+### 事务
+
+```js
+const t = await sequelize.transaction();
+try {
+	await 表名.create({ }, { transaction: t });
+	await 表名.destroy({
+	    where: {
+			id: 1
+	  	},
+        transaction: t
+	});
+    await 表名.findAll({
+	    where: {
+			id: 1
+	  	},
+        transaction: t
+	});
+	//提交事务
+	await t.commit();
+} catch (err) {
+  	//回滚事务
+  	await t.rollback();
+}
 ```
 

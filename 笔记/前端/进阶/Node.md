@@ -75,11 +75,11 @@ npm list -g --depth 0 #查看全局a
 	},
 	"repository": { //包代码的Repo信息
 	  "type": "git / svn",
-	  "url": "代码存放地址"
+	  	"url": "代码存放地址"
 	},
 	"license": "ISC",//软件授权条款
 	"bugs": {	//bug 提交地址
-	  "url": ""
+	  	"url": ""
 	},
 	"homepage": "包官网URL"
 }
