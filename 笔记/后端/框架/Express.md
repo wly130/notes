@@ -74,7 +74,7 @@ const jwt = require('jsonwebtoken');
 //密钥
 const SECRET_KEY = 'KEY';
 //生成token
-var setToken = (data) => {
+const setToken = (data) => {
     return new Promise((resolve, reject) => {
         const token = jwt.sign(data, SECRET_KEY, { 
             expiresIn: "24h", //token有效期
@@ -85,7 +85,7 @@ var setToken = (data) => {
     });
 }
 //验证token
-var getToken = (token) => {
+const getToken = (token) => {
     return new Promise((resolve, reject) => {
         if (!token) {
             reject({
@@ -141,7 +141,7 @@ app.use((err, req, res, next) => {
 const express = require('express');
 const app = express();
 
-app.get('/url/:nam', (req, res) => {
+app.get('/url/:name', (req, res) => {
     let query = req.query; //请求参数
     let params = req.params; //路径参数
 	res.json(); //响应参数
@@ -282,19 +282,20 @@ const {
 	Op
 } = require("sequelize");
 
-const databaseName = 'my_project';
-const hostName = 'root';
-const password = '000000';
-const host = '127.0.0.1';
-const port = 3306;
+const DIALECT = "mysql"; //数据库类型
+const DATABASETABLE = 'my_project'; //数据库表
+const HOSTNAME = 'root'; //用户名
+const PASSWORD = '000000'; //mima
+const HOST = '127.0.0.1'; //数据库地址
+const PORT = 3306; //d
 
 const seq = new Sequelize(
-	databaseName,
-	hostName,
-	password, {
-	host: host,
-	port: port,
-	dialect: "mysql",
+	DATABASETABLE,
+	HOSTNAME,
+	PASSWORD, {
+	host: HOST,
+	port: PORT,
+	dialect: DIALECT,
 	pool: {
 		max: 5,
 		min: 0,
@@ -345,62 +346,47 @@ const app = express();
 app.use(express.json());
 
 //添加
-app.post("/add", (req, res, next) => {
+app.post("/add", async (req, res, next) => {
     let body = req.body; //请求参数
-    
-    (async () => {
-		await m_type.create({
-			id: body.id,
-			type: body.type,
-		})
-		res.json("添加成功");
-	})();
+	await m_type.create({
+		id: body.id,
+		type: body.type,
+	})
+	res.json("添加成功");
 });
-
 //删除
-app.post("/del", (req, res, next) => {
+app.post("/del", async (req, res, next) => {
     let body = req.body; //请求参数
-    
-    (async () => {
-		await m_type.destroy({
-			where: {
-                id: body.id
-            }
-		});
-		res.json("删除成功");
-	})();
+    await m_type.destroy({
+		where: {
+            id: body.id
+        }
+	});
+	res.json("删除成功");
 });
-
 //修改
-app.post("/updata", (req, res, next) => {
+app.post("/updata", async (req, res, next) => {
     let body = req.body; //请求参数
-    
-    (async () => {
-		await m_type.update({
-			id: body.id
-		}, {
-			where: {
-				type: body.type
-			}
-		});
-		res.json("修改成功");
-	})();
+    await m_type.update({
+		id: body.id
+	}, {
+		where: {
+			type: body.type
+		}
+	});
+	res.json("修改成功");
 });
-
 //查询
-app.get("/select", (req, res, next) => {
+app.get("/select", async (req, res, next) => {
     let query = req.query; //请求参数
-    
-    (async () => {
-		const data = await m_type.findAll({
-			where: {
-				type: body.type
-			}
-		});
-		res.json({
-			data
-		});
-	})();
+    const data = await m_type.findAll({
+		where: {
+			type: body.type
+		}
+	});
+	res.json({
+		data
+	});
 });
 
 module.exports = app;

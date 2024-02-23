@@ -633,6 +633,7 @@ import index from './component/index.vue'
 
 ```js
 this.$parent.方法名();
+
 ```
 
 ##### 子传父

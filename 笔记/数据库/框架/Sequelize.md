@@ -20,19 +20,20 @@ const {
 	Op
 } = require("sequelize");
 
-const databaseName = 'my_project';
-const hostName = 'root';
-const password = '000000';
-const host = '127.0.0.1';
-const port = 3306;
+const DIALECT = "mysql"; //数据库类型
+const DATABASETABLE = 'my_project'; //数据库表
+const HOSTNAME = 'root'; //用户名
+const PASSWORD = '000000'; //mima
+const HOST = '127.0.0.1'; //数据库地址
+const PORT = 3306; //d
 
 const seq = new Sequelize(
-	databaseName,
-	hostName,
-	password, {
-	host: host,
-	port: port,
-	dialect: "mysql",
+	DATABASETABLE,
+	HOSTNAME,
+	PASSWORD, {
+	host: HOST,
+	port: PORT,
+	dialect: DIALECT,
 	pool: {
 		max: 5,
 		min: 0,
@@ -67,10 +68,10 @@ const m_type = db.sequelize.define("m_type", { //数据表名
 			is: ["^[a-z]+$",'i'],     // 与上面相同,以字符串构造 RegExp
 			not: /^[a-z]+$/i,         // 不匹配 RegExp
 			not: ["^[a-z]+$",'i'],    // 与上面相同,但是以字符串构造 RegExp
-			isEmail: true,            // 检查 email 格式 (foo@bar.com)
-			isUrl: true,              // 检查 url 格式 (https://foo.com)
-			isIP: true,               // 检查 IPv4 (129.89.23.1) 或 IPv6 格式
-			isIPv4: true,             // 检查 IPv4 格式 (129.89.23.1)
+			isEmail: true,            // 检查 email 格式
+			isUrl: true,              // 检查 url 格式
+			isIP: true,               // 检查 IPv4 或 IPv6 格式
+			isIPv4: true,             // 检查 IPv4 格式
 			isIPv6: true,             // 检查 IPv6 格式
 			isAlpha: true,            // 只允许字母
 			isAlphanumeric: true,     // 将仅允许使用字母数字
@@ -105,7 +106,8 @@ const m_type = db.sequelize.define("m_type", { //数据表名
     	}
 	},
 	type: {
-		type: db.DataTypes.STRING
+		type: db.DataTypes.STRING,
+        allowNull: false
 	}
 }, {
 	tableName: 'm_type',
@@ -119,18 +121,18 @@ module.exports = {
 
 ### 数据类型
 
-| 名称         | 类型     |
-| ------------ | -------- |
-| STRING       | VARCHAR  |
-| TEXT         | TEXT     |
-| TEXT('tiny') | TINYTEXT |
-| INTEGER      | INT      |
-| BIGINT       | BIGINT   |
-| FLOAT        | FLOAT    |
-| DOUBLE       | DOUBLE   |
-| DATE         | DATETIME |
-| DATEONLY     | DATE     |
-| JSON         | JSON     |
+| 名称     | 数据类型 |
+| -------- | -------- |
+| STRING   | VARCHAR  |
+| TEXT     | TEXT     |
+| TINYTEXT | TINYTEXT |
+| INTEGER  | INT      |
+| BIGINT   | BIGINT   |
+| FLOAT    | FLOAT    |
+| DOUBLE   | DOUBLE   |
+| DATE     | DATETIME |
+| DATEONLY | DATE     |
+| JSON     | JSON     |
 
 ### 添加数据
 
@@ -143,7 +145,6 @@ module.exports = {
     id: 1,
     name: "name"
 });
-
 /**
  * 添加多条数据
  * INSERT INTO 表名 (id，name) VALUES (1，"name1"), (2，"name2");
@@ -205,6 +206,9 @@ const Op = db.Op;
 
 ```javascript
 表名.count(); //返回总数数字
+表名.max("字段名"); //返回最大值
+表名.min("字段名"); //返回最小值
+表名.sum("字段名"); //返回总和
 表名.findAll(); //返回所有数据
 表名.findByPk(id); //返回符合主键Id的所有数据
 表名.findOne(); //返回第一条数据
@@ -239,14 +243,14 @@ const Op = db.Op;
 ```javascript
 表名.findAll({
 	where: {
-   		[Op.and]: { id: 5, name: "name" }, // (id = 5) AND (name = "name")
-   		[Op.or]: { id: 5, name: "name" }, // (id = 5) OR (name = "name")
+   		[Op.and]: { id: 5, name: "name" }, // id = 5 AND name = "name"
+   		[Op.or]: { id: 5, name: "name" }, // id = 5 OR name = "name"
    		name: {
 			[Op.eq]: 3, // name = 3
 			[Op.ne]: 20, // name != 20
 			[Op.is]: null, // name IS NULL
 			[Op.not]: true, // name IS NOT TRUE
-			[Op.or]: [5, 6], // name (name = 5) OR (name = 6)
+			[Op.or]: [5, 6], // name = 5 OR name = 6
 			// 数字比较
 			[Op.gt]: 6, // name > 6
 			[Op.gte]: 6, // name >= 6
@@ -276,7 +280,7 @@ const Op = db.Op;
 });
 ```
 
-#### 显示第 `n` 行后面 `m` 个数据(分页)
+#### 分页
 
 ```javascript
 /**
@@ -288,7 +292,7 @@ const Op = db.Op;
 });
 ```
 
-### 多表查询
+### 关联查询
 
 ```javascript
 const A = db.sequelize.define("A", {
@@ -301,7 +305,7 @@ const A = db.sequelize.define("A", {
 		type: db.DataTypes.INTEGER,
 		primaryKey: true
 	},
-	type: {
+	name: {
 		type: db.DataTypes.STRING
 	}
 }, {
@@ -339,10 +343,13 @@ const A_B = db.sequelize.define("A_B", {
 });
 //一对一关联,外键在B
 A.hasOne(B, {
+    as: "B", //别名
 	foreignKey: 'type_id',
-	targetKey: 'type_id'
+	targetKey: 'type_id',
+    onDelete: 'RESTRICT', //删除时
+  	onUpdate: 'RESTRICT' //更新时
 });
-//一对一关联,外键在A
+//一对一关联,外键在A, A属于B
 A.belongsTo(B, {
 	foreignKey: 'type_id',
 	targetKey: 'type_id'
@@ -354,15 +361,23 @@ A.hasMany(B, {
 });
 //多对多关联
 A.belongsToMany(B, {
-	through: 'A_B'
+	through: 'A_B' //关联表名
 });
+```
 
+```javascript
+A.findAll({
+	include: {
+        model: B,
+        as: 'B'
+    }
+});
 ```
 
 ### 运行函数
 
 ```javascript
-表名.findAll({
+await 表名.findAll({
 	attributes: [[db.sequelize.fn('函数名', db.sequelize.col('参数')), '别名']]
 });
 ```
