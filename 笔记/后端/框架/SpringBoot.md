@@ -1,4 +1,4 @@
-## SpringBoot + MyBatis
+## SpringBoot+MyBatis
 
 | 开发环境       | 版本      |
 | -------------- | --------- |
@@ -225,12 +225,7 @@ spring.datasource.password=000000
 	</sql>
 	<select id="queryAllUser" resultType="Test">
         <!-- 传参 -->
-        select 
-        	<include refid="list" />
-        from
-        	m_type 
-        where 
-        	id=#{id}
+        SELECT <include refid="list" /> FROM m_type WHERE id=#{id}
     </select>
 </mapper>
 ```

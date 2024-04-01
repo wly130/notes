@@ -216,7 +216,7 @@ const app = express();
 
 app.use(bodyParser.json()); //解析 JOSN 格式
 
-app.post('/url', (req, res) => {});
+app.post('/url', (req, res, next) => {});
 
 module.exports = app;
 ```
@@ -283,11 +283,11 @@ const {
 } = require("sequelize");
 
 const DIALECT = "mysql"; //数据库类型
-const DATABASETABLE = 'my_project'; //数据库表
+const DATABASETABLE = 'my_project'; //数据库名
 const HOSTNAME = 'root'; //用户名
-const PASSWORD = '000000'; //mima
+const PASSWORD = '000000'; //密码
 const HOST = '127.0.0.1'; //数据库地址
-const PORT = 3306; //d
+const PORT = 3306; //端口号
 
 const seq = new Sequelize(
 	DATABASETABLE,

@@ -1,7 +1,7 @@
 ## VPN
 
 |品牌|ExpressVPN| StrongVPN | NordVPN | SurfsharkVPN | PrivateVPN |
-| :--: | :--: | :--: | :--: | :--: | :--: |
+| :--- | :--: | :--: | :--: | :--: | :--: |
 |   **运营时间**	|     2009~		|   2005~	|  2012~	|     2018~		|     		|
 |   **总部位置**	| 英属维尔京群岛|   美国	| 巴拿马	| 英属维尔京群岛| 瑞典 |
 | **网址**	| [点击打开网站](https://www.expressvpn.com/) |           | [点击打开网站](https://nordvpn.com/zh/)	| [点击打开网站](https://surfshark.com/zh/) | [点击打开网站](https://privatevpn.com/) |

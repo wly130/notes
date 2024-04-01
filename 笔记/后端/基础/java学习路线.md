@@ -6,22 +6,22 @@
 
 - 开发环境的搭建
   - 开发工具的安装和使用
-    - JDK
+    - **JDK**
     - **IDEA(中国常用)**
     - **Eclipse(日本常用)**
   - 环境变量的设置
   - 基础的电脑命令行命令
 - **重要知识点(重要)**
-  - 基本语法
-  - 继承
-  - 多态
-  - 泛型
-  - 集合
-  - IO操作
-  - 异常处理
-  - 多线程和并发（了解）
-  - 注解
-  - 反射
+  - **基本语法**
+  - **继承**
+  - **多态**
+  - **泛型**
+  - **集合**
+  - **IO操作**
+  - **异常处理**
+  - **多线程和并发（了解）**
+  - **注解**
+  - **反射**
 - 基础的数据结构和算法
 - **Debug(重要)**
 - 做点控制台小程序
@@ -29,19 +29,19 @@
 ### 第二阶段（入门）
 
 - **前端基础知识(重要)**
-  - JavaScript
-  - HTML
-  - CSS
+  - **JavaScript**
+  - **HTML**
+  - **CSS**
 - 计算机网络基础
   - 网络通信协议
   - IP地址
   - **常见的响应格式(重要)**
-    - JSON
-    - XML
-  - 状态码
+    - **JSON**
+    - **XML**
+  - **状态码**
 - **数据库基础知识(重要)**
   - **关系型数据库(重要)**
-    - MySQL
+    - **MySQL**
     - Oracle
   - 非关系型
     - MongoDB
@@ -49,18 +49,18 @@
   - **Linux基础操作(重要)**
   - nginx基础知识
   - **Java部署容器(重要)**
-    - tomcat(重点)
+    - **tomcat(重点)**
     - jetty
 - **JavaWeb基础知识(重要)**
   - servlet/jsp（jsp了解即可）
-  - JDBC
-    - 数据库连接
-    - CRUD操作
-    - 数据源/连接池
-  - Ajax通信
+  - **JDBC**
+    - **数据库连接**
+    - **CRUD操作**
+    - **数据源/连接池**
+  - **Ajax通信**
     - restful风格接口
-  - 服务端渲染和SPA单页面
-  - session/cookie
+  - **服务端渲染和SPA单页面**
+  - **session/cookie**
   - filter/listener
 - 做点原生JavaWeb项目
 
@@ -73,22 +73,21 @@
   - **maven(重要)**
   - **Git/SVN(重要)**
 
-- SSM(重要)
-
-  - Spring
+- **SSM(重要)**
+  - **Spring**
   - **SpringMVC(重要)**
   - **MyBatis(重要)**
-
+  
 - 常见的页面模板
 
   - freemaker
-  - thymeleaf
+  - **thymeleaf**
 
 - **SpringBoot(重要)**
 
 - 日志处理
 
-  - log4j
+  - **log4j**
   - logback
 
 - 常见的缓存
@@ -96,11 +95,11 @@
   - **redis(重要)**
   - memcached
 
-- 常见的权限框架和授权认证(没标注资料的在下方项目实战里面有)
+- 常见的权限框架和授权认证
 
   - shiro
   - spring security
-  - jwt
+  - **jwt**
   - oauth2
   - sso单点登录
 
