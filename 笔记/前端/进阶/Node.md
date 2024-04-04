@@ -62,7 +62,7 @@ npm list -g --depth 0 #查看全局a
 | **-D 或 --save-dev**      | **包信息将加入到 `devDependencies`（==开发==阶段的依赖）**   |
 | **-O 或 --save-optional** | **包信息将加入到 `optionalDependencies`（==可选==阶段的依赖）** |
 
-**package.json 		对项目或者模块包的描述**
+**package.json  对项目或者模块包的描述**
 
 ```json
 {
@@ -74,8 +74,8 @@ npm list -g --depth 0 #查看全局a
 	  //自定义脚本命令
 	},
 	"repository": { //包代码的Repo信息
-	  "type": "git / svn",
-	  	"url": "代码存放地址"
+	  	"type": "git / svn",
+	 	"url": "代码存放地址"
 	},
 	"license": "ISC",//软件授权条款
 	"bugs": {	//bug 提交地址
