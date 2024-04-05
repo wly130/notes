@@ -129,12 +129,12 @@ classDiagram
       class React{
           ReactRouter
           Reactx
-          vue()
+          React()
       }
       class JQuery{
-         vueRouter
-          vurx
-          vue()
+         JQuery
+         JQuery
+         JQuery()
       }
 ```
 
@@ -158,9 +158,9 @@ cond(no)->sub1(right)->op
 ```mermaid
 pie
 title 饼图
-"语文" : 100
-"数学" : 85
-"英语" : 150
+"语文": 100
+"数学": 85
+"英语": 150
 ```
 
 - **甘特图**
@@ -240,7 +240,7 @@ sequenceDiagram
 	end
 ```
 
-创建脚注格式类似这样 [^runoob]。
+创建脚注格式类似这样 [^runoob]
 
 [^runoob]: 菜鸟教程
 
@@ -295,7 +295,7 @@ $(document).ready(function () {
 | 单元格 | 单元格 |  单元格  |
 | 单元格 | 单元格 |  单元格  |
 
-使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd>重启电脑
+使用 **<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd>**重启电脑
 
 - **音频**
 

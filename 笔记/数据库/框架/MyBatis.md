@@ -118,9 +118,9 @@ spring.datasource.password=000000
 | parameterType | 传入语句的参数类的完全限定名或别名, 默认值为 unset           |
 | resultType    | 语句中返回的期望类型的类的完全限定名或别名                   |
 | resultMap     | 外部 resultMap 的命名引用                                    |
-| flushCache    | 任何时候只要语句被调用，都会导致本地缓存和二级缓存都会被清空，默认值：false |
-| useCache      | 将会导致本条语句的结果被二级缓存，默认值：对 select 元素为 true |
-| timeout       | 抛出异常之前，驱动程序等待数据库返回请求结果的秒数。默认值为 unset |
+| flushCache    | 任何时候只要语句被调用，都会导致本地缓存和二级缓存都会被清空，默认值: false |
+| useCache      | 将会导致本条语句的结果被二级缓存，默认值: 对 select 元素为 true |
+| timeout       | 抛出异常之前，驱动程序等待数据库返回请求结果的秒数 默认值为 unset |
 
 | \<insert>，\<update>, \<delete> 属性 | 描述                                                         |
 | ------------------------------------ | ------------------------------------------------------------ |

@@ -23,9 +23,9 @@ const {
 const DIALECT = "mysql"; //数据库类型
 const DATABASETABLE = 'my_project'; //数据库表
 const HOSTNAME = 'root'; //用户名
-const PASSWORD = '000000'; //mima
+const PASSWORD = '000000'; //密码
 const HOST = '127.0.0.1'; //数据库地址
-const PORT = 3306; //d
+const PORT = 3306; //端口号
 
 const seq = new Sequelize(
 	DATABASETABLE,
@@ -62,7 +62,7 @@ const m_type = db.sequelize.define("m_type", { //数据表名
         allowNull: false, //是否允许为空
         autoIncrement: true, //自动自增
         unique: true, //是否唯一
-        comment: 'id' //备注
+        comment: 'id',//备注
         validate: {
 			is: /^[a-z]+$/i,          // 匹配这个 RegExp
 			is: ["^[a-z]+$",'i'],     // 与上面相同,以字符串构造 RegExp
@@ -184,7 +184,6 @@ module.exports = {
 		id: 1
   	}
 });
-
 /**
  * 删除所有数据
  */
