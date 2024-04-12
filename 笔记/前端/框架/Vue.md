@@ -1173,7 +1173,7 @@ app.use(router);
 
 <!-- Vue3 -->
 <template>
-	<keep-alive> <!-- <keep-alive>b跳转页面不刷新 -->
+	<keep-alive> <!-- 跳转页面不刷新 -->
        <router-view></router-view>
     </keep-alive>
 	<router-view></router-view>
@@ -1331,13 +1331,12 @@ module.exports = {
 }
 
 //Vue3
-import {
-	defineConfig
-} from 'vite';
+import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
 	plugins: [vue()],
+    base: './',
 	server: {
 		host: '0.0.0.0',
 		port: 8080,
@@ -1369,7 +1368,7 @@ axios({
   	  	key: value,  //请求参数
   	}
 }).then((res) => {}) //请求成功
-.catch((error) => {}); //请求失败
+.catch((err) => {}); //请求失败
 ```
 
 #### 封装网络请求API
@@ -1377,65 +1376,49 @@ axios({
 - **request.js**
 
 ```javascript
-import axios from 'axios'
+import axios from 'axios';
 
 // 请求超时时间
 axios.defaults.timeout = 15000;
 // 请求头
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 // 请求拦截器
 axios.interceptors.request.use(
-	config => {
-		// 每次发送请求之前判断是否存在token
-		const token = localStorage.getItem('token');
-		if (token) { // 判断是否存在token
-			config.headers.Token = token;
-		}
-		return config;
-	},
-	error => {
-		return Promise.error(error);
-	});
+    config => {
+        // 每次发送请求之前判断是否存在token
+        const token = localStorage.getItem('token');
+        if (token) config.headers.Authorization = `Bearer ${token}`;
+        return config;
+    },
+    error => (Promise.error(error)));
 // 响应拦截器
 axios.interceptors.response.use(
-	response => {
-		if (response.status === 200) {
-			return Promise.resolve(response);
-		} else {
-			return Promise.reject(response);
-		}
-	},
-	// 服务器状态码不是200的情况
-	error => {
-		if (error.response.status) {
-			console.log(error)
-		}
-		return Promise.reject(error.response);
-	}
+    response => {
+        if (response.status === 200) return Promise.resolve(response);
+        else return Promise.reject(response);
+    },
+    // 服务器状态码不是200的情况
+    error => {
+        if (error.response.status === 400) {
+            localStorage.clear();
+            location.reload();
+        }
+        return Promise.reject(error.response);
+    }
 );
 // 封装get请求
 export function get(url, params) {
-	return new Promise((resolve, reject) => {
-		axios.get(url, {
-			params: params
-		}).then(res => {
-			resolve(res.data);
-		}).catch(err => {
-			reject(err.data)
-		})
-	});
+    return new Promise((resolve, reject) => {
+        axios.get(url, {params: params}).then(res => resolve(res.data)).catch(err => reject(err.data));
+    });
 }
 // 封装post请求
 export function post(url, params) {
-	return new Promise((resolve, reject) => {
-		axios.post(url, params)
-			.then(res => {
-				resolve(res.data);
-			}).catch(err => {
-				reject(err.data)
-			})
-	});
+    return new Promise((resolve, reject) => {
+        axios.post(url, params).then(res => resolve(res.data)).catch(err => reject(err.data));
+    });
 }
+
 export default axios;
 ```
 
@@ -1446,12 +1429,8 @@ import {get, post} from './request.js'
 
 var baseUrl = "/api";
 const api = {
-	函数名(params){
-		return get(baseUrl + '/请求地址', params);
-	},
-    函数名(params){
-		return post(baseUrl + '//请求地址', params);
-	}
+	getInfo: (params) => (get(`${baseUrl}/getInfo`, params)),
+    updateInfo: (params) => (post(`${baseUrl}/updateInfo`, params))
 }
 export default api;
 ```
@@ -1459,8 +1438,15 @@ export default api;
 - **main.js**
 
 ```javascript
-import api from './api.js'
+//Vue2
+import api from './api.js';
 Vue.prototype.$api = api;
+
+//Vue3
+import {createApp} from 'vue';
+import api from './api.js';
+const {config} = createApp(App);
+config.globalProperties.$api = api;
 ```
 
 - **调用API**
@@ -1473,10 +1459,8 @@ let params = { //参数对象
 this.$api.函数名(params).then(res => {});
 
 //Vue3
-import {
-	getCurrentInstance
-} from "vue";
-var { proxy } = getCurrentInstance();
+import {getCurrentInstance} from "vue";
+var {proxy} = getCurrentInstance();
 let params = { //参数对象
     key: 'value'
 };

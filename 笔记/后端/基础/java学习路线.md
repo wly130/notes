@@ -52,7 +52,7 @@
     - **tomcat(重点)**
     - jetty
 - **JavaWeb基础知识(重要)**
-  - servlet/jsp（jsp了解即可）
+  - servlet/jsp (jsp了解即可)
   - **JDBC**
     - **数据库连接**
     - **CRUD操作**

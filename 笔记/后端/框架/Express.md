@@ -18,17 +18,19 @@ express 项目名称
 npm install  #安装依赖
 ```
 
-- **目录结构**
-
-<img src="../../img/express目录结构.png" style="zoom:100%;float:left;" />
+### 目录结构
 
 | 文件名           | 功能                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| **bin/www**      | 启动文件,包含引用要启动的应用、设置应用监听的端口和启动http服务 |
-| **assets**       | 上传文件目录                                                 |
+| **bin/www**      | 启动文件,包含引用要启动的应用,设置应用监听的端口和启动http服务 |
+| **config**       | 配置文件目录                                                 |
+| **controller**   | 控制层目录                                                   |
+| **log**          | 日志目录                                                     |
+| **models**       | 数据库目录                                                   |
 | **public**       | 静态资源文件目录                                             |
-| **routes**       | 路由文件                                                     |
-| **views**        | 视图文件                                                     |
+| **routes**       | 路由目录                                                     |
+| **static**       | 静态资源目录                                                 |
+| **validator**    | 验证器目录                                                   |
 | **app.js**       | 初始化文件                                                   |
 | **package.json** | 配置文件                                                     |
 
@@ -41,9 +43,7 @@ npm run start
 - **监控端口状态**
 
 ```js
-app.listen(3000, 'localhost', () => {
-	console.log('服务已开启,端口号:3000');
-});
+app.listen(3000, 'localhost', () => console.log('服务已开启,端口号:3000'));
 ```
 
 **默认访问地址为 `http://localhost:3000/`**
@@ -54,7 +54,7 @@ app.listen(3000, 'localhost', () => {
 
 ```js
 app.get('/url', (req, res) => {
-    res.header("Content-Type", "application/json;");
+    res.header("Content-Type", "application/json");
 });
 ```
 
@@ -98,10 +98,7 @@ const getToken = (token) => {
         }
     })
 }
-module.exports = {
-    setToken,
-    getToken
-}
+module.exports = {setToken, getToken}
 ```
 
 - **验证 `Token`**
@@ -121,15 +118,9 @@ expressjwt({
 app.use((err, req, res, next) => {
 	//token 解析失败
 	if (err.name === "UnauthorizedError") {
-    	return res.send({
-	    	code: 401,
-	   	 	message: "无效token"
-	  	});
+    	return res.send({code: 401, message: "无效token"});
 	}
-	res.send({
-	  	code: 500,
-	  	message: "未知的错误"
-	});
+	res.send({code: 500, message: "未知的错误"});
 });
 ```
 
@@ -302,7 +293,9 @@ const seq = new Sequelize(
 		acquire: 3000
 	}
 });
-
+seq.authenticate()
+	.then(() => console.log('データベースを接続しました'))
+	.catch((err) => console.log('データベースを接続しません', err));
 const db = {
 	DataTypes: DataTypes,
 	sequelize: seq,
@@ -319,11 +312,11 @@ const db = require("../config/mysql-config");
 
 const m_type = db.sequelize.define("m_type", { //数据表名
 	id: { //字段名
-		type: db.DataTypes.INTEGER(10), //数据类型
+		type: db.DataTypes.INTEGER, //数据类型
 		primaryKey: true //是否为主键
 	},
 	type: {
-		type: db.DataTypes.STRING(255),
+		type: db.DataTypes.STRING,
         allowNull: false //是否为空
 	}
 }, {
@@ -411,7 +404,6 @@ module.exports = app;
 
 ```js
 const express = require('express'); //导入框架
-const exec = require('../public/mysql/config'); //SQL操作函数
 const router = express.Router();
 
 //获取单词列表
