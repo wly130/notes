@@ -377,9 +377,7 @@ app.get("/select", async (req, res, next) => {
 			type: body.type
 		}
 	});
-	res.json({
-		data
-	});
+	res.json({data});
 });
 
 module.exports = app;

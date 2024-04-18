@@ -194,12 +194,8 @@ function Api(type, url, params) {
 			dataType: "json",
    			async: false,
    			timeout: 300,
-			success: (res) => {
-				resolve(res); 	//返回接口数据
-			},
-			error: (erro) => {
-				reject(error);  //返回错误信息
-			}
+			success: (res) => resolve(res),
+			error: (erro) => reject(error)
 		});
     });
 };

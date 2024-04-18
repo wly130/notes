@@ -321,9 +321,7 @@ export default {
 }
 
 //Vue3
-import {
-	reactive
-} from 'vue';
+import {reactive} from 'vue';
 
 let data = reactive({
 	//定义属性
@@ -337,9 +335,7 @@ let data = reactive({
 });
 
 //定义函数
-let name = () => {
-	return "Hello Vue";
-}
+let name = () => ("Hello Vue");
 ```
 
 ### Vue 指令
@@ -633,7 +629,6 @@ import index from './component/index.vue'
 
 ```js
 this.$parent.方法名();
-
 ```
 
 ##### 子传父
@@ -749,10 +744,7 @@ this.$refs.name.方法名();
             child2: [String, Number], //多类型
             child3: {
             	type: Object,
-            	default: () => {
-                    //对象或数组默认值
-                	return { name: 'value' }
-           	 	}
+            	default: () => ({name: 'value'});//对象或数组默认值
         	}
         }
 	}
@@ -785,8 +777,7 @@ this.$refs.name.方法名();
 	import B from './b.vue'
 	export default {
 		components: {
-			A,
-			B
+			A, B
 		}
 	}
 </script>
@@ -840,9 +831,7 @@ this.$refs.name.方法名();
 		methods: {
 			bValue() {
 				//$on 接收A组件传的值
-				this.$on("myFun", (msg) => {
-					this.msgB = msg
-				})
+				this.$on("myFun", (msg) => this.msgB = msg);
 			}
 		}
 	}
@@ -852,9 +841,9 @@ this.$refs.name.方法名();
 - **`event.js`**
 
 ```js
-import Vue from 'vue'
+import Vue from 'vue';
 
-export default new Vue
+export default new Vue;
 ```
 
 ### Vue3 Setup
@@ -959,10 +948,10 @@ export default new Vue
 
 	watch(count, (newCount, oldCount, onCleanup) => {
 		const timer = setTimeout(() => {
-			console.log(newCount)
+			console.log(newCount);
 		}, 1000);
 		//watch 被重复监听,会先清除上次异步任务
-		onCleanup(() => clearTimeout(timer))
+		onCleanup(() => clearTimeout(timer));
 	}, {
 		lazy: true
 	})

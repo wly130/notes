@@ -190,8 +190,8 @@ let app = express(); //实例化express
 
 app.all('/json', (req, res) => {
     res.json(Mock.mock({
-        "code": 200,
-        "data": {}
+        code: 200,
+        data: {}
     }));
 });
 

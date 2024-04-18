@@ -14,7 +14,7 @@
 
 ### AnyConnect地址
 
-| 地址[点击访问](https://intercom.help/privatevpn/en/articles/6347440-anyconnect-vpn-server-list) | 网址 |
+| 地址 [点击访问](https://intercom.help/privatevpn/en/articles/6347440-anyconnect-vpn-server-list) | 网址 |
 | ---- | ---- |
 | 印度 - 孟买 |in-mum.ipdatafone.net|
 |法国 - 巴黎|fr-par.ipdatafone.net |

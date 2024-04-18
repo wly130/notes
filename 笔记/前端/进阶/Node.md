@@ -50,7 +50,7 @@ npm search 包名
 
 ```shell
 npm list
-npm list -g --depth 0 #查看全局a
+npm list -g --depth 0 #查看全局
 ```
 
 - **参数**
@@ -135,13 +135,9 @@ var fs = require("fs");
 - **读取文件**
 
 ```js
-fs.readFile("文件名", function (err, data) {
-	if (err) {
-		console.log(err);
-	} else {
-		//打印读取内容
-    	console.log(data.toString());
-	}
+fs.readFile("文件名", (err, data) => {
+	if (err) console.log(err);
+	else console.log(data.toString());
 });
 ```
 
@@ -149,12 +145,9 @@ fs.readFile("文件名", function (err, data) {
 
 ```js
 var msg = "文本";
-fs.writeFile("文件名", msg, function (err) {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log("写入成功");
-	}
+fs.writeFile("文件名", msg, (err) => {
+	if (err) console.log(err)
+    else console.log("写入成功")
 });
 ```
 
@@ -194,12 +187,9 @@ var conn = mysql.createConnection({
 conn.connect();
 l sql = "sql语句";
 //执行sql语句
-conn.query(sql, function (err, res) {
-	if (err) {
-		console.log(err);
-	}else {
-		console.log(res);
-    }
+conn.query(sql, (err, res) => {
+	if (err) console.log(err)
+	else console.log(res)
 });
 //关闭连接
 connection.end();

@@ -354,11 +354,8 @@ class App extends React.Component {
     }
 
     IFFlag = () => {
-        if (this.state.flag) {
-            return <div>True</div>
-        } else {
-            return <div>False</div>
-        }
+        if (this.state.flag) return <div>True</div>;
+        else return <div>False</div>;
     }
 
     render() {
@@ -389,11 +386,8 @@ class App extends React.Component {
         let { flag } = this.state;
         let IFFlag;
         
-        if (flag) {
-            IFFlag = <div>True</div>
-        } else {
-            IFFlag = <div>False</div>
-        }
+        if (flag) IFFlag = <div>True</div>;
+        else IFFlag = <div>False</div>;
         return (
             <div>
                 {IFFlag}
@@ -651,11 +645,7 @@ class App extends React.Component {
     render() {
         return (
             <ul>
-            	{
-            	    this.state.info.map((item, index) => {
-            	        return <ForList key={index} info={item} />
-            	    })
-            	}
+            	{this.state.info.map((item, index) => (<ForList key={index} info={item} />))}
             </ul>
         )
     }
@@ -679,9 +669,7 @@ class App extends React.Component {
 			<ul>
 			    {
                     //从 0 开始,循环 n 次
-			        [...Array(n)].map((item, key) => {
-			            return <li key={key}>{key}</li>
-			        })
+			        [...Array(n)].map((item, key) => (<li key={key}>{key}</li>))
 			    }
 			</ul>
         )
@@ -1099,67 +1087,46 @@ export default api;
 - **request.js**
 
 ```js
-import axios from "axios";
+import axios from 'axios';
 
 // 请求超时时间
 axios.defaults.timeout = 15000;
 // 请求头
-axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8";
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 // 请求拦截器
 axios.interceptors.request.use(
-    (config) => {
+    config => {
         // 每次发送请求之前判断是否存在token
-        const token = localStorage.getItem("token");
-        if (token) {
-            // 判断是否存在token
-            config.headers.Token = token;
-        }
+        const token = localStorage.getItem('token');
+        if (token) config.headers.Authorization = `Bearer ${token}`;
         return config;
     },
-    (error) => {
-        return Promise.error(error);
-    }
-);
-
+    error => (Promise.error(error)));
 // 响应拦截器
 axios.interceptors.response.use(
-    (response) => {
-        if (response.status === 200) {
-            return Promise.resolve(response);
-        } else {
-            return Promise.reject(response);
-        }
+    response => {
+        if (response.status === 200) return Promise.resolve(response);
+        else return Promise.reject(response);
     },
     // 服务器状态码不是200的情况
-    (error) => {
-        if (error.response.status) {
-            console.log(error);
+    error => {
+        if (error.response.status === 400) {
+            localStorage.clear();
+            location.reload();
         }
         return Promise.reject(error.response);
     }
 );
-
 // 封装get请求
 export function get(url, params) {
     return new Promise((resolve, reject) => {
-        axios.get(url, {
-                params: params,
-            }).then((res) => {
-                resolve(res.data);
-            }).catch((err) => {
-                reject(err.data);
-            });
+        axios.get(url, {params: params}).then(res => resolve(res.data)).catch(err => reject(err.data));
     });
 }
-
 // 封装post请求
 export function post(url, params) {
     return new Promise((resolve, reject) => {
-        axios.post(url, params).then((res) => {
-                resolve(res.data);
-            }).catch((err) => {
-                reject(err.data);
-            });
+        axios.post(url, params).then(res => resolve(res.data)).catch(err => reject(err.data));
     });
 }
 
@@ -1338,12 +1305,9 @@ this.props.history.push({
 import React, { useNavigate } from 'react'
 function Example() {
     const navigate = useNavigate();
-  	let pathJump = (path) => {
-    	navigate(path);
-  	}
     return (
         <div>
-            <button onClick={() => pathJump("/u")}>跳转</button>
+            <button onClick={() => navigate("/")}>跳转</button>
         </div>
     );
 }
@@ -1381,9 +1345,7 @@ function Example() {
 	
     useEffect(() => {
         console.log('组件渲染完成');
-        return () => {
-            console.log('组件卸载完成');
-        }
+        return () => console.log('组件卸载完成');
     /**
      * 不传参数时，组件每次渲染时都执行
      * 为 [] 时，只调用一次
@@ -1419,7 +1381,7 @@ function Example1() {
     }
 
     const Example3 = () => {
-        const { name } = useContext(AppContext);
+        const {name} = useContext(AppContext);
         return (
             <div>
                 <p>Example3{name}</p>
@@ -1548,9 +1510,7 @@ function getState(state) {
 function getDispatch(dispatch) {
     return {
         add() {
-            dispatch({
-                type: "+"
-            })
+            dispatch({type: "+"})
         }
     }
 }

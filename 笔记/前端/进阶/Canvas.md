@@ -19,8 +19,8 @@
 #### 初始化画布
 
 ```js
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext("2d");
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext("2d");
 ```
 
 #### 绘制基本图形
