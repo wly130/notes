@@ -53,11 +53,7 @@
 		</div>
 	</body>
 	<script>
-		const {
-			createApp,
-			reactive,
-			toRefs
-		} = Vue;
+		const {createApp, reactive, toRefs} = Vue;
 		const data = reactive({
 			name: 'Hello Vue'
 		})
