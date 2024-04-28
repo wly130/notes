@@ -14,11 +14,7 @@ npm install sequelize -S
 - **数据库连接(config/mysql-config.js)**
 
 ```js
-const {
-	Sequelize,
-	DataTypes,
-	Op
-} = require("sequelize");
+const {Sequelize, DataTypes, Op} = require("sequelize");
 
 const DIALECT = "mysql"; //数据库类型
 const DATABASETABLE = 'my_project'; //数据库表

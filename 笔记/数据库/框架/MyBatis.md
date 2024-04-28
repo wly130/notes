@@ -65,7 +65,7 @@ spring.datasource.password=000000
 		</if>
         <choose> <!-- switch语句 -->
     		<when test="title != null"> <!-- case语 -->
-    			AND title like #{title}
+    			AND title L #{title}
     		</when>
     		<when test="value != null">
     			AND value = #{value}
