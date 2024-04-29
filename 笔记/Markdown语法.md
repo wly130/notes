@@ -283,8 +283,8 @@ $(document).ready(function () {
 这是一个链接 [菜鸟教程](https://www.runoob.com)
 <https://www.runoob.com>
 
-![RUNOOB 图标](http://static.runoob.com/images/runoob-logo.png "RUNOOB")
-<img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
+![RUNOOB 图标]()
+<img src="" width="50%">
 这个链接用 [^1] 作为网址变量 [RUNOOB][1].
 然后在文档的结尾为变量赋值
 
