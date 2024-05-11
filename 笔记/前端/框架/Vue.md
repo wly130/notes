@@ -234,9 +234,7 @@ new Vue({
 }).$mount('#app');
 
 //Vue3
-import {
-	createApp
-} from 'vue';
+import {createApp} from 'vue';
 import App from './App.vue';
 
 const app = createApp(App);
@@ -271,10 +269,7 @@ app.mount('#app');
 </template>
 
 <script setup>
-	import {
-		ref,
-		reactive
-	} from 'vue';
+	import {ref, reactive} from 'vue';
 </script>
 
 <style scoped>
@@ -299,13 +294,13 @@ export default {
 	data() {
         return {
         	//定义属性
-			name: "你好",
-			age: 20,
-			str: {
-				//定义对象
-				name: "Vue",
-				age: 10,
-			}
+					name: "你好",
+					age: 20,
+					str: {
+						//定义对象
+						name: "Vue",
+						age: 10,
+					}
     	}
 	},
 	methods: {
@@ -610,9 +605,7 @@ app.component(index);
 //Vue2
 import index from './component/index.vue'
 export default {
-    components: {
-        index
-    }
+    components: {index}
 }
 
 //Vue3 自动注册组件
@@ -734,7 +727,7 @@ this.$refs.name.方法名();
                 default: "value", //默认值
                 validator: (value) => {
                     //自定义验证函数
-                	return value;
+                		return value;
             	}
             },
             child2: [String, Number], //多类型
@@ -772,9 +765,7 @@ this.$refs.name.方法名();
 	import A from './a.vue'
 	import B from './b.vue'
 	export default {
-		components: {
-			A, B
-		}
+		components: {A, B}
 	}
 </script>
 ```

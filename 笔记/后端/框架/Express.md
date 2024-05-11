@@ -117,9 +117,7 @@ expressjwt({
 
 app.use((err, req, res, next) => {
 	//token 解析失败
-	if (err.name === "UnauthorizedError") {
-    	return res.send({code: 401, message: "无效token"});
-	}
+	if (err.name === "UnauthorizedError") return res.send({code: 401, message: "无效token"});
 	res.send({code: 500, message: "未知的错误"});
 });
 ```
