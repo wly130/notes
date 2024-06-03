@@ -1,9 +1,5 @@
 ## Android 基础
 
-### 单位
-
-
-
 ### 组件
 
 #### TextView
@@ -32,6 +28,4 @@
 | android:password      | 设置为密码                                                   |
 | android:phoneNumber   | 设置为电话号码的输入方式                                     |
 | android:lines         | 设置文本行数                                                 |
-
-#### Button
 
