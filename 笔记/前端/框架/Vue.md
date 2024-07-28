@@ -463,7 +463,7 @@ let name = () => ("Hello Vue");
 
 > ###### 事件修饰符
 
-- **`.stop`			阻止冒泡**
+- **`.stop`            阻止冒泡**
 - **`.prevent`      阻止默认事件**
 - **`.capture`      阻止捕获**
 - **`.self`            只监听触发该元素的事件**
@@ -617,7 +617,11 @@ import index from './component/index.vue'
 ##### 子组件 调用 父组件的方法
 
 ```js
+// Vue2
 this.$parent.方法名();
+//Vue3
+const emits = defineEmits(["方法名"]);
+emits("方法名");
 ```
 
 ##### 子传父
@@ -625,6 +629,7 @@ this.$parent.方法名();
 - **子组件**
 
 ```html
+<!-- Vue2 -->
 <template>
 	<div>
 		<button @click="submit">子传父</button>
@@ -645,11 +650,22 @@ this.$parent.方法名();
 		}
 	}
 </script>
+
+<!-- Vue3 -->
+<template>
+    <span @click="onClick">{{ title }}</span>
+</template>
+ 
+<script setup>
+const emits = defineEmits(["click"]);
+const onClick = () => emits("click",'value');
+</script>
 ```
 
 - **父组件**
 
 ```vue
+<!-- Vue2 -->
 <template>
 	<div>
 		<!-- 通过 自定义事件 接收子组件的 value 值 -->
@@ -675,13 +691,33 @@ this.$parent.方法名();
 		}
 	}
 </script>
+
+<!-- Vue3 -->
+<template>
+    <子组件 title="基本信息" @click="handleClick" />
+</template>
+ 
+<script setup>
+import 子组件 from "/子组件";
+ 
+const handleClick = (val) => console.log(val);
+</script>
 ```
 
 ##### 父组件 调用 子组件的方法
 
 ```vue
 <子组件 ref="name" ></子组件>
+
+<!-- Vue2 -->
 this.$refs.name.方法名();
+<!-- Vue3 -->
+<script setup>
+import { ref } from "vue";
+
+let name = ref();
+name.value.方法名();
+</script>
 ```
 
 ##### 父传子
@@ -689,6 +725,7 @@ this.$refs.name.方法名();
 - **父组件**
 
 ```vue
+<!-- Vue2 -->
 <template>
 	<div>
 		<!-- 通过 自定义属性 向子组件传值 -->
@@ -708,11 +745,21 @@ this.$refs.name.方法名();
 		}
 	}
 </script>
+
+<!-- Vue3 -->
+<template>
+    <子组件 title="value" />
+</template>
+ 
+<script setup>
+import 子组件 from "/子组件";
+</script>
 ```
 
 - **子组件**
 
 ```vue
+<!-- Vue2 -->
 <template>
 	<div>
 		<span>{{ child1 }}</span>
@@ -737,6 +784,20 @@ this.$refs.name.方法名();
         	}
         }
 	}
+</script>
+
+<!-- Vue3 -->
+<template>
+    <span>{{ title }}</span>
+</template>
+ 
+<script setup>
+const props = defineProps({
+    title: {
+        type: String,
+        default: "",
+    }
+})
 </script>
 ```
 
@@ -1035,7 +1096,7 @@ sessionStorage.clear(); //清空所有缓存
 - **导入依赖包**
 
 ```js
-import cookie from 'js-cookie'
+import cookie from 'js-cookie';
 //定义全局方法
 Vue.prototype.$cookie = cookie;
 ```
