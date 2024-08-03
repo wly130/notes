@@ -748,7 +748,7 @@ name.value.方法名();
 
 <!-- Vue3 -->
 <template>
-    <子组件 title="value" />
+    <子组件 :title="value" />
 </template>
  
 <script setup>
@@ -795,7 +795,7 @@ import 子组件 from "/子组件";
 const props = defineProps({
     title: {
         type: String,
-        default: "",
+        default: ""
     }
 })
 </script>

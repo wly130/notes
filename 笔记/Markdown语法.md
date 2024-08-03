@@ -306,6 +306,3 @@ $(document).ready(function () {
 - **视频**
 
 <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="margin:0;"></video>
-
-
-

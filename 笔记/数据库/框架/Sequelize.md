@@ -279,11 +279,12 @@ const Op = db.Op;
 
 ```javascript
 /**
- * SELECT * FROM 表名 LIMIT n,m;
+ * SELECT * FROM 表名 LIMIT startPage, pageSize;
  */
+let startPage = (page - 1) * pageSize;
 表名.findAll({
-    offset: n,
-    limit: m
+    offset: startPage,
+    limit: pageSize
 });
 ```
 
