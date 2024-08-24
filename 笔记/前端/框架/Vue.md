@@ -617,7 +617,7 @@ import index from './component/index.vue'
 ##### 子组件 调用 父组件的方法
 
 ```js
-// Vue2
+//Vue2
 this.$parent.方法名();
 //Vue3
 const emits = defineEmits(["方法名"]);
