@@ -119,6 +119,7 @@ import "./index.css";
 function App() {
     const elements = useRoutes(routes); //
     const navigate = useNavigate();
+    
     return (
         <div className="App">
             {elements}
@@ -254,10 +255,7 @@ constructor(props) {
 }
 
 let array = [...this.state.array];
-array.push({
-    id: 2,
-    name: 'name2'
-})
+array.push({id: 2, name: 'name2'});
 this.setState({ array: array });
 ```
 
@@ -667,10 +665,7 @@ class App extends React.Component {
     render() {
         return (
 			<ul>
-			    {
-                    //从 0 开始,循环 n 次
-			        [...Array(n)].map((item, key) => (<li key={key}>{key}</li>))
-			    }
+			    {[...Array(n)].map((item, key) => (<li key={key}>{key}</li>))}
 			</ul>
         )
     }
@@ -703,10 +698,7 @@ export class index extends Component {
     //添加数组
     addVal = () => {
         let info = [...this.state.info];
-        info.push({
-            title: '第四个标题',
-            key: '第四个key'
-        })
+        info.push({title: '第四个标题', key: '第四个key'});
         this.setState({ info: info });
     }
 	//删除数组
@@ -754,20 +746,14 @@ class App extends React.Component {
     }
 
     //获取单个输入值
-    getVal = (e) => {
-        this.setState({
-            txt: e.target.value
-        })
-    }
+    getVal = (e) => this.setState({txt: e.target.value});
 
     //获取多个输入值(表单数量过多时)
     getAllVal = (e) => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        this.setState({
-            [name]: value
-        })
+        this.setState({[name]: value})
     }
 
     render() {
@@ -953,11 +939,7 @@ this.props.fun();
 import React from 'react';
 class Test extends React.Component {
     //点击向父组件传值
-    setValue = (val) => {
-        return () => {
-            this.props.setVal(val)
-        }
-    }
+    setValue = (val) => this.props.setVal(val);
 
     render() {
         return (
@@ -1197,6 +1179,10 @@ const Animation = keyframes`
 const Button = styled.div`
     animation: 1s ${Animation} ease-out;
 `;
+//二次定义标签样式
+const myButton = styled(Button)`
+    margin: 0;
+`;
 //定义全局样式
 injectGlobal`
 	body {
@@ -1215,7 +1201,7 @@ const In = styled.input.attrs({
 })``;
 ```
 
-### React-router
+### react-router
 
 #### 安装依赖包
 
@@ -1224,7 +1210,7 @@ npm install react-router-dom
 npm install react-activation #路由缓存
 ```
 
-#### Router配置
+#### router配置
 
 - **routes.js**
 
@@ -1322,6 +1308,7 @@ import React, { useState } from 'react'
 function Example() {
     const [num, setNum] = useState(0);
     const [str, setStr] = useState('String');
+    
     return (
         <div>
             <p>{num}</p>
@@ -1517,4 +1504,12 @@ function getDispatch(dispatch) {
 
 export default connect(getState, getDispatch)(Index);
 ```
+
+### UI框架
+
+| 框架       | 文档 |
+| ---------- | ---- |
+| MaterialUI |      |
+| AntDesign  |      |
+| SemanticUI |      |
 

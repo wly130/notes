@@ -26,6 +26,7 @@ npm init
 ```shell
 npm install 包名
 npm install 包名@0.0.0	#安装指定版本
+npm install 包名@latest	#安装最新版本
 ```
 
 - **卸载模块** 
