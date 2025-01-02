@@ -321,16 +321,15 @@ class App extends React.Component {
             index: 1
         }
     }
+    
+    getValue = (val) => console.log(val);
+    
     render() {
         return (
             <div>
                 <button onClick={() => this.getValue(this.state.index)}>确定</button>
             </div>
         )
-    }
-
-    getValue = (val) => {
-        console.log(val);
     }
 }
 
@@ -383,7 +382,6 @@ class App extends React.Component {
     render() {
         let { flag } = this.state;
         let IFFlag;
-        
         if (flag) IFFlag = <div>True</div>;
         else IFFlag = <div>False</div>;
         return (
@@ -753,7 +751,7 @@ class App extends React.Component {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        this.setState({[name]: value})
+        this.setState({[name]: value});
     }
 
     render() {
@@ -1504,12 +1502,3 @@ function getDispatch(dispatch) {
 
 export default connect(getState, getDispatch)(Index);
 ```
-
-### UI框架
-
-| 框架       | 文档 |
-| ---------- | ---- |
-| MaterialUI |      |
-| AntDesign  |      |
-| SemanticUI |      |
-

@@ -294,13 +294,13 @@ export default {
 	data() {
         return {
         	//定义属性
-					name: "你好",
-					age: 20,
-					str: {
-						//定义对象
-						name: "Vue",
-						age: 10,
-					}
+			name: "你好",
+			age: 20,
+			str: {
+				//定义对象
+				name: "Vue",
+				age: 10,
+			}
     	}
 	},
 	methods: {
@@ -1540,17 +1540,3 @@ module.exports = {
 	}
 }
 ```
-
-### UI框架
-
-| 框架        | 文档 |
-| ----------- | ---- |
-| ElementUI   |      |
-| ElementPlus |      |
-| Vuetify     |      |
-| Vant        |      |
-| Quasar      |      |
-| VuesticUI   |      |
-| iView       |      |
-| MintUI      |      |
-
