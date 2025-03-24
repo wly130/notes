@@ -1011,16 +1011,12 @@ export default new Vue;
 ```js
 //父组件
 import Index from './components/index.vue';
-import {
-	provide
-} from 'vue';
+import {provide} from 'vue';
 //父组件向子级组件共享数据
 provide('数据名称', '数据值')
 
 //子组件
-import {
-	inject
-} from 'vue';
+import {inject} from 'vue';
 //调用 inject 函数通过指定的数据名称获取共享数据
 let data = inject('数据名称');
 ```

@@ -136,7 +136,7 @@ jQuery(($) => {
 ```js
 let div = '';
 for (let i = 0; i < 10; i++) {
-	div += '<div>' + i + '</div>';
+	div += `<div>${i}</div>`;
 }
 $('.div').html(div);
 ```
@@ -155,8 +155,8 @@ let data = [{
 	value: 3
 }]
 for (let i = 0; i < data.length; i++) {
-	let str = "<li>" + data[i].name + "</li>";
-	str += "<li>" + data[i].value + "</li>";
+	let str = `<li>${data[i].name}</li>`;
+	str += `<li>${data[i].value}</li>`;
 	$(".div").append(str);
 }
 ```
