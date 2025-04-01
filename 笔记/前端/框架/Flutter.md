@@ -873,7 +873,7 @@ class HomeState extends State<Home> {
 Offstage(
     offstage: false, //是否隐藏
     child: Container()
-)
+);
 Visibility(
     child: Container(),
     visible: true,		 //是否可见
@@ -882,23 +882,22 @@ Visibility(
     maintainSize， 		//不可见时是否留有空间
     maintainSemantics， 	//不可见时是否维持它的语义
     maintainInteractivity，//不可见时是否具有交互性
-)
-    
+);
 class Home extends StatefulWidget {
-	Home({Key? key}) : super(key: key);
-	@override
-	HomeState createState() => HomeState();
-}
+    Home({Key? key}) : super(key: key);
+    @override
+    HomeState createState() => HomeState();
+};
 class HomeState extends State<Home> {
     bool isNull = true;
-	@override
-	Widget build(BuildContext context) {
-	  	if (isNull) {
-	    	return Text('false');
-	  	} else {
-	    	return Text('false');
-	  	}
-	}
+    @override
+    Widget build(BuildContext context) {
+        if (isNull) {
+            return Text('false');
+        } else {
+            return Text('false');
+        }
+    }
 }
 ```
 
@@ -912,68 +911,68 @@ import 'package:flutter/material.dart';
 import './pages/index.dart';
 
 class Home extends StatefulWidget {
-	Home({Key? key}) : super(key: key);
-	@override
-	HomeState createState() => HomeState();
+    Home({Key? key}) : super(key: key);
+    @override
+    HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> {
-	@override
-	Widget build(BuildContext context) {
-		return Container(
-	    	child: Row(
-	      		children: [
-	        		ElevatedButton(
-	            		onPressed: () => {
-	                 		Navigator.of(context).push(
-                            	MaterialPageRoute(
-                               		builder: (context) => index(title: '传值') //页面名
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            child: Row(
+                children: [
+                    ElevatedButton(
+                        onPressed: () => {
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => index(title: '传值') //页面名
                                 )
                             )
-	                	},
-	            		child: Text("跳转页面传值")
+                        },
+                        child: Text("跳转页面传值")
                     ),
                     ElevatedButton(
-	            		onPressed: () => {
-	                 		Navigator.of(context).pop(context, '参数')
-	                	},
-	            		child: Text("返回上一页")
+                        onPressed: () => {
+                            Navigator.of(context).pop(context, '参数')
+                        },
+                        child: Text("返回上一页")
                     ),
                     ElevatedButton(
-	            		onPressed: () => {
-	                 		Navigator.of(context).pushReplacementNamed(context, '/index')
-	                	},
-	            		child: Text("覆盖当前页跳转")
+                        onPressed: () => {
+                            Navigator.of(context).pushReplacementNamed(context, '/index')
+                        },
+                        child: Text("覆盖当前页跳转")
                     ),
                     ElevatedButton(
-	            		onPressed: () => {
-	                 		Navigator.of(context).pushAndRemoveUntil(
-                        		MaterialPageRoute(builder: (context) => index()),
-                        		(route) => route == null
+                        onPressed: () => {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) => index()),
+                                (route) => route == null
                             )
-	                	},
-	            		child: Text("返回根页面")
+                        },
+                        child: Text("返回根页面")
                     )
-	      		],
-	    	),
-	  	);
-	}
+                ],
+            ),
+        );
+    }
 }
 
 //index页面
 class index extends StatelessWidget {
     String title;
-  	index(this.title); //接收传值
-	@override
-	Widget build(BuildContext context) {
-		return Container(
-	    	child: Row(
-	      		children: [
-	        		Text(this.title) //赋值
-	      		],
-	    	),
-	  	);
-	}
+    index(this.title); //接收传值
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            child: Row(
+                children: [
+                    Text(this.title) //赋值
+                ],
+            ),
+        );
+    }
 }
 ```
 

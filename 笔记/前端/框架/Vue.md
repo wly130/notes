@@ -1,6 +1,6 @@
 ##  Vue
 
-### CDN引用
+### CDN 引用
 
 - **Vue2**
 
@@ -369,20 +369,20 @@ let name = () => ("Hello Vue");
 
 ```html
 <template>
-	<div id="app">
-		<p>{{ msg }}</p>
-		<input v-model="msg" type="text" />
-	</div>
+    <div id="app">
+        <p>{{ msg }}</p>
+        <input v-model="msg" type="text" />
+    </div>
 </template>
 
 <script>
-	export default {
-		data() {
-        	return {
-        		msg: 'Hello'
-    		}
-		},
-	}
+    export default {
+        data() {
+            return {
+                msg: 'Hello'
+            }
+        },
+    }
 </script>
 ```
 
@@ -446,7 +446,7 @@ let name = () => ("Hello Vue");
 
 #### v-once
 
-- **只被渲染一次,首次渲染后,即使数据发生变化,也不会被重新渲染**
+- **只被渲染一次, 首次渲染后, 即使数据发生变化, 也不会被重新渲染**
 
 ```html
 <div v-once></div>
@@ -472,7 +472,7 @@ let name = () => ("Hello Vue");
 - **`.right`          右键事件**
 - **`.middle`        中间滚轮事件**
 
-### Vue事件
+### Vue 事件
 
 - **鼠标事件**
 
@@ -497,7 +497,7 @@ let name = () => ("Hello Vue");
 </transition>
 ```
 
-| CSS类名            | 作用                              |
+| CSS 类名            | 作用                              |
 | :----------------- | --------------------------------- |
 | **v-enter**        | **元素显示/插入前的效果**         |
 | **v-active-enter** | **元素显示/插入的过渡时间和函数** |
@@ -801,7 +801,7 @@ const props = defineProps({
 </script>
 ```
 
-| type值   | 解释   |
+| type 值   | 解释   |
 | -------- | ------ |
 | String   | 字符串 |
 | Number   | 数字   |
@@ -931,7 +931,7 @@ export default new Vue;
 </script>
 ```
 
-#### watch监听
+#### watch 监听
 
 ```html
 <template>
@@ -1056,7 +1056,7 @@ let data = inject('数据名称');
 
 **`sessionStorage` : 浏览器关闭时自动删除**
 
-**`localStorage`: 永久保存,手动删除**
+**`localStorage`: 永久保存, 手动删除**
 
 - **写入缓存**
 
@@ -1222,7 +1222,7 @@ app.use(router);
 <router-link :to="{path:'/home'}">
 ```
 
-- **`query` 传参(参数显示在url上)**
+- **`query` 传参(参数显示在 url 上)**
 ```js
 this.$router.push({
 	path: '/home',
@@ -1234,7 +1234,7 @@ this.$router.push({
 this.$route.query.val;
 ```
 
-- **`params`传参(参数不显示在url上)**
+- **`params` 传参(参数不显示在 url 上)**
 ```js
 this.$router.push({
 	name: 'home',
@@ -1289,7 +1289,7 @@ const store = new Vuex.Store({});
 
 - 可以将 store 分割成模块
 
-> **State仓库**
+> **State 仓库**
 
 ```javascript
 const store = new Vuex.Store({
@@ -1404,7 +1404,7 @@ axios({
 .catch((err) => {}); //请求失败
 ```
 
-#### 封装网络请求API
+#### 封装网络请求 API
 
 - **request.js**
 
@@ -1482,7 +1482,7 @@ const {config} = createApp(App);
 config.globalProperties.$api = api;
 ```
 
-- **调用API**
+- **调用 API**
 
 ```javascript
 //Vue2
@@ -1515,7 +1515,7 @@ npm install postcss-px2rem -S
 import 'lib-flexible'
 ```
 
-- **配置`postcss-px2rem`**
+- **配置 `postcss-px2rem`**
 
     **`vue.config.js`**
 

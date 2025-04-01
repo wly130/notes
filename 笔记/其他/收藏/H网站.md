@@ -5,7 +5,7 @@ http://www.pornlulu.com/
 https://www.xvideos.com/
 https://www.hgjp3.com/index.html
 https://old.buzzav.com/videos
-https://missav.com/
+https://missav.ws/
 https://javday.tv/
 https://njav.tv/zh
 https://www.ptt.sex/
