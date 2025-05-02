@@ -774,7 +774,7 @@ import 子组件 from "/子组件";
                 default: "value", //默认值
                 validator: (value) => {
                     //自定义验证函数
-                		return value;
+                    return value;
             	}
             },
             child2: [String, Number], //多类型
