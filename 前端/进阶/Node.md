@@ -186,7 +186,7 @@ var conn = mysql.createConnection({
 });
 //开始连接
 conn.connect();
-l sql = "sql语句";
+let sql = "sql语句";
 //执行sql语句
 conn.query(sql, (err, res) => {
 	if (err) console.log(err)

@@ -242,7 +242,7 @@ sequenceDiagram
 
 创建脚注格式类似这样 [^runoob]
 
-[^runoob]: 菜鸟教程
+[^runoob]:菜鸟教程
 
 - 列表 1
     - 子列表
@@ -294,8 +294,6 @@ $(document).ready(function () {
 | :----- | -----: | :------: |
 | 单元格 | 单元格 |  单元格  |
 | 单元格 | 单元格 |  单元格  |
-
-使用 **<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Delete</kbd>**重启电脑
 
 - **音频**
 
