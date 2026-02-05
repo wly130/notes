@@ -1,4 +1,4 @@
-<img src="../../img/后端学习路线图.png" style="zoom:100%;" />
+<img src="../../../img/后端学习路线图.png" style="zoom:100%;" />
 
 ## Java学习路线
 

@@ -54,7 +54,7 @@ npm run build
 
 ### 目录结构
 
-<img src="../../img/目录结构/React%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" style="float:left;" />
+<img src="../../../img/目录结构/React%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" style="float:left;" />
 
 | index.html        | 网页入口文件           |
 | ----------------- | ---------------------- |

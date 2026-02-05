@@ -18,7 +18,7 @@ expo start   #运行项目
 
 ### 目录结构
 
-<img src="../../img/目录结构/ReactNative%E7%9B%AE%E5%BD%95.png" style="zoom:100%;margin:0;" />
+<img src="../../../img/目录结构/ReactNative%E7%9B%AE%E5%BD%95.png" style="zoom:100%;margin:0;" />
 
 | 名称         | 描述                                |
 | :----------- | :---------------------------------- |
