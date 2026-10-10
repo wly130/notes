@@ -112,7 +112,7 @@
 - 常见的搜索引擎
 
   - elk（同样可以做日志管理，重要）
-    - elasticsearch
+    - **elasticsearch**
     - logstash
     - kibana
   - solr
@@ -120,8 +120,8 @@
 
 - 容器和持续部署
 
-  - docker
-  - k8s
+  - **docker**
+  - **k8s**
   - jenkins
   - sonar
   - shell
