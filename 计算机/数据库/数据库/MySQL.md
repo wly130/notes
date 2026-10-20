@@ -35,16 +35,15 @@ SHOW DATABASES;
 #### 修改数据库编码方式
 
 ```sql
-ALTER DATABASE 数据库名 DEFAULT CHARACTER SET 编码方式;
+ALTER DATABASE 数据库名 DEFAULT CHARACTER SET utf8mb4;
 ```
 
 #### 创建数据表
 
 ```sql
 CREATE TABLE 表名 (
-    字段1 数据类型(范围) <NULL>,
-    字段2 数据类型(范围) <NULL>
-    ...
+    字段1 数据类型(范围) NULL,
+    字段2 数据类型(范围) NULL
 );
 ```
 
@@ -72,13 +71,13 @@ ALTER TABLE 旧表名 RENAME 新表名;
 ALTER TABLE 表名 MODIFY 字段名 数据类型();
 ```
 
-#### 添加字段名
+#### 添加字段
 
 ```sql
 ALTER TABLE 表名 ADD 新字段名 数据类型();
 ```
 
-#### 删除字段名
+#### 删除字段
 
 ```sql
 ALTER TABLE 表名 DROP 字段名;
@@ -88,32 +87,34 @@ ALTER TABLE 表名 DROP 字段名;
 
 ```sql
 DESC 表名;
+SHOW CREATE TABLE 表名;
 ```
 
 #### 添加数据
 
 ```sql
-INSERT INTO 表名 (字段1，字段2) VALUES (值1，值2);
-INSERT INTO 表名 (字段1) VALUES (1); #添加数字
-INSERT INTO 表名 (字段1) VALUES ('name'); #添加字符串
-INSERT INTO 表名 (字段1) VALUES ('1000-01-01 00:00:00'); #添加时间
-INSERT INTO 表名 (字段1) VALUES ('{"key":"value"}'); #添加JSON
-INSERT IGNORE INTO 表名 (字段1，字段2) VALUES (值1，值2); #添加多条数据时,忽略报错数据,继续添加其余数据
+INSERT INTO 表名 (字段1, 字段2) VALUES (值1, 值2);
+INSERT INTO 表名 (字段1) VALUES (1);              --添加数字
+INSERT INTO 表名 (字段1) VALUES ('name');         --添加字符串
+INSERT INTO 表名 (字段1) VALUES ('2000-01-01');   --添加时间
+INSERT INTO 表名 (字段1) VALUES ('{"key":"val"}');--添加JSON
+INSERT IGNORE INTO 表名 (字段1) VALUES (值1);     --忽略报错数据
 ```
 
 #### 删除数据
 
 ```sql
 DELETE FROM 表名 WHERE 条件;
+TRUNCATE TABLE 表名;  --清空表(重置自增)
 ```
 
 #### 修改数据
 
 ```sql
-UPDATE 表名 SET 字段名1=值1，字段名2=值2 WHERE 条件;
+UPDATE 表名 SET 字段名1=值1, 字段名2=值2 WHERE 条件;
 ```
 
-#### 查询所有数据
+#### 查询数据
 
 ```sql
 SELECT * FROM 表名 WHERE 条件;
@@ -125,88 +126,106 @@ SELECT * FROM 表名 WHERE 条件;
 
 ```sql
 ALTER TABLE 表名 MODIFY 字段名 数据类型 NOT NULL;
-ALTER TABLE 表名 MODIFY 字段名 数据类型; #删除约束
+ALTER TABLE 表名 MODIFY 字段名 数据类型;  --删除约束
 ```
 
 #### UNIQUE 唯一约束
 
 ```sql
 ALTER TABLE 表名 ADD UNIQUE (字段名);
-ALTER TABLE 表名 DROP [INDEX/KEY] 字段名; #删除约束
+ALTER TABLE 表名 DROP INDEX 索引名;  --删除约束
 ```
 
 #### PRIMARY KEY 主键约束
 
 ```sql
 ALTER TABLE 表名 ADD PRIMARY KEY (字段名);
-ALTER TABLE 表名 DROP PRIMARY KEY; #删除约束
+ALTER TABLE 表名 DROP PRIMARY KEY;  --删除约束
 ```
 
 #### FOREIGN KEY 外键约束
 
 ```sql
 ALTER TABLE 表名 ADD FOREIGN KEY (字段名) REFERENCES 外表名(外表字段名);
-ALTER TABLE 表名 DROP FOREIGN KEY 字段名; #删除约束
+ALTER TABLE 表名 DROP FOREIGN KEY 外键名;  --删除约束
 ```
 
 #### DEFAULT 默认值约束
 
 ```sql
 ALTER TABLE 表名 ALTER 字段名 SET DEFAULT '默认值';
-ALTER TABLE 表名 ALTER 字段名 DROP DEFAULT; #删除约束
+ALTER TABLE 表名 ALTER 字段名 DROP DEFAULT;  --删除约束
 ```
 
 #### 自增长
 
 ```sql
 ALTER TABLE 表名 MODIFY 字段名 数据类型 AUTO_INCREMENT;
-ALTER TABLE 表名 MODIFY 字段名 数据类型; #删除自增长
+ALTER TABLE 表名 MODIFY 字段名 数据类型;  --删除自增长
 ```
 
 ### 索引
 
-- **创建索引**
+#### 创建索引
 
 ```sql
-ALTER TABLE 表名 ADD 索引类型 别名 (字段名);
-CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
+CREATE INDEX 索引名 ON 表名 (字段名);
+CREATE UNIQUE INDEX 索引名 ON 表名 (字段名);  --唯一索引
+ALTER TABLE 表名 ADD INDEX 索引名 (字段名);
 ```
 
-| 单词         | 索引类型     | 作用                                                         |
-| :----------- | ------------ | ------------------------------------------------------------ |
-| **UNIQUQE**  | **唯一索引** | **索引列的值必须唯一，但允许有空值**                         |
-| **FULLTEXT** | **全文索引** | **在定义索引的列上支持值的全文查找，允许在这些索引列中插入重复值和空值** |
-| **SPATIAL**  | **空间索引** |                                                              |
-| **KEY**      | **字段索引** | **允许在定义索引的列中插入重复值和空值**                     |
+#### 删除索引
 
-| 数据语句 | 用途                                       |
-| :------- | ------------------------------------------ |
-| **DML**  | 数据操作语言语句,插入、修改、删除等        |
-| **DDL**  | 数据定义语言语句 `create`、`alter`、`drop` |
-| **DCL**  | 数据控制语言语句 `grant`、`revoke ` 语句   |
+```sql
+DROP INDEX 索引名 ON 表名;
+ALTER TABLE 表名 DROP INDEX 索引名;
+```
+
+#### 查看索引
+
+```sql
+SHOW INDEX FROM 表名;
+```
+
+| 索引类型     | 说明                                     |
+| ------------ | ---------------------------------------- |
+| **PRIMARY**  | 主键索引，唯一且不为空                   |
+| **UNIQUE**   | 唯一索引，索引列的值必须唯一，允许空值   |
+| **INDEX**    | 普通索引，最基本的索引                   |
+| **FULLTEXT** | 全文索引，用于文本搜索                   |
+| **SPATIAL**  | 空间索引，用于地理数据类型               |
+
+| SQL分类   | 说明                                         |
+| --------- | -------------------------------------------- |
+| **DML**   | 数据操作语言：INSERT、UPDATE、DELETE         |
+| **DDL**   | 数据定义语言：CREATE、ALTER、DROP            |
+| **DCL**   | 数据控制语言：GRANT、REVOKE                  |
+| **DQL**   | 数据查询语言：SELECT                         |
 
 ### 数据类型
 
 #### 数值
 
-| 类型          | 大小       | 范围（有符号）                  | 范围（无符号） | 用途           |
-| ------------- | ---------- | ------------------------------- | -------------- | -------------- |
-| TINYINT       | **1Bytes** | (-128，127)                     | (0，255)       | 小整数值       |
-| SMALLINT      | **2Bytes** | (-2^15^，2^15^)                 | (0 , 2^16^)    | 大整数值       |
-| MEDIUMINT     | **3Bytes** | (-2^23^，2^23^)                 | (0 , 2^24^)    | 大整数值       |
-| INT / INTEGER | **4Bytes** | (-2^31^，2^31^)                 | (0，2^24^)     | 大整数值       |
-| BIGINT        | **8Bytes** | (-2^63^，2^63^)                 | (0，2^64^)     | 极大整数值     |
-| FLOAT         | **4Bytes** | (-3.4 * 10^38^，3.4 * 10^38^)   |                | 单精度浮点数值 |
-| DOUBLE        | **8Bytes** | (-1.7 * 10^308^，1.7 * 10^308^) |                | 双精度浮点数值 |
+| 类型          | 大小       | 范围(有符号)                    | 用途           |
+| ------------- | ---------- | ------------------------------- | -------------- |
+| TINYINT       | **1Bytes** | (-128, 127)                     | 小整数值       |
+| SMALLINT      | **2Bytes** | (-32768, 32767)                 | 整数值         |
+| MEDIUMINT     | **3Bytes** | (-8388608, 8388607)             | 整数值         |
+| INT / INTEGER | **4Bytes** | (-2^31^, 2^31^-1)               | 大整数值       |
+| BIGINT        | **8Bytes** | (-2^63^, 2^63^-1)               | 极大整数值     |
+| FLOAT         | **4Bytes** | 单精度浮点数                    | 浮点数值       |
+| DOUBLE        | **8Bytes** | 双精度浮点数                    | 浮点数值       |
+| DECIMAL(M,D)  | **变长**   | 精确小数                        | 金额等精确值   |
 
 #### 日期时间
 
-| 类型     | 大小       | 范围                                       | 格式                | 用途             |
-| -------- | ---------- | ------------------------------------------ | ------------------- | ---------------- |
-| DATE     | **3Bytes** | 1000-01-01~9999-12-31                      | YYYY-MM-DD          | 日期值           |
-| TIME     | **3Bytes** | -838:59:59~838:59:59                       | HH:MM:SS            | 时间值或持续时间 |
-| YEAR     | **1Bytes** | 1901~2155                                  | YYYY                | 年份值           |
-| DATETIME | **8Bytes** | 1000-01-01 00:00:00 ~ 9999-12-31 23:59:59' | YYYY-MM-DD hh:mm:ss | 混合日期和时间值 |
+| 类型     | 大小       | 范围                                        | 格式                |
+| -------- | ---------- | ------------------------------------------- | ------------------- |
+| DATE     | **3Bytes** | 1000-01-01 ~ 9999-12-31                     | YYYY-MM-DD          |
+| TIME     | **3Bytes** | -838:59:59 ~ 838:59:59                      | HH:MM:SS            |
+| YEAR     | **1Bytes** | 1901 ~ 2155                                 | YYYY                |
+| DATETIME | **8Bytes** | 1000-01-01 00:00:00 ~ 9999-12-31 23:59:59   | YYYY-MM-DD HH:MM:SS |
+| TIMESTAMP| **4Bytes** | 1970-01-01 00:00:01 ~ 2038-01-19 03:14:07   | YYYY-MM-DD HH:MM:SS |
 
 #### 字符串
 
@@ -214,441 +233,424 @@ CREATE 索引类型 INDEX 别名 ON 表名 (字段名);
 | ---------- | ------------ | ------------------------------- |
 | CHAR       | 0-255        | 定长字符串                      |
 | VARCHAR    | 0-65535      | 变长字符串                      |
-| TINYBLOB   | 0-255        | 不超过 255 个字符的二进制字符串 |
 | TINYTEXT   | 0-255        | 短文本字符串                    |
-| BLOB       | 0-65535      | 二进制形式的长文本数据          |
 | TEXT       | 0-65535      | 长文本数据                      |
-| MEDIUMBLOB | 0-16777215   | 二进制形式的中等长度文本数据    |
 | MEDIUMTEXT | 0-16777215   | 中等长度文本数据                |
-| LONGBLOB   | 0-4294967295 | 二进制形式的极大文本数据        |
 | LONGTEXT   | 0-4294967295 | 极大文本数据                    |
-
-#### JSON
-
-```json
-{
-    "key": "value",
-    "arr": [1, 2, 3]
-}
-```
+| TINYBLOB   | 0-255        | 二进制数据                      |
+| BLOB       | 0-65535      | 二进制长数据                    |
+| JSON       | -            | JSON格式数据                    |
 
 ### 单表查询
 
 #### 查询指定字段
 
 ```sql
-SELECT 字段1,字段2 FROM 表名;
+SELECT 字段1, 字段2 FROM 表名;
 ```
 
 #### 条件查询
 
 ```sql
-SELECT 字段1,字段2 FROM 表名 WHERE 条件;
+SELECT * FROM 表名 WHERE 条件;
 ```
 
-#### 查询指定范围数据
+#### 范围查询
 
 ```sql
-SELECT 字段1,字段2 FROM 表名 WHERE 字段 BETWEEN 值1 AND 值2;
+SELECT * FROM 表名 WHERE 字段 BETWEEN 值1 AND 值2;
+SELECT * FROM 表名 WHERE 字段 IN (值1, 值2, 值3);
 ```
 
 #### 空值查询
 
 ```sql
-SELECT * FROM 表名 WHERE 字段名 IS NULL;
+SELECT * FROM 表名 WHERE 字段 IS NULL;
+SELECT * FROM 表名 WHERE 字段 IS NOT NULL;
 ```
 
-#### 重复查询
+#### 去重查询
 
 ```sql
-SELECT DISTINCT 字段1,字段2 FROM 表名;
+SELECT DISTINCT 字段 FROM 表名;
 ```
 
-#### 字符查询
+#### 模糊查询
 
 ```sql
-SELECT * FROM 表名 WHERE 字段名 LIKE '%x%'; #查询包含x的数据
-SELECT * FROM 表名 WHERE 字段名 LIKE '%x'; #查询以x结尾的数据
-SELECT * FROM 表名 WHERE 字段名 LIKE 'x%'; #查询以x开头的数据
-SELECT * FROM 表名 WHERE 字段名 LIKE '_x'; #查询长度为2,以x结尾的数据
+SELECT * FROM 表名 WHERE 字段 LIKE '%x%';  --包含x
+SELECT * FROM 表名 WHERE 字段 LIKE 'x%';   --以x开头
+SELECT * FROM 表名 WHERE 字段 LIKE '%x';   --以x结尾
+SELECT * FROM 表名 WHERE 字段 LIKE '_x';   --长度为2，以x结尾
 ```
 
-#### 正则表达式查询
+#### 正则查询
 
 ```sql
-SELECT * FROM 表名 WHERE 字段名 REGEXP '^x'; #查询以x开头的数据
-SELECT * FROM 表名 WHERE 字段名 REGEXP 'x$'; #查询以x结尾的数据
-SELECT * FROM 表名 WHERE 字段名 REGEXP '[1-9]'; #查询包含括号内的数据
+SELECT * FROM 表名 WHERE 字段 REGEXP '^x';      --以x开头
+SELECT * FROM 表名 WHERE 字段 REGEXP 'x$';      --以x结尾
+SELECT * FROM 表名 WHERE 字段 REGEXP '[0-9]';   --包含数字
 ```
 
-#### 数据表设置别名
+#### 别名
 
 ```sql
-SELECT 表名.字段名 FROM 表名 AS 别名;
+SELECT 字段 AS 别名 FROM 表名 AS 别名;
 ```
 
-#### 字段设置别名
+#### 分页
 
 ```sql
-SELECT 字段名 AS 别名 FROM 表名;
+SELECT * FROM 表名 LIMIT n;          --前n行
+SELECT * FROM 表名 LIMIT offset, n;  --跳过offset行，取n行
+SELECT * FROM 表名 LIMIT n OFFSET m; --同上
 ```
 
-#### 显示前 n 行数据
+#### 排序
 
 ```sql
-SELECT * FROM 表名 LIMIT n;
+SELECT * FROM 表名 ORDER BY 字段 ASC;   --升序(默认)
+SELECT * FROM 表名 ORDER BY 字段 DESC;  --降序
+SELECT * FROM 表名 ORDER BY 字段1 ASC, 字段2 DESC;  --多字段排序
 ```
 
-#### 显示第 n 行后面 m 个数据
+#### JSON查询
 
 ```sql
-SELECT * FROM 表名 LIMIT n－1,m;
+SELECT * FROM 表名 WHERE json字段->'$.key' = 'value';
+SELECT * FROM 表名 WHERE JSON_CONTAINS(json字段, '"value"', '$.key');
 ```
 
-#### 查询结果排序[^1]
-
-[^1]:ASC: 升序&nbsp;&nbsp;DESC: 降序
+#### 聚合函数
 
 ```sql
-SELECT * FROM 表名 ORDER BY 字段名 ASC / DESC;
-```
-
-#### 查询 `JOSN`
-
-```sql
-SELECT * FROM 表名 WHERE key->'$.key' = 'value';
-```
-
-#### 查询 `Array`
-
-```sql
-SELECT * FROM 表名 WHERE key ->'$[*].key' = 'value';
-SELECT * FROM 表名 WHERE JSON_CONTAINS(key, JSON_OBJECT('key', "value"));
-```
-
-#### 查询多个结果
-
-```sql
-SELECT * FROM 表名 WHERE 字段名 IN (value1, value2);
-```
-
-#### 连接多条查询语句
-
-```sql
-第一条 UNION 第二条
-```
-
-#### 复制表内容
-
-```sql
-INSERT INTO 表2 SELECT * FROM 表1;
-```
-
-### 多表查询
-
-<img src="https://www.runoob.com/wp-content/uploads/2013/09/img_innerjoin.gif" alt="avatar" style="float:left" />
-
-#### INNER JION 查询(内连接)
-
-```sql
-#如果表中有至少一个匹配，则返回行
-SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2;
-```
-
-<img src="https://www.runoob.com/wp-content/uploads/2013/09/img_leftjoin.gif" alt="avatar" style="float:left" />
-
-#### LEFT JION 查询(左连接)
-
-```sql
-#即使右表中没有匹配的也从左表返回所有行
-SELECT 列名1,列名2 FROM 左表 LEFT JOIN 右表;
-```
-
-<img src="https://www.runoob.com/wp-content/uploads/2013/09/img_rightjoin.gif" alt="avatar" style="float:left" />
-
-#### RIGHT JION 查询(右连接)
-
-```sql
-#即使左表中没有匹配也从右表返回所有的行
-SELECT 列名1,列名2 FROM 左表 RIGHT JION 右表;
-```
-
-<img src="https://www.runoob.com/wp-content/uploads/2013/09/img_fulljoin.gif" alt="avatar" style="float:left" />
-
-#### FULL OUTER JION 查询(全连接)
-
-```sql
-#只要其中一个表中存在匹配，则返回行
-SELECT 列名1,列名2 FROM 左表 FULL OUTER JOIN 右表;
+SELECT COUNT(*) FROM 表名;           --总数
+SELECT SUM(字段) FROM 表名;          --求和
+SELECT AVG(字段) FROM 表名;          --平均值
+SELECT MAX(字段) FROM 表名;          --最大值
+SELECT MIN(字段) FROM 表名;          --最小值
 ```
 
 #### 分组查询
 
 ```sql
-SELECT 列名1,列名2 FROM 表名1 INNER JOIN 表名2 GROUP BY 字段名;
+SELECT 字段, COUNT(*) FROM 表名 GROUP BY 字段;
+SELECT 字段, COUNT(*) FROM 表名 GROUP BY 字段 HAVING COUNT(*) > 1;
+```
+
+### 多表查询
+
+#### INNER JOIN(内连接)
+
+```sql
+--返回两表匹配的行
+SELECT a.字段, b.字段 FROM 表a AS a INNER JOIN 表b AS b ON a.id = b.a_id;
+```
+
+#### LEFT JOIN(左连接)
+
+```sql
+--返回左表所有行，右表无匹配则为NULL
+SELECT a.字段, b.字段 FROM 表a AS a LEFT JOIN 表b AS b ON a.id = b.a_id;
+```
+
+#### RIGHT JOIN(右连接)
+
+```sql
+--返回右表所有行，左表无匹配则为NULL
+SELECT a.字段, b.字段 FROM 表a AS a RIGHT JOIN 表b AS b ON a.id = b.a_id;
+```
+
+#### FULL JOIN(全连接)
+
+```sql
+--MySQL不直接支持，使用UNION实现
+SELECT * FROM 表a LEFT JOIN 表b ON a.id = b.a_id
+UNION
+SELECT * FROM 表a RIGHT JOIN 表b ON a.id = b.a_id;
+```
+
+#### 子查询
+
+```sql
+SELECT * FROM 表名 WHERE 字段 IN (SELECT 字段 FROM 表名2);
+SELECT * FROM 表名 WHERE 字段 = (SELECT MAX(字段) FROM 表名);
 ```
 
 ### 存储过程
 
-- **封装方法**
-
-#### 实现
-
-- **创建存储过程**
+#### 创建存储过程
 
 ```sql
-DEIMITER $
-    CREATE PROCEDURE 过程名(参数)
-    BEGIN
-         过程内容;
-    END$
-DEIMITER;
+DELIMITER $
+CREATE PROCEDURE 过程名(参数)
+BEGIN
+    --过程内容
+END$
+DELIMITER ;
 ```
 
-- **调用存储过程**
+#### 调用/删除存储过程
 
 ```sql
 CALL 过程名(参数);
-```
-
-- **删除存储过程**
-
-```sql
 DROP PROCEDURE 过程名;
 ```
 
-- **变量**
+#### 变量
 
 ```sql
-DECLARE  变量名 数据类型 DEFAULT 默认值; #定义
-SET @变量名=值; #赋值
-SELECT @变量名:=值; #赋值
+DECLARE 变量名 数据类型 DEFAULT 默认值;  --定义
+SET @变量名 = 值;                        --赋值
+SELECT @变量名 := 值;                    --赋值
 ```
 
-- **存储函数**
+#### 参数类型
+
+| 参数    | 说明         |
+| ------- | ------------ |
+| IN      | 输入参数     |
+| OUT     | 输出参数     |
+| INOUT   | 输入输出参数 |
+
+#### 示例
 
 ```sql
-CREATE FUNCTION 存储函数名(参数)
-```
+DELIMITER $
+CREATE PROCEDURE test(IN num INT)
+BEGIN
+    SELECT num * 2;
+END$
+DELIMITER ;
 
-| 参数  | 作用         |
-| :---- | ------------ |
-| IN    | 输入参数     |
-| OUT   | 输出参数     |
-| INOUT | 输入输出参数 |
-
-#### 实例
-
-- **`IN` 参数**
-
-```sql
-DEIMITER $
-    CREATE PROCEDURE test(IN num INT)
-    BEGIN
-		SELECT num * 2;
-    END$
-DEIMITER;
-```
-
-- **`OUT` 参数**
-
-```sql
-DEIMITER $
-    CREATE PROCEDURE test(OUT num INT)
-    BEGIN
-		SET num = 1; # 需要初始化
-		SELECT num * 2;
-		SELECT 字段名 INTO num FROM 表名; # INTO 赋值
-    END$
-DEIMITER;
-```
-
-- **`INOUT` 参数**
-
-```sql
-DEIMITER $
-    CREATE PROCEDURE test(INOUT num INT)
-    BEGIN
-         SELECT num * 2;
-    END$
-DEIMITER;
+CALL test(10);
 ```
 
 ### 事务
 
-#### 特点
+#### 特点(ACID)
 
-- **原子性：**一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚到事务开始前的状态。
-- **一致性：**在事务开始之前和事务结束以后，数据库的完整性没有被破坏。
-- **隔离性：**数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。
-- **持久性：**事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。
+| 特性       | 说明                                         |
+| ---------- | -------------------------------------------- |
+| **原子性** | 事务中的操作要么全部完成，要么全部不完成     |
+| **一致性** | 事务开始前后，数据库完整性没有被破坏         |
+| **隔离性** | 多个并发事务之间互不干扰                     |
+| **持久性** | 事务完成后，数据修改是永久的                 |
 
-#### 实现
-
-- **开启事务**
-
-```sql
-SET autocommit = 0; #设置停止自动提交
-START TRANSACTION;
-```
-
-- **操作**
+#### 事务操作
 
 ```sql
-INSERT INTO 表名 (字段1，字段2) VALUES (值1，值2);
-UPDATE 表名 SET 字段名1=值1，字段名2=值2 WHERE 条件;
-```
+START TRANSACTION;  --开启事务
+--或 SET autocommit = 0;
 
-- **提交/回滚事务**
+INSERT INTO 表名 (字段) VALUES (值);
+UPDATE 表名 SET 字段=值 WHERE 条件;
 
-```sql
-COMMIT; #提交事务
-ROLLBACK; #回滚事务
+COMMIT;    --提交事务
+ROLLBACK;  --回滚事务
 ```
 
 #### 隔离级别
 
-- **脏读：**事务中的修改，即使没有提交，对其他事务也都是可见的。事务可以读取未提交的数据。
-- **不可重复读：**一个事务从开始直到提交之前，所做的任何修改对其他事务都是不可见的。但是两次执行同样的查询，可能会得到不一样的结果。
-- **幻读：**当某个事务在读取某个范围内的记录时，另外一个事务又在该范围内插入了新的记录。
+| 隔离级别                | 脏读 | 不可重复读 | 幻读 | 说明             |
+| ----------------------- | ---- | ---------- | ---- | ---------------- |
+| READ UNCOMMITTED        | ✓    | ✓          | ✓    | 读未提交         |
+| READ COMMITTED          | ✗    | ✓          | ✓    | 读已提交         |
+| **REPEATABLE READ(默认)** | ✗  | ✗          | ✓    | 可重复读         |
+| SERIALIZABLE            | ✗    | ✗          | ✗    | 串行化(性能最低) |
 
-| 隔离级别             | 作用                                                         |
-| -------------------- | ------------------------------------------------------------ |
-| **READ UNCOMMITTED** | 可能读到其他会话未提交事务修改的数据                         |
-| **READ COMMITTED**   | 只能查询到已提交的数据                                       |
-| **REPEATABLE READ**  | 无论何时查到的数据都和第一次查到的数据一致                   |
-| **SERIALIZABLE**     | 所有的事务依次逐个执行，事务之间互不干扰。但会导致读和写都会阻塞，性能极低 |
-
-| 隔离级别                  | 脏读 | 不可重复读 | 幻读 |
-| ------------------------- | ---- | ---------- | ---- |
-| **READ UNCOMMITTED**      | √    | √          | √    |
-| **READ COMMITTED**        | ×    | √          | √    |
-| **REPEATABLE READ(默认)** | ×    | ×          | √    |
-| **SERIALIZABLE**          | ×    | ×          | ×    |
-
-- **查看隔离级别**
+- **脏读**：读到其他事务未提交的数据
+- **不可重复读**：同一事务内两次查询结果不同
+- **幻读**：同一事务内两次查询行数不同
 
 ```sql
-SELECT @@GLOBAL.transaction_isolation, @@transaction_isolation;
+--查看隔离级别
+SELECT @@transaction_isolation;
+
+--设置隔离级别
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 ```
 
-#### 实例
+### 锁
+
+| 锁类型         | 说明                                 |
+| -------------- | ------------------------------------ |
+| **共享锁(S锁)** | 读锁，多个事务可同时加              |
+| **排他锁(X锁)** | 写锁，独占，阻塞其他读写            |
+| **行锁**       | 锁定单行，InnoDB支持                 |
+| **表锁**       | 锁定整表，MyISAM默认                 |
+| **间隙锁**     | 锁定范围，防止幻读                   |
 
 ```sql
-SET autocommit = 0;
-START TRANSACTION;
-INSERT INTO 表名 (字段1，字段2) VALUES (值1，值2);
-UPDATE 表名 SET 字段名1=值1，字段名2=值2 WHERE 条件;
-COMMIT; #提交事务
-ROLLBACK; #回滚事务
+--加共享锁
+SELECT * FROM 表名 WHERE 条件 LOCK IN SHARE MODE;
+
+--加排他锁
+SELECT * FROM 表名 WHERE 条件 FOR UPDATE;
 ```
 
 ### 视图
 
-- **可以复用查询代码**
-
-#### 实现
-
-- **创建视图**
+#### 创建视图
 
 ```sql
-CREATE VIEW 视图名 AS <select语句>;
+CREATE VIEW 视图名 AS SELECT 语句;
 ```
 
-- **查看视图**
+#### 查看/修改/删除视图
 
 ```sql
 SELECT * FROM 视图名;
-```
-
-- **修改视图**
-
-```sql
-CREATE OR REPLACE VIEW 视图名 AS <新select语句>;
-ALTER VIEW 视图名 AS <新select语句>;
-```
-
-- **删除视图**
-
-```sql
+CREATE OR REPLACE VIEW 视图名 AS 新SELECT语句;
+ALTER VIEW 视图名 AS 新SELECT语句;
 DROP VIEW 视图名;
 ```
 
-#### 实例
+### SQL函数
+
+| 函数              | 说明                     |
+| ----------------- | ------------------------ |
+| **COUNT()**       | 返回行数                 |
+| **SUM()**         | 返回总和                 |
+| **AVG()**         | 返回平均值               |
+| **MAX()**         | 返回最大值               |
+| **MIN()**         | 返回最小值               |
+| **ABS()**         | 返回绝对值               |
+| **MOD()**         | 返回余数                 |
+| **SQRT()**        | 返回平方根               |
+| **POW(x,y)**      | 返回x的y次方             |
+| **ROUND()**       | 四舍五入                 |
+| **RAND()**        | 返回随机数(0-1)          |
+| **UPPER()/UCASE()** | 转换为大写             |
+| **LOWER()/LCASE()** | 转换为小写             |
+| **LENGTH()**      | 返回字节长度             |
+| **CHAR_LENGTH()** | 返回字符长度             |
+| **SUBSTRING()**   | 截取字符串               |
+| **CONCAT()**      | 拼接字符串               |
+| **REPLACE()**     | 替换字符串               |
+| **NOW()**         | 当前日期时间             |
+| **CURDATE()**     | 当前日期                 |
+| **CURTIME()**     | 当前时间                 |
+| **DATE_FORMAT()** | 格式化日期               |
+| **IFNULL()**      | 空值替换                 |
+
+#### IF判断
 
 ```sql
-CREATE VIEW 视图名 AS 
-SELECT * FROM 表名 WHERE 条件;
-SELECT * FROM 视图名;
+SELECT IF(条件, 真值, 假值);
+SELECT IFNULL(字段, 默认值) FROM 表名;
 ```
 
-### SQL 函数
-
-- [函数列表](https://www.runoob.com/mysql/mysql-functions.html)
-
-| 函数名                    | 作用                                     |
-| ------------------------- | ---------------------------------------- |
-| **avg()**                 | 返回平均值                               |
-| **abs()**                 | 返回绝对值                               |
-| **count()**               | 返回行数                                 |
-| **first()**               | 返回第一个记录的值                       |
-| **last()**                | 返回最后一个记录的值                     |
-| **max()**                 | 返回最大值                               |
-| **min()**                 | 返回最小值                               |
-| **mon()**                 | 返回余数                                 |
-| **sqrt()**                | 返回 n²                                  |
-| **pow()**                 | 返回 n^n^                                |
-| **sum()**                 | 返回总和                                 |
-| **rand()**                | 返回随机数                               |
-| **ucase()**               | 将某个字段转换为大写                     |
-| **lcase()**               | 将某个字段转换为小写                     |
-| **mid()**                 | 从某个文本字段提取字符                   |
-| **SubString(字段,1,end)** | 从某个文本字段提取字符                   |
-| **len()**                 | 返回某个文本字段的长度                   |
-| **round()**               | 对某个数值字段进行指定小数位数的四舍五入 |
-| **now()**                 | 返回当前的系统日期和时间                 |
-| **format()**              | 格式化某个字段的显示方式                 |
-
-- **IF()判断**
+#### CASE函数
 
 ```sql
-SELECT IF(条件, true, false);
+--有字段
+SELECT CASE 字段名
+    WHEN 值1 THEN 结果1
+    WHEN 值2 THEN 结果2
+    ELSE 默认结果
+END FROM 表名;
+
+--无字段
+SELECT CASE
+    WHEN 条件1 THEN 结果1
+    WHEN 条件2 THEN 结果2
+    ELSE 默认结果
+END FROM 表名;
 ```
 
-- **CASE()函数**
+### EXPLAIN分析
 
 ```sql
-# 有字段
-SELECT
-	CASE 字段名
-		WHEN 值1 THEN 1
-		WHEN 值1 THEN 2
-		ELSE 0 
-	END
-FROM
-	表名;
-# 无字段
-SELECT
-	CASE
-		WHEN 条件1 THEN 1
-		WHEN 条件2 THEN 2
-		ELSE 0 
-	END
-FROM
-	表名;
+EXPLAIN SELECT * FROM 表名 WHERE 条件;
 ```
 
-- **WHILE()循环**
+| 字段       | 说明                                         |
+| ---------- | -------------------------------------------- |
+| **id**     | 查询序号                                     |
+| **type**   | 访问类型(性能从好到差)                       |
+| **key**    | 实际使用的索引                               |
+| **rows**   | 预估扫描行数                                 |
+| **Extra**  | 额外信息                                     |
+
+| type值     | 说明               |
+| ---------- | ------------------ |
+| **const**  | 主键/唯一索引查询  |
+| **ref**    | 普通索引查询       |
+| **range**  | 范围查询           |
+| **index**  | 全索引扫描         |
+| **ALL**    | 全表扫描(最差)     |
+
+### 用户与权限
 
 ```sql
-DECLARE i INT DEFAULT 0;
-WHILE i<=3 DO
-	SET i = i + 1;
-END WHILE;
+--创建用户
+CREATE USER '用户名'@'localhost' IDENTIFIED BY '密码';
+
+--授权
+GRANT ALL PRIVILEGES ON 数据库名.* TO '用户名'@'localhost';
+GRANT SELECT, INSERT ON 数据库名.* TO '用户名'@'localhost';
+
+--刷新权限
+FLUSH PRIVILEGES;
+
+--查看权限
+SHOW GRANTS FOR '用户名'@'localhost';
+
+--撤销权限
+REVOKE SELECT ON 数据库名.* FROM '用户名'@'localhost';
+
+--删除用户
+DROP USER '用户名'@'localhost';
 ```
 
-### 数据库备份
+### 备份与恢复
+
+#### 备份(mysqldump)
+
+```shell
+#备份单个数据库
+mysqldump -u root -p 数据库名 > backup.sql
+
+#备份多个数据库
+mysqldump -u root -p --databases 库1 库2 > backup.sql
+
+#备份所有数据库
+mysqldump -u root -p --all-databases > backup.sql
+
+#备份指定表
+mysqldump -u root -p 数据库名 表名 > backup.sql
+```
+
+#### 恢复
+
+```shell
+#命令行恢复
+mysql -u root -p 数据库名 < backup.sql
+```
 
 ```sql
-SELECT * FROM 数据库名.表名 INTO outfilte '备份位置';
+--SQL方式恢复
+SOURCE backup.sql;
 ```
+
+#### 导出查询结果
+
+```sql
+SELECT * FROM 表名 INTO OUTFILE '/path/to/file.csv'
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+```
+
+### SQL优化建议
+
+| 优化点               | 说明                                   |
+| -------------------- | -------------------------------------- |
+| 避免 `SELECT *`      | 只查询需要的字段                       |
+| 使用 `LIMIT`         | 大数据量查询必须分页                   |
+| 索引字段避免函数     | `WHERE YEAR(date)=2024` 无法使用索引   |
+| 避免 `!=`、`<>`      | 可能导致索引失效                       |
+| `LIKE` 避免左模糊    | `LIKE '%x'` 无法使用索引               |
+| 使用 `EXISTS` 替代 `IN` | 子查询数据量大时效率更高            |
+| 小表驱动大表         | JOIN时小表作为驱动表                   |
+| 避免 `OR`            | 改用 `UNION ALL`                       |

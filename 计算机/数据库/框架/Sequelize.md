@@ -1,6 +1,6 @@
 ## Sequelize
 
-- **`Node.js` 的数据库框架**
+- **`Node.js` 的 ORM 数据库框架,支持 MySQL、PostgreSQL、SQLite、MSSQL 等**
 
 ### 初始化
 
@@ -11,396 +11,364 @@ npm install mysql2 -S
 npm install sequelize -S
 ```
 
-- **数据库连接(config/mysql-config.js)**
+- **数据库连接(config/db.js)**
 
-```js
-const {Sequelize, DataTypes, Op} = require("sequelize");
+```javascript
+const { Sequelize, DataTypes, Op } = require("sequelize");
 
-const DIALECT = "mysql"; //数据库类型
-const DATABASETABLE = 'my_project'; //数据库表
-const HOSTNAME = 'root'; //用户名
-const PASSWORD = '000000'; //密码
-const HOST = '127.0.0.1'; //数据库地址
-const PORT = 3306; //端口号
-
-const seq = new Sequelize(
-	DATABASETABLE,
-	HOSTNAME,
-	PASSWORD, {
-	host: HOST,
-	port: PORT,
-	dialect: DIALECT,
-	pool: {
-		max: 5,
-		min: 0,
-		acquire: 3000
-	}
+const sequelize = new Sequelize('my_project', 'root', '000000', {
+    host: '127.0.0.1',       //数据库地址
+    port: 3306,              //端口号
+    dialect: 'mysql',        //数据库类型
+    logging: false,          //关闭日志
+    pool: {                  //连接池配置
+        max: 5,              //最大连接数
+        min: 0,              //最小连接数
+        acquire: 30000,      //获取连接超时时间(ms)
+        idle: 10000          //空闲连接释放时间(ms)
+    }
 });
 
-const db = {
-	DataTypes: DataTypes,
-	sequelize: seq,
-	Op: Op
-};
+//测试连接
+sequelize.authenticate()
+    .then(() => console.log('数据库连接成功'))
+    .catch(err => console.log('数据库连接失败', err));
 
-module.exports = db;
+module.exports = { sequelize, DataTypes, Op };
 ```
 
-- **封装数据库(models/index.js)**
+- **定义模型(models/user.js)**
 
-```js
-const db = require("../config/mysql-config");
+```javascript
+const { sequelize, DataTypes } = require("../config/db");
 
-const m_type = db.sequelize.define("m_type", { //数据表名
-	id: { //字段名
-		type: db.DataTypes.INTEGER, //数据类型
-		primaryKey: true //是否为主键
-        allowNull: false, //是否允许为空
-        autoIncrement: true, //自动自增
-        unique: true, //是否唯一
-        comment: 'id',//备注
+const User = sequelize.define("User", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,      //主键
+        autoIncrement: true,   //自增
+        allowNull: false,      //不允许为空
+        comment: '用户ID'      //备注
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true           //唯一约束
+    },
+    email: {
+        type: DataTypes.STRING,
         validate: {
-			is: /^[a-z]+$/i,          // 匹配这个 RegExp
-			is: ["^[a-z]+$",'i'],     // 与上面相同,以字符串构造 RegExp
-			not: /^[a-z]+$/i,         // 不匹配 RegExp
-			not: ["^[a-z]+$",'i'],    // 与上面相同,但是以字符串构造 RegExp
-			isEmail: true,            // 检查 email 格式
-			isUrl: true,              // 检查 url 格式
-			isIP: true,               // 检查 IPv4 或 IPv6 格式
-			isIPv4: true,             // 检查 IPv4 格式
-			isIPv6: true,             // 检查 IPv6 格式
-			isAlpha: true,            // 只允许字母
-			isAlphanumeric: true,     // 将仅允许使用字母数字
-			isNumeric: true,          // 只允许数字
-			isInt: true,              // 检查有效的整数
-			isFloat: true,            // 检查有效的浮点数
-			isDecimal: true,          // 检查任何数字
-			isLowercase: true,        // 检查小写
-			isUppercase: true,        // 检查大写
-			notNull: true,            // 不允许为空
-			isNull: true,             // 只允许为空
-			notEmpty: true,           // 不允许空字符串
-			equals: 'text',           // 字符串判断
-			contains: 'text',         // 强制特定子字符串
-			notIn: [['text', 'bar']], // 检查值不是这些之一
-			isIn: [['text', 'bar']],  // 检查值是其中之一
-			notContains: 'bar',       // 不允许特定的子字符串
-			len: [2, 10],             // 仅允许长度在2到10之间的值
-			isUUID: 4,                // 只允许 uuid
-			isDate: true,             // 只允许日期字符串
-			isAfter: "2011-11-05",    // 仅允许特定日期之后的日期字符串
-			isBefore: "2011-11-05",   // 仅允许特定日期之前的日期字符串
-			max: 23,                  // 仅允许值 <= 23
-			min: 23,                  // 仅允许值 >= 23
-			isCreditCard: true,       // 检查有效的信用卡号
-			//自定义验证器
-      		isEven(value) {
-      			if (parseInt(value) % 2 !== 0) {
-      		    	throw new Error('');
-      		  	}
-      		}
-    	}
-	},
-	type: {
-		type: db.DataTypes.STRING,
-        allowNull: false
-	}
+            isEmail: true      //验证器:必须为邮箱格式
+        }
+    }
 }, {
-	tableName: 'm_type',
-	timestamps: false
+    tableName: 'user',         //指定表名
+    timestamps: false          //关闭createdAt/updatedAt
 });
 
-module.exports = {
-	m_type
-}
+module.exports = User;
 ```
+
+- **字段配置项**
+
+| 配置项           | 说明                     |
+| ---------------- | ------------------------ |
+| type             | 数据类型                 |
+| primaryKey       | 是否为主键               |
+| autoIncrement    | 是否自增                 |
+| allowNull        | 是否允许为空             |
+| unique           | 是否唯一                 |
+| defaultValue     | 默认值                   |
+| comment          | 字段备注                 |
+| validate         | 验证规则                 |
+
+- **常用验证器**
+
+| 验证器             | 说明                     |
+| ------------------ | ------------------------ |
+| isEmail            | 邮箱格式                 |
+| isUrl              | URL格式                  |
+| isInt              | 整数                     |
+| isFloat            | 浮点数                   |
+| len: [min, max]    | 字符串长度范围           |
+| isIn: [[values]]   | 值在指定列表中           |
+| notEmpty           | 不允许空字符串           |
+| is: /regex/        | 匹配正则                 |
 
 ### 数据类型
 
-| 名称     | 数据类型 |
-| -------- | -------- |
-| STRING   | VARCHAR  |
-| TEXT     | TEXT     |
-| TINYTEXT | TINYTEXT |
-| INTEGER  | INT      |
-| BIGINT   | BIGINT   |
-| FLOAT    | FLOAT    |
-| DOUBLE   | DOUBLE   |
-| DATE     | DATETIME |
-| DATEONLY | DATE     |
-| JSON     | JSON     |
+| Sequelize 类型   | MySQL 类型  | 说明           |
+| ---------------- | ----------- | -------------- |
+| **STRING**       | VARCHAR     | 字符串(255)    |
+| **STRING(64)**   | VARCHAR(64) | 指定长度字符串 |
+| **TEXT**         | TEXT        | 长文本         |
+| **INTEGER**      | INT         | 整数           |
+| **BIGINT**       | BIGINT      | 长整数         |
+| **FLOAT**        | FLOAT       | 单精度浮点     |
+| **DOUBLE**       | DOUBLE      | 双精度浮点     |
+| **DECIMAL**      | DECIMAL     | 精确小数       |
+| **BOOLEAN**      | TINYINT(1)  | 布尔值         |
+| **DATE**         | DATETIME    | 日期时间       |
+| **DATEONLY**     | DATE        | 仅日期         |
+| **JSON**         | JSON        | JSON数据       |
+| **UUID**         | CHAR(36)    | UUID           |
+| **ENUM**         | ENUM        | 枚举           |
 
 ### 添加数据
 
 ```javascript
-/**
- * 添加单条数据
- * INSERT INTO 表名 (id，name) VALUES (1，"name");
- */
-表名.create({
-    id: 1,
-    name: "name"
-});
-/**
- * 添加多条数据
- * INSERT INTO 表名 (id，name) VALUES (1，"name1"), (2，"name2");
- */
-表名.bulkCreate({
-    id: 1,
-    name: "name1"
-}, {
-    id: 2,
-    name: "name2"
-});
+//添加单条
+// INSERT INTO user (id, name) VALUES (1, "Tom");
+await User.create({ id: 1, name: "Tom" });
+
+//添加多条
+// INSERT INTO user (id, name) VALUES (1, "Tom"), (2, "Jerry");
+await User.bulkCreate([
+    { id: 1, name: "Tom" },
+    { id: 2, name: "Jerry" }
+]);
 ```
 
 ### 修改数据
 
 ```javascript
-/**
- * 修改 id=1 的 name 为 "name2"
- * UPDATE 表名 SET name="name2" WHERE id=1;
- */
-表名.update({ name: "name2" }, {
-	where: {
-		id: 1
-  	}
-});
+//按条件修改
+// UPDATE user SET name="Jerry" WHERE id=1;
+await User.update({ name: "Jerry" }, { where: { id: 1 } });
+
+//批量修改
+// UPDATE user SET status=0 WHERE age > 30;
+await User.update({ status: 0 }, { where: { age: { [Op.gt]: 30 } } });
+
+//查找后修改
+const user = await User.findByPk(1);
+user.name = "NewName";
+await user.save();
 ```
 
 ### 删除数据
 
 ```javascript
-/**
- * 删除单条数据
- * DELETE FROM 表名 WHERE id=1;
- */
-表名.destroy({
-    where: {
-		id: 1
-  	}
-});
-/**
- * 删除所有数据
- */
-表名.destroy({
-    truncate: true
-});
+//按条件删除
+// DELETE FROM user WHERE id=1;
+await User.destroy({ where: { id: 1 } });
+
+//删除所有数据(清空表)
+await User.destroy({ truncate: true });
 ```
 
 ### 单表查询
 
-#### 初始化
+#### 查询方法
+
+| 方法               | 说明                       |
+| ------------------ | -------------------------- |
+| findAll()          | 查询所有数据               |
+| findOne()          | 查询第一条匹配数据         |
+| findByPk(id)       | 按主键查询                 |
+| findOrCreate()     | 查询,不存在则创建          |
+| findAndCountAll()  | 查询数据+返回总数          |
+| count()            | 返回总数                   |
+| max(field)         | 返回最大值                 |
+| min(field)         | 返回最小值                 |
+| sum(field)         | 返回总和                   |
+
+#### 查询特定字段
 
 ```javascript
-const { 表名 } = require('../models/xxx');
-const Op = db.Op;
+// SELECT id, name FROM user;
+await User.findAll({ attributes: ['id', 'name'] });
+
+// SELECT id AS userId, name FROM user; (字段别名)
+await User.findAll({ attributes: [['id', 'userId'], 'name'] });
+
+//排除特定字段
+await User.findAll({ attributes: { exclude: ['password'] } });
 ```
 
-#### 查询类型
+#### WHERE 操作符(Op)
 
 ```javascript
-表名.count(); //返回总数数字
-表名.max("字段名"); //返回最大值
-表名.min("字段名"); //返回最小值
-表名.sum("字段名"); //返回总和
-表名.findAll(); //返回所有数据
-表名.findByPk(id); //返回符合主键Id的所有数据
-表名.findOne(); //返回第一条数据
-表名.findOrCreate(); //先查询,如果没有就添加一条新数据
-表名.findAndCountAll(); //返回总数和所有数据
-```
+const { Op } = require("sequelize");
 
-#### 查询特定字段的数据
-
-```javascript
-/**
- * SELECT id, name FROM 表名;
- */
-表名.findAll({
-	attributes: ['id', 'name']	
-});
-```
-
-#### 查询字段别名的数据
-
-```javascript
-/**
- * SELECT userid AS id FROM 表名;
- */
-表名.findAll({
-	attributes: [['userid', 'id']]
-});
-```
-
-#### `WHERE` 操作符
-
-```javascript
-表名.findAll({
-	where: {
-   		[Op.and]: { id: 5, name: "name" }, // id = 5 AND name = "name"
-   		[Op.or]: { id: 5, name: "name" }, // id = 5 OR name = "name"
-   		name: {
-			[Op.eq]: 3, // name = 3
-			[Op.ne]: 20, // name != 20
-			[Op.is]: null, // name IS NULL
-			[Op.not]: true, // name IS NOT TRUE
-			[Op.or]: [5, 6], // name = 5 OR name = 6
-			// 数字比较
-			[Op.gt]: 6, // name > 6
-			[Op.gte]: 6, // name >= 6
-			[Op.lt]: 10, // name < 10
-			[Op.lte]: 10, // name <= 10
-			[Op.between]: [6, 10], // name BETWEEN 6 AND 10
-			[Op.notBetween]: [11, 15], // name NOT BETWEEN 11 AND 15
-			// 其它操作符
-			[Op.all]: sequelize.literal('SELECT 1'), // name > ALL (SELECT 1)
-			[Op.in]: [1, 2], // name IN [1, 2]
-			[Op.notIn]: [1, 2], // name NOT IN [1, 2]
-			[Op.like]: '文字', // name LIKE '文字'
-			[Op.notLike]: '文字', // name NOT LIKE '文字'
-		}
-	}
+await User.findAll({
+    where: {
+        // 逻辑运算
+        [Op.and]: [{ id: 5 }, { name: "Tom" }],   // AND
+        [Op.or]: [{ id: 5 }, { name: "Tom" }],    // OR
+        // 比较运算
+        id: {
+            [Op.eq]: 3,              // = 3
+            [Op.ne]: 20,             // != 20
+            [Op.gt]: 6,              // > 6
+            [Op.gte]: 6,             // >= 6
+            [Op.lt]: 10,             // < 10
+            [Op.lte]: 10,            // <= 10
+            [Op.between]: [6, 10],   // BETWEEN 6 AND 10
+            [Op.notBetween]: [1, 5], // NOT BETWEEN 1 AND 5
+            [Op.in]: [1, 2, 3],      // IN (1, 2, 3)
+            [Op.notIn]: [1, 2],      // NOT IN (1, 2)
+            [Op.is]: null,           // IS NULL
+            [Op.not]: null           // IS NOT NULL
+        },
+        // 字符串匹配
+        name: {
+            [Op.like]: '%Tom%',      // LIKE '%Tom%'
+            [Op.notLike]: '%Tom%',   // NOT LIKE '%Tom%'
+            [Op.startsWith]: 'Tom',  // LIKE 'Tom%'
+            [Op.endsWith]: 'Tom'     // LIKE '%Tom'
+        }
+    }
 });
 ```
 
 #### 排序
 
 ```javascript
-/**
- * SELECT * FROM 表名 ORDER BY 字段名 ASC/DESC;
- */
-表名.findAll({
-	order: [['id', 'DESC/ASC']]
+// SELECT * FROM user ORDER BY id DESC, name ASC;
+await User.findAll({
+    order: [['id', 'DESC'], ['name', 'ASC']]
 });
 ```
 
 #### 分页
 
 ```javascript
-/**
- * SELECT * FROM 表名 LIMIT startPage, pageSize;
- */
-let startPage = (page - 1) * pageSize;
-表名.findAll({
-    offset: startPage,
+// SELECT * FROM user LIMIT 10 OFFSET 20;
+let page = 3, pageSize = 10;
+await User.findAll({
+    offset: (page - 1) * pageSize,
+    limit: pageSize
+});
+
+//带总数的分页查询
+const { count, rows } = await User.findAndCountAll({
+    offset: (page - 1) * pageSize,
     limit: pageSize
 });
 ```
 
 ### 关联查询
 
+#### 关联类型
+
+| 方法              | 说明                 | 外键位置   |
+| ----------------- | -------------------- | ---------- |
+| hasOne()          | 一对一               | 目标表     |
+| belongsTo()       | 一对一(反向)         | 源表       |
+| hasMany()         | 一对多               | 目标表     |
+| belongsToMany()   | 多对多               | 中间表     |
+
+#### 定义关联
+
 ```javascript
-const A = db.sequelize.define("A", {
-	id: {
-		type: db.DataTypes.INTEGER,
-		primaryKey: true,
-        autoIncrement: true
-	},
-    type_id: {
-		type: db.DataTypes.INTEGER,
-		primaryKey: true
-	},
-	name: {
-		type: db.DataTypes.STRING
-	}
-}, {
-	tableName: 'A',
-	timestamps: false
+//一对一: User有一个Profile
+User.hasOne(Profile, { foreignKey: 'user_id', as: 'profile' });
+Profile.belongsTo(User, { foreignKey: 'user_id' });
+
+//一对多: User有多篇Post
+User.hasMany(Post, { foreignKey: 'user_id', as: 'posts' });
+Post.belongsTo(User, { foreignKey: 'user_id' });
+
+//多对多: User和Role通过中间表关联
+User.belongsToMany(Role, { through: 'user_role', foreignKey: 'user_id' });
+Role.belongsToMany(User, { through: 'user_role', foreignKey: 'role_id' });
+```
+
+#### 关联查询(include)
+
+```javascript
+//查询User及其Profile(一对一)
+await User.findAll({
+    include: [{ model: Profile, as: 'profile' }]
 });
-const B = db.sequelize.define("B", {
-	type_id: {
-		type: db.DataTypes.INTEGER,
-		primaryKey: true,
-        autoIncrement: true
-	},
-	type: {
-		type: db.DataTypes.STRING
-	}
-}, {
-	tableName: 'B',
-	timestamps: false
+
+//查询User及其所有Post(一对多)
+await User.findAll({
+    include: [{ model: Post, as: 'posts', attributes: ['title'] }]
 });
-const A_B = db.sequelize.define("A_B", {
-    a_b_id: {
-		type: db.DataTypes.INTEGER,
-		primaryKey: true,
-        autoIncrement: true
-	},
-	id: {
-		type: db.DataTypes.INTEGER
-	},
-	type_id: {
-		type: db.DataTypes.INTEGER
-	}
-}, {
-	tableName: 'A_B',
-	timestamps: false
-});
-//一对一关联,外键在B
-A.hasOne(B, {
-    as: "B", //别名
-	foreignKey: 'type_id',
-	targetKey: 'type_id',
-    onDelete: 'RESTRICT', //删除时
-  	onUpdate: 'RESTRICT' //更新时
-});
-//一对一关联,外键在A, A属于B
-A.belongsTo(B, {
-	foreignKey: 'type_id',
-	targetKey: 'type_id'
-});
-//一对多关联,外键在B
-A.hasMany(B, {
-	foreignKey: 'type_id',
-	targetKey: 'type_id'
-});
-//多对多关联
-A.belongsToMany(B, {
-	through: 'A_B' //关联表名
+
+//嵌套关联
+await User.findAll({
+    include: [{
+        model: Post,
+        as: 'posts',
+        include: [{ model: Comment, as: 'comments' }]
+    }]
 });
 ```
 
-```javascript
-A.findAll({
-	include: {
-        model: B,
-        as: 'B'
-    }
-});
-```
-
-### 运行函数
+### 聚合与分组
 
 ```javascript
-await 表名.findAll({
-	attributes: [[db.sequelize.fn('函数名', db.sequelize.col('参数')), '别名']]
+//分组统计
+await User.findAll({
+    attributes: ['status', [sequelize.fn('COUNT', sequelize.col('id')), 'count']],
+    group: ['status']
 });
+
+//聚合函数
+await User.count({ where: { status: 1 } });
+await User.max('age');
+await User.sum('score', { where: { status: 1 } });
 ```
+
+### 钩子(Hooks)
+
+```javascript
+//定义钩子
+User.beforeCreate(async (user, options) => {
+    //创建前执行,如加密密码
+});
+User.afterCreate(async (user, options) => {
+    //创建后执行
+});
+
+//常用钩子
+```
+
+| 钩子                 | 触发时机         |
+| -------------------- | ---------------- |
+| beforeCreate         | 创建前           |
+| afterCreate          | 创建后           |
+| beforeUpdate         | 更新前           |
+| afterUpdate          | 更新后           |
+| beforeDestroy        | 删除前           |
+| afterDestroy         | 删除后           |
+| beforeBulkCreate     | 批量创建前       |
+| afterBulkCreate      | 批量创建后       |
 
 ### 事务
 
-```js
+```javascript
 const t = await sequelize.transaction();
 try {
-	await 表名.create({ }, { transaction: t });
-	await 表名.destroy({
-	    where: {
-			id: 1
-	  	},
-        transaction: t
-	});
-    await 表名.findAll({
-	    where: {
-			id: 1
-	  	},
-        transaction: t
-	});
-	//提交事务
-	await t.commit();
+    await User.create({ name: "Tom" }, { transaction: t });
+    await User.destroy({ where: { id: 1 } }, { transaction: t });
+    await User.update({ status: 1 }, { where: { id: 2 } }, { transaction: t });
+    //提交事务
+    await t.commit();
 } catch (err) {
-  	//回滚事务
-  	await t.rollback();
+    //回滚事务
+    await t.rollback();
 }
 ```
 
+- 所有操作必须传入 `{ transaction: t }` 参数
+- 任一步骤失败则整体回滚,保证数据一致性
+
+### 原始SQL查询
+
+```javascript
+//查询
+const [results] = await sequelize.query('SELECT * FROM user WHERE id = :id', {
+    replacements: { id: 1 },
+    type: sequelize.QueryTypes.SELECT
+});
+
+//增删改
+await sequelize.query('UPDATE user SET name = :name WHERE id = :id', {
+    replacements: { name: 'Tom', id: 1 },
+    type: sequelize.QueryTypes.UPDATE
+});
+```

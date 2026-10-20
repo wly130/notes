@@ -1,4 +1,6 @@
-- **Typora快捷键**
+## Markdown语法
+
+### Typora快捷键
 
 | 快捷键                          | 作用                    | 快捷键                               | 作用                    |
 | ------------------------------- | ----------------------- | ------------------------------------ | ----------------------- |
@@ -6,301 +8,470 @@
 | **<kbd>Ctrl + T</kbd>**         | **插入表格**            | **<kbd>Ctrl + Shift + K</kbd>**      | **插入代码块**          |
 | **<kbd>Ctrl + B</kbd>**         | **加粗**                | **<kbd>Ctrl + I</kbd>**              | **倾斜**                |
 | **<kbd>Ctrl + Shift + I</kbd>** | **插入图片**            | **<kbd>Ctrl + K</kbd>**              | **插入链接**            |
-| **<kbd>Ctrl + /</kbd>**         | **源码 / 编辑模式切换** | **<kbd>Ctrl + Shift + L</kbd>**      | **侧边栏显示/隐藏切换** |
-| **<kbd>Ctrl + Shift + ]</kbd>** | **插入无序列表**        | **<kbd>Ctrl + Shift + [</kbd>**      | **插入有序列表**        |
-| **<kbd>Ctrl + F</kbd>**         | **插入标题**            | **<kbd>Ctrl + U</kbd>**              | **下划线**              |
+| **<kbd>Ctrl + /</kbd>**         | **源码/编辑模式切换**   | **<kbd>Ctrl + Shift + L</kbd>**      | **侧边栏显示/隐藏切换** |
+| **<kbd>Ctrl + Shift + ]</kbd>** | **提升标题级别**        | **<kbd>Ctrl + Shift + [</kbd>**      | **降低标题级别**        |
+| **<kbd>Ctrl + 1~6</kbd>**       | **插入1~6级标题**       | **<kbd>Ctrl + U</kbd>**              | **下划线**              |
 | **<kbd>Ctrl + L</kbd>**         | **选中一整行**          | **<kbd>Ctrl + D</kbd>**              | **选中单词**            |
-| **<kbd>Ctrl + Home</kbd>**      | **跳到头部**            | **<kbd>Ctrl + End</kbd>**            | **跳到底部**            |
-| **<kbd>Ctrl + Enter</kbd>**     | **插入下面一行表格**    | **<kbd>Ctrl + Shift + Delete</kbd>** | **删除表格当前行**      |
+| **<kbd>Ctrl + Home</kbd>**      | **跳到文档头部**        | **<kbd>Ctrl + End</kbd>**            | **跳到文档底部**        |
+| **<kbd>Ctrl + Enter</kbd>**     | **下方插入表格行**      | **<kbd>Ctrl + Shift + Delete</kbd>** | **删除表格当前行**      |
+| **<kbd>Ctrl + Shift + M</kbd>** | **插入公式块**          | **<kbd>Ctrl + =</kbd>**              | **放大**                |
+| **<kbd>Ctrl + Shift + 5</kbd>** | **插入删除线**          | **<kbd>Ctrl + -</kbd>**              | **缩小**                |
 
+### 标题
+
+```markdown
 # 标题 1
-
 ## 标题 2
-
 ### 标题 3
-
 #### 标题 4
-
 ##### 标题 5
-
 ###### 标题 6
+```
 
-_斜体文本_
-**粗体文斜本**
-**_粗斜体文本_**
+- `#` 号后需要**空格**
+- 也支持 `标题1` + `===` (一级) 或 `---` (二级) 的写法
+
+### 段落与换行
+
+- **段落**：空一行分隔
+- **换行**：行末加**两个空格**或使用 `<br>`
+- **分隔线**：三个或以上的 `---`、`***`、`___`
+
+```markdown
+这是第一段
+
+这是第二段
+
+第一行(末尾两个空格)  
+第二行
+
+---
+***
+```
+
+### 文本样式
+
+```markdown
+*斜体* 或 _斜体_
+**粗体** 或 __粗体__
+***粗斜体*** 或 ___粗斜体___
 ~~删除线~~
-<u>带下划线文本</u>
-==标记==
-**H~2~O**
-**2^n^**
+<u>下划线</u>
+==高亮/标记==
+H~2~O (下标)
+2^n^ (上标)
+```
 
-- **支持的代码语言**
+| 效果         | 语法               |
+| ------------ | ------------------ |
+| *斜体*       | `*斜体*`           |
+| **粗体**     | `**粗体**`         |
+| ***粗斜体*** | `***粗斜体***`     |
+| ~~删除线~~   | `~~删除线~~`       |
+| <u>下划线</u>| `<u>下划线</u>`    |
+| ==高亮==     | `==高亮==`         |
+| H~2~O        | `H~2~O`            |
+| 2^n^         | `2^n^`             |
 
-| APL        | asciiarmor     | ASP                 | assembly         | bash              |
-| ---------- | -------------- | ------------------- | ---------------- | ----------------- |
-| basic      | **C**          | **C++**             | **C#**           | **CSS**           |
-| cassandra  | ceylon         | clike               | clojure          | cmake             |
-| cobol      | coffeescript   | commonlisp          | **cpp**          | CQL               |
-| crystal    | csharp         | cypher              | cython           | D                 |
-| **dart**   | diff           | django              | dockerfile       | dtd               |
-| dylan      | ejs            | elixir              | elm              | embeddedjs        |
-| erb        | erlang         | F#                  | **flow(流程图)** | forth             |
-| fortran    | fsharp         | gas                 | gfm              | glsl              |
-| go         | gherkin        | groovy              | **html**         | **http**          |
-| handlebars | haskell        | haxe                | htaccess         | **hxml**          |
-| idl        | **ini**        | jade                | **java**         | **javascript/js** |
-| jinja2     | **json**       | **jsp**             | **jsx**          | julia             |
-| **kotlin** | latex          | **less**            | lisp             | livescipt         |
-| lua        | makefile       | mariadb             | **markdown**     | mathematica       |
-| matlab     | mbox           | **mermaid(流程图)** | mssql            | **mysql**         |
-| **nginx**  | nim            | nsis                | objc             | **objective-c**   |
-| ocaml      | octave         | oz                  | pascal           | perl              |
-| perl6      | pgp            | **php**             | php+HTML         | plsql             |
-| powershell | properties     | protobuf            | pseudocode       | pseudocode        |
-| **python** | **react**      | reStructuredText    | rst              | ruby              |
-| rust       | SAS            | **SQL**             | scala            | scheme            |
-| **scss**   | sequence       | **shell/sh**        | smalltalk        | solidity          |
-| SPARQL     | spreadsheet    | sqlite              | squirrel         | **stylus**        |
-| swift      | tcl            | tex                 | tiddlywiki       | toml              |
-| tsx        | **typescript** | turtle              | twig             | **vbscript/vb**   |
-| velocity   | verilog        | vhdl                | **vue**          | visual basic      |
-| web-idl    | wiki           | xaml                | **xml**          | xml-dtd           |
-| xquery     | yacas          | **yaml**            |                  |                   |
+### 转义字符
 
-- **流程图**
+- 使用反斜杠 `\` 转义特殊字符
 
-| graph TB     | 从上到下     |
-| ------------ | ------------ |
-| **graph BT** | **从下到上** |
-| **graph LR** | **从左到右** |
-| **graph RL** | **从右到左** |
+```markdown
+\*不是斜体\*
+\# 不是标题
+\[不是链接\]
+```
+
+| 需转义字符 | 说明       |
+| ---------- | ---------- |
+| `\`        | 反斜杠     |
+| `` ` ``    | 反引号     |
+| `*`        | 星号       |
+| `_`        | 下划线     |
+| `{}`       | 花括号     |
+| `[]`       | 方括号     |
+| `()`       | 圆括号     |
+| `#`        | 井号       |
+| `+`        | 加号       |
+| `-`        | 减号       |
+| `.`        | 英文句点   |
+| `!`        | 感叹号     |
+
+### 列表
+
+#### 无序列表
+
+```markdown
+- 列表项
+* 列表项
++ 列表项
+```
+
+#### 有序列表
+
+```markdown
+1. 列表项
+2. 列表项
+3. 列表项
+```
+
+#### 任务列表
+
+```markdown
+- [x] 已完成任务
+- [ ] 未完成任务
+```
+
+#### 嵌套列表
+
+```markdown
+- 列表 1
+    - 子列表
+        - 子子列表
+- 列表 2
+
+1. 有序列表
+    - 嵌套无序列表
+2. 有序列表
+```
+
+- 缩进使用 **4个空格** 或 **1个Tab**
+
+### 区块引用
+
+```markdown
+> 引用内容
+>
+> > 嵌套引用
+> >
+> > 可以包含 `代码`、**粗体** 等
+```
+
+> 引用内容
+>
+> > 嵌套引用
+
+### 代码
+
+#### 行内代码
+
+```markdown
+使用 `console.log()` 输出日志
+```
+
+#### 代码块
+
+````markdown
+```javascript
+function test() {
+    console.log("Hello");
+}
+```
+````
+
+- 使用三个反引号包裹，可指定语言实现**语法高亮**
+
+#### 支持的代码语言(常用)
+
+| 语言           | 标注           | 语言         | 标注         |
+| -------------- | -------------- | ------------ | ------------ |
+| JavaScript     | `javascript`   | TypeScript   | `typescript` |
+| HTML           | `html`         | CSS          | `css`        |
+| Java           | `java`         | Python       | `python`     |
+| Go             | `go`           | C/C++        | `c` / `cpp`  |
+| C#             | `csharp`       | PHP          | `php`        |
+| SQL            | `sql`          | Shell        | `shell`      |
+| JSON           | `json`         | YAML         | `yaml`       |
+| XML            | `xml`          | Markdown     | `markdown`   |
+| Vue            | `vue`          | React/JSX    | `jsx`        |
+| Mermaid        | `mermaid`      | Flow         | `flow`       |
+| Diff           | `diff`         | Dockerfile   | `dockerfile` |
+
+### 链接
+
+```markdown
+[链接文字](https://example.com)
+[链接文字](https://example.com "标题")
+<https://example.com>
+[引用链接][ref]
+
+[ref]: https://example.com
+```
+
+#### 锚点链接
+
+```markdown
+[跳转到标题](#标题名)
+```
+
+- 标题名转小写，空格替换为 `-`
+- 例：`## 我的标题` → `[链接](#我的标题)`
+
+### 图片
+
+```markdown
+![图片描述](图片地址)
+![图片描述](图片地址 "标题")
+<img src="图片地址" width="50%">
+```
+
+- 图片链接：`[![图片描述](图片地址)](链接地址)`
+
+### 表格
+
+```markdown
+| 左对齐 | 右对齐 | 居中对齐 |
+| :----- | -----: | :------: |
+| 单元格 | 单元格 | 单元格   |
+| 单元格 | 单元格 | 单元格   |
+```
+
+| 对齐方式 | 语法       |
+| -------- | ---------- |
+| 左对齐   | `:-----`   |
+| 右对齐   | `-----:`   |
+| 居中     | `:----:`   |
+
+#### 表格内特殊内容
+
+```markdown
+| 内容       | 示例                     |
+| ---------- | ------------------------ |
+| 行内代码   | `code`                   |
+| 链接       | [文字](url)              |
+| 换行       | 第一行<br>第二行         |
+| 加粗       | **粗体**                 |
+```
+
+### 脚注
+
+```markdown
+这里有一个脚注[^1]
+
+[^1]: 脚注内容
+```
+
+这里有一个脚注[^demo]
+
+[^demo]: 这是脚注的内容
+
+### 目录(TOC)
+
+```markdown
+[TOC]
+<!-- 或 -->
+[[toc]]
+```
+
+- 自动生成文档目录(根据标题层级)
+
+### 数学公式
+
+#### 行内公式
+
+```markdown
+$E = mc^2$
+```
+
+#### 公式块
+
+```markdown
+$$
+\frac{n!}{k!(n-k)!} = \binom{n}{k}
+$$
+```
+
+#### 常用LaTeX语法
+
+| 语法                 | 效果               |
+| -------------------- | ------------------ |
+| `$x^2$`              | 上标               |
+| `$x_2$`              | 下标               |
+| `$\frac{a}{b}$`      | 分数               |
+| `$\sqrt{x}$`         | 根号               |
+| `$\sum_{i=1}^n$`     | 求和               |
+| `$\alpha, \beta$`    | 希腊字母           |
+| `$\neq, \leq, \geq$` | 不等号             |
+| `$\infty$`           | 无穷大             |
+| `$\times, \div$`     | 乘除号             |
+
+### HTML嵌入
+
+```markdown
+<u>下划线</u>
+<kbd>Ctrl</kbd> + <kbd>C</kbd>
+<font color="red">红色文字</font>
+<details>
+    <summary>点击展开</summary>
+    隐藏内容
+</details>
+```
+
+#### 音频
+
+```html
+<audio controls>
+    <source src="音频地址.mp3">
+</audio>
+```
+
+#### 视频
+
+```html
+<video src="视频地址.mp4" controls style="width:100%"></video>
+```
+
+### Mermaid图表
+
+#### 流程图
+
+| 方向       | 语法       |
+| ---------- | ---------- |
+| 从上到下   | `graph TD` |
+| 从下到上   | `graph BT` |
+| 从左到右   | `graph LR` |
+| 从右到左   | `graph RL` |
 
 ```mermaid
 graph TD;
-    A{菱形};
-    B(圆角);
-    C((圆));
-    D-->|a=1| E[结果1];
-    F>箭头];
-    
-    箭头-->H;
-    无箭头---N;
-    粗箭头==>J;
-    虚线-.-P;
-    虚箭头-.->S
+    A{菱形判断};
+    B(圆角矩形);
+    C((圆形));
+    D[矩形] --> |标签| E[结果];
+    F --> G;
+    H --- I;
+    J ==> K;
+    L -.-> M;
 ```
 
-- **状态图**
+| 节点形状         | 语法           |
+| ---------------- | -------------- |
+| 矩形             | `A[文字]`      |
+| 圆角矩形         | `A(文字)`      |
+| 圆形             | `A((文字))`    |
+| 菱形(判断)       | `A{文字}`      |
+| 箭头形           | `A>文字]`      |
 
-```mermaid
-stateDiagram
-[*] --> First
-First --> Second
-First --> Third
+| 连线类型         | 语法           |
+| ---------------- | -------------- |
+| 实线箭头         | `A --> B`      |
+| 带标签箭头       | `A -->|标签| B`|
+| 粗线箭头         | `A ==> B`      |
+| 虚线箭头         | `A -.-> B`     |
+| 无箭头实线       | `A --- B`      |
 
-state First {
-    [*] --> fir
-    fir --> [*]
-}
-state Second {
-    [*] --> sec
-    sec --> [*]
-}
-state Third {
-    [*] --> thi
-    thi --> [*]
-}
-```
+#### 时序图
 
-- **类图**
-
-```mermaid
-classDiagram
-      总结 <|-- Vue
-      总结 <|-- React
-      总结 <|-- JQuery
-      总结: info
-      总结: test()
-      class Vue{
-          vueRouter
-          vuex
-          vue()
-      }
-      class React{
-          ReactRouter
-          Reactx
-          React()
-      }
-      class JQuery{
-         JQuery
-         JQuery
-         JQuery()
-      }
-```
-
-- **标准流程图**
-
-```flow
-st=>start: 开始框
-op=>operation: 处理框
-cond=>condition: 判断框(是或否?)
-sub1=>subroutine: 子流程
-io=>inputoutput: 输入输出框
-e=>end: 结束框
-
-st->op->cond
-cond(yes)->io->e
-cond(no)->sub1(right)->op
-```
-
-- **饼图**
-
-```mermaid
-pie
-title 饼图
-"语文": 100
-"数学": 85
-"英语": 150
-```
-
-- **甘特图**
-
-    **任务状态**
-
-    - **done**     已完成
-    - **active**   正在进行
-    - **crit**        关键任务
-    - **默认为`active`(正在进行状态)**
-
-    **任务描述**
-
-    - **des**      项目名称
-    - **after**   表示在该项目之后
-
-```mermaid
-gantt
-	dateFormat  YYYY-MM-DD
-	title 软件开发工作流程图
-
-	section 设计
-	分析需求:done,des1, 2022-01-06,1d
-	设计原型:done,des2, after des1, 1d
-	UI设计:done,des3, after des2, 2d
-
-	section 开发
-	理解需求:done,des4, after des3, 1d
-	设计框架:done, des5, after des4, 1d
-	开发:done, des6, after des5, 5d
-
-	section 测试
-	本地测试:done, des7,after des6, 2d
-	x测试:done,des8,after des7, 2d
-```
-
-- **时序图**
-
-| 类型 | 描述               |
-| ---- | ------------------ |
-| ->   | 没有箭头的实线     |
-| -->  | 没有箭头的虚线     |
-| ->>  | 有箭头的实线       |
-| -->> | 有箭头的虚线       |
-| -x   | 末端有十字叉的实线 |
-| --x  | 末端有十字叉的虚线 |
+| 连线类型           | 语法     | 说明             |
+| ------------------ | -------- | ---------------- |
+| 实线无箭头         | `->`     | 消息             |
+| 虚线无箭头         | `-->`    | 响应             |
+| 实线有箭头         | `->>`    | 请求             |
+| 虚线有箭头         | `-->>`   | 返回             |
+| 实线末端叉         | `-x`     | 异步终止         |
+| 虚线末端叉         | `--x`    | 异步返回         |
 
 ```mermaid
 sequenceDiagram
-	%%  autonumber 生成序号
-	autonumber
-	%%  participant 声明
-	Title: 我是标题
-	participant A as 老板
-	participant B as 下属
-	rect red
-    A->B: 请求
-    A-->B: 请求
-    A->>B: 请求
-    A-->>B: 请求
+    autonumber
+    participant A as 客户端
+    participant B as 服务端
+    A->>B: 请求数据
+    B-->>A: 返回数据
+    Note over A,B: 通信完成
+    loop 轮询
+        A->>B: 检查状态
     end
-    Note right of B: 下属的描述
-	Note left of A: 老板的描述
-	Note over A,B: 关系
-    loop 循环
-        B->>B: 循环
+    alt 成功
+        A->>A: 显示结果
+    else 失败
+        A->>A: 显示错误
     end
-    activate B
-		A->>B: 激活
-	deactivate B
-	B-xA: 响应
-	B--xA: 响应
-	alt 判断
-		A ->> B: 是
-	else 不是
-        A ->> B: 不是
-	end
 ```
 
-创建脚注格式类似这样 [^runoob]
+#### 类图
 
-[^runoob]:菜鸟教程
-
-- 列表 1
-    - 子列表
-        - 子列表
-
-* 列表 2
-
-- 列表 3
-
-1. 列表
-2. 列表
-3. 列表
-
-- [x] **任务列表**
-- [ ] **任务列表**
-
-> 区块引用 1
->
-> > 区块引用 2
-> > `代码` 函数
-
- ```javascript
- $(document).ready(function () {
-   	alert("RUNOOB");
- });
- ```
-
-`带行号代码` 函数
-
-```javascript
-$(document).ready(function () {
-	alert("RUNOOB");
-});
+```mermaid
+classDiagram
+    Animal <|-- Dog
+    Animal <|-- Cat
+    Animal : +String name
+    Animal : +eat()
+    class Dog {
+        +bark()
+    }
+    class Cat {
+        +meow()
+    }
 ```
 
-行内代码  `alert('RUNOOB');`
+| 关系         | 语法     |
+| ------------ | -------- |
+| 继承         | `<|--`   |
+| 实现         | `<|..`   |
+| 组合         | `*--`    |
+| 聚合         | `o--`    |
+| 关联         | `-->`    |
+| 依赖         | `..>`     |
 
-这是一个链接 [菜鸟教程](https://www.runoob.com)
-<https://www.runoob.com>
+#### 状态图
 
-![RUNOOB 图标]()
-<img src="" width="50%">
-这个链接用 [^1] 作为网址变量 [RUNOOB][1].
-然后在文档的结尾为变量赋值
+```mermaid
+stateDiagram-v2
+    [*] --> 待处理
+    待处理 --> 处理中 : 开始
+    处理中 --> 已完成 : 完成
+    处理中 --> 失败 : 出错
+    已完成 --> [*]
+    失败 --> [*]
+```
 
-[^1]: http://static.runoob.com/images/runoob-logo.png
+#### 甘特图
 
-| 左对齐 | 右对齐 | 居中对齐 |
-| :----- | -----: | :------: |
-| 单元格 | 单元格 |  单元格  |
-| 单元格 | 单元格 |  单元格  |
+```mermaid
+gantt
+    dateFormat YYYY-MM-DD
+    title 项目计划
 
-- **音频**
+    section 设计
+    需求分析    :done, des1, 2022-01-01, 3d
+    原型设计    :done, des2, after des1, 2d
 
-<audio controls>
-  <source src="http://www.chongfanmitu.com/chat/Sounds/test.mp3" >
-</audio>
+    section 开发
+    前端开发    :active, dev1, after des2, 5d
+    后端开发    :dev2, after des2, 5d
 
-- **视频**
+    section 测试
+    集成测试    :crit, test1, after dev1, 3d
+```
 
-<video src="https://media.w3.org/2010/05/sintel/trailer.mp4" style="margin:0;"></video>
+| 任务状态     | 说明       |
+| ------------ | ---------- |
+| `done`       | 已完成     |
+| `active`     | 进行中     |
+| `crit`       | 关键任务   |
+| 默认         | 待开始     |
+
+#### 饼图
+
+```mermaid
+pie title 浏览器市场份额
+    "Chrome" : 65
+    "Safari" : 18
+    "Firefox" : 3
+    "Edge" : 5
+    "其他" : 9
+```
+
+#### 思维导图
+
+```mermaid
+mindmap
+  root((中心主题))
+    分支1
+      子分支1
+      子分支2
+    分支2
+      子分支3
+```
